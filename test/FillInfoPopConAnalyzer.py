@@ -33,8 +33,11 @@ process.Test1 = cms.EDAnalyzer("FillInfoPopConAnalyzer",
                                record = cms.string('FillInfoRcd'),
                                name = cms.untracked.string('FillInfo'),
                                Source = cms.PSet(fill = cms.untracked.uint32(902),
-                                                 connectionString = cms.untracked.string("oracle://ora_db/ora_schema"),
-                                                 authenticationPath =  cms.untracked.string(".")
+                                                 #connectionString = cms.untracked.string("oracle://ora_db/ora_schema"),
+                                                 #authenticationPath =  cms.untracked.string(".")
+                                                 connectionString = cms.untracked.string("oracle://cms_omds_adg/CMS_RUNTIME_LOGGER"),
+                                                 authenticationPath =  cms.untracked.string("/afs/cern.ch/cms/DB/conddb"),
+						 DIPSchema = cms.untracked.string("CMS_BEAM_COND")
                                                  ),
                                loggingOn = cms.untracked.bool(True),
                                IsDestDbCheckedInQueryLog = cms.untracked.bool(False)
