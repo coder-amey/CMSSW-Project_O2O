@@ -37,8 +37,7 @@ process.Test1 = cms.EDAnalyzer("FillInfoPopConAnalyzer",
                                    lastFill = cms.untracked.uint32(6231),
                                    connectionString = cms.untracked.string("oracle://cms_orcon_adg/CMS_RUNTIME_LOGGER"),
                                    DIPSchema = cms.untracked.string("CMS_BEAM_COND"),
-                                                 #authenticationPath =  cms.untracked.string("/afs/cern.ch/cms/DB/conddb")
-                                   authenticationPath =  cms.untracked.string("/afs/cern.ch/user/r/rverma/"),
+                                   authenticationPath =  cms.untracked.string("/afs/cern.ch/user/a/anoolkar/private"),
                                    debug=cms.untracked.bool(True)
                                                  ),
                                loggingOn = cms.untracked.bool(True),
