@@ -25,7 +25,8 @@ FillInfoPopConSourceHandler::FillInfoPopConSourceHandler( edm::ParameterSet cons
   ,m_connectionString(pset.getUntrackedParameter<std::string>("connectionString",""))
   ,m_dipSchema(pset.getUntrackedParameter<std::string>("DIPSchema",""))
   ,m_authpath(pset.getUntrackedParameter<std::string>("authenticationPath","")) {}
-
+//L1: try with different m_dipSchema
+//L2: try with different m_name
 FillInfoPopConSourceHandler::~FillInfoPopConSourceHandler() {}
 
 void FillInfoPopConSourceHandler::getNewObjects() {  
@@ -84,7 +85,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   connection.setAuthenticationPath( m_authpath );
   connection.configure();
   //create a sessiom
-  cond::persistency::Session session = connection.createSession( m_connectionString, true  );
+  cond::persistency::Session session = connection.createSession( m_connectionString );
   //run the first query against the schema logging fill information
   coral::ISchema& runTimeLoggerSchema = session.nominalSchema();
   //start the transaction against the fill logging schema
@@ -144,6 +145,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   fillDataOutput.extend<std::string>( std::string( "INJECTIONSCHEME" ) );
   fillDataQuery->defineOutput( fillDataOutput );
   //execute the query
+  std::cout <<"##### executing query on OMDS"<<std::endl;
   coral::ICursor& fillDataCursor = fillDataQuery->execute();
   //initialize loop variables
   unsigned short previousFillNumber = 1, currentFill = m_firstFill;
@@ -162,6 +164,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   std::ostringstream ss;
   //loop over the cursor where the result of the query were fetched
   while( fillDataCursor.next() ) {
+    std::cout <<"New row"<<std::endl;
     if( m_debug ) {
       std::ostringstream qs;
       fillDataCursor.currentRow().toOutputStream( qs );
