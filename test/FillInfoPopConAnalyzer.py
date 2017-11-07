@@ -1,5 +1,4 @@
 import FWCore.ParameterSet.Config as cms
-
 process = cms.Process("ProcessOne")
 process.load("CondCore.DBCommon.CondDBCommon_cfi")
 process.CondDBCommon.connect = 'sqlite_file:test_output.db'
@@ -45,6 +44,3 @@ process.Test1 = cms.EDAnalyzer("FillInfoPopConAnalyzer",
                                )
 
 process.p = cms.Path(process.Test1)
-
-
-
