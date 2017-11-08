@@ -30,6 +30,9 @@ FillInfoPopConSourceHandler::FillInfoPopConSourceHandler( edm::ParameterSet cons
 FillInfoPopConSourceHandler::~FillInfoPopConSourceHandler() {}
 
 void FillInfoPopConSourceHandler::getNewObjects() {  
+
+	std::cout << "\n\nGetting new objects...\n\n\n";
+
   //reference to the last payload in the tag
   Ref previousFill;
   
