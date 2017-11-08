@@ -168,13 +168,37 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   //loop over the cursor where the result of the query were fetched
   
   //FETCH, STORE AND DISPLAY RETRIEVED DATA.
+
+
+//QUERYING FOR ALL TABLES.
+
+				std::unique_ptr<coral::IQuery> AllTablesQuery( runTimeLoggerSchema.newQuery() );
+
+				AllTablesQuery->addToTableList( std::string( "RUNTIME_SUMMARY" ) );
+
+				AllTablesQuery->addToOutputList( std::string( "COUNT(*)" ) );
+
+				coral::AttributeList TNames;
+				TNames.extend<std::string>( std::string( "TABLES" ) );
+				
+				std::cout <<"\n\n\nQuerying OMDS for all tables...\n\n\n"<<std::endl;
+				coral::ICursor& C = AllTablesQuery->execute();
+				std::cout <<"Query executed!\n";
+
+			while( fillDataCursor.next() ) {
+				if( m_debug ) {
+					std::ostringstream TNames;
+					C.currentRow().toOutputStream( TNames );
+					std::cout << TNames.str() << std::endl;
+					}
+			}
+
+
   	//@A Debugging...
     int i1 = 1;
 
-
-
     while( fillDataCursor.next() ) {
-       std::cout <<"\n\n\nRecord "<< i1++<< " Processed...\n\n";
+       std::cout <<"\n\n\nProcessing Record "<< i1++<< "...\n\n";
 	//std::cout <<"New row"<<std::endl;
    /* if( m_debug ) {
       std::ostringstream qs;
