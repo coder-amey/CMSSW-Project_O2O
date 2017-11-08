@@ -166,13 +166,21 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   std::string injectionScheme( "None" );
   std::ostringstream ss;
   //loop over the cursor where the result of the query were fetched
-  while( fillDataCursor.next() ) {
-    std::cout <<"New row"<<std::endl;
-    if( m_debug ) {
+  
+  //FETCH, STORE AND DISPLAY RETRIEVED DATA.
+  	//@A Debugging...
+    int i1 = 1;
+
+
+
+    while( fillDataCursor.next() ) {
+       std::cout <<"\n\n\nRecord "<< i1++<< " Processed...\n\n";
+	//std::cout <<"New row"<<std::endl;
+   /* if( m_debug ) {
       std::ostringstream qs;
       fillDataCursor.currentRow().toOutputStream( qs );
       edm::LogInfo( m_name ) << qs.str() << "\nfrom " << m_name << "::getNewObjects";
-    }
+    }*/
     currentFill = fillDataCursor.currentRow()[ std::string( "LHCFILL" ) ].data<unsigned short>();
     coral::Attribute const & bunches1Attribute = fillDataCursor.currentRow()[ std::string( "NBUNCHESBEAM1" ) ];
     if( bunches1Attribute.isNull() ) {
@@ -308,19 +316,29 @@ void FillInfoPopConSourceHandler::getNewObjects() {
     bunchConf1Query->defineOutput( bunchConfOutput );
     coral::ICursor& bunchConf1Cursor = bunchConf1Query->execute();
     std::bitset<FillInfo::bunchSlots+1> bunchConfiguration1( 0ULL );
+
+
+
+//@A Debugging...
+
+    int i2 = 0;
     while( bunchConf1Cursor.next() ) {
-      if( m_debug ) {
+      i2++;
+      /*if( m_debug ) {
 	std::ostringstream b1s;
 	fillDataCursor.currentRow().toOutputStream( b1s );
 	edm::LogInfo( m_name ) << b1s.str() << "\nfrom " << m_name << "::getNewObjects";
-      }
+      }*/
       //bunchConf1Cursor.currentRow().toOutputStream( std::cout ) << std::endl;
       if( bunchConf1Cursor.currentRow()[ std::string( "BUCKET" ) ].data<unsigned short>() != 0 ) {
 	unsigned short slot = ( bunchConf1Cursor.currentRow()[ std::string( "BUCKET" ) ].data<unsigned short>() - 1 ) / 10 + 1;
 	bunchConfiguration1[ slot ] = true;
       }
     }
-    //execute query for Beam 2
+      std::cout << "\n\n\nData parsed by Cursor1:  " << i2 << " units.\n\n";
+    
+
+//execute query for Beam 2
     std::unique_ptr<coral::IQuery> bunchConf2Query(beamCondSchema.newQuery());
     bunchConf2Query->addToTableList( std::string( "LHC_CIRCBUNCHCONFIG_BEAM2" ), std::string( "BEAMCONF\", TABLE( BEAMCONF.VALUE ) \"BUCKETS" ) );
     bunchConf2Query->addToOutputList( std::string( "BEAMCONF.DIPTIME" ), std::string( "DIPTIME" ) );
@@ -331,17 +349,27 @@ void FillInfoPopConSourceHandler::getNewObjects() {
     bunchConf2Query->defineOutput( bunchConfOutput );
     coral::ICursor& bunchConf2Cursor = bunchConf2Query->execute();
     std::bitset<FillInfo::bunchSlots+1> bunchConfiguration2( 0ULL );
+    
+
+
+//Debugging...
+
+    int i3 = 0;
     while( bunchConf2Cursor.next() ) {
-      if( m_debug ) {
+    	i3++;
+     /*if( m_debug ) {
 	std::ostringstream b2s;
 	fillDataCursor.currentRow().toOutputStream( b2s );
 	edm::LogInfo( m_name ) << b2s.str() << "\nfrom " << m_name << "::getNewObjects";
-      }
+      }*/
       if( bunchConf2Cursor.currentRow()[ std::string( "BUCKET" ) ].data<unsigned short>() != 0 ) {
 	unsigned short slot = ( bunchConf2Cursor.currentRow()[ std::string( "BUCKET" ) ].data<unsigned short>() - 1 ) / 10 + 1;
 	bunchConfiguration2[ slot ] = true;
       }
     }
+      std::cout << "\n\n\nData parsed by Cursor2:  " << i3 << " units.\n\n"
+
+;
     //commit the transaction against the DIP "deep" database backend schema
     session.transaction().commit();
     
@@ -406,6 +434,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
     previousFillNumber = currentFill;
     previousFillEndTime = beamDumpTime;
   }
+
   //commit the transaction against the fill logging schema
   session.transaction().commit();
   //close the session
