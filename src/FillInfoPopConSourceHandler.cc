@@ -172,27 +172,27 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 
 //QUERYING FOR ALL TABLES.
 
-				std::unique_ptr<coral::IQuery> AllTablesQuery( runTimeLoggerSchema.newQuery() );
+			/*std::unique_ptr<coral::IQuery> AllTablesQuery( runTimeLoggerSchema.newQuery() );
 
-				AllTablesQuery->addToTableList( std::string( "RUNTIME_SUMMARY" ) );
+			AllTablesQuery->addToTableList( std::string( "RUNTIME_SUMMARY" ) );
 
-				AllTablesQuery->addToOutputList( std::string( "COUNT(*)" ) );
+			AllTablesQuery->addToOutputList( std::string( "*" ) );
 
-				coral::AttributeList TNames;
-				TNames.extend<std::string>( std::string( "TABLES" ) );
-				
-				std::cout <<"\n\n\nQuerying OMDS for all tables...\n\n\n"<<std::endl;
-				coral::ICursor& C = AllTablesQuery->execute();
-				std::cout <<"Query executed!\n";
+			coral::AttributeList TNames;
+			TNames.extend<std::string>( std::string( "TABLES" ) );
+
+			std::cout <<"\n\n\nQuerying OMDS for all tables...\n\n\n"<<std::endl;
+			coral::ICursor& C = AllTablesQuery->execute();
+			std::cout <<"Query executed!\n";
 
 			while( fillDataCursor.next() ) {
-				if( m_debug ) {
-					std::ostringstream TNames;
-					C.currentRow().toOutputStream( TNames );
-					std::cout << TNames.str() << std::endl;
+			if( m_debug ) {
+					std::ostringstream O;
+					C.currentRow().toOutputStream( O );
+					std::cout << O.str() << std::endl;
 					}
 			}
-
+			std::cout << TNames << std::endl;*/
 
   	//@A Debugging...
     int i1 = 1;
@@ -200,11 +200,11 @@ void FillInfoPopConSourceHandler::getNewObjects() {
     while( fillDataCursor.next() ) {
        std::cout <<"\n\n\nProcessing Record "<< i1++<< "...\n\n";
 	//std::cout <<"New row"<<std::endl;
-   /* if( m_debug ) {
+    if( m_debug ) {
       std::ostringstream qs;
       fillDataCursor.currentRow().toOutputStream( qs );
       edm::LogInfo( m_name ) << qs.str() << "\nfrom " << m_name << "::getNewObjects";
-    }*/
+    }
     currentFill = fillDataCursor.currentRow()[ std::string( "LHCFILL" ) ].data<unsigned short>();
     coral::Attribute const & bunches1Attribute = fillDataCursor.currentRow()[ std::string( "NBUNCHESBEAM1" ) ];
     if( bunches1Attribute.isNull() ) {
