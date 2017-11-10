@@ -170,29 +170,37 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   //FETCH, STORE AND DISPLAY RETRIEVED DATA.
 
 
+
 //QUERYING FOR ALL TABLES.
 
-			/*std::unique_ptr<coral::IQuery> AllTablesQuery( runTimeLoggerSchema.newQuery() );
+		std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
+		Q->addToTableList( std::string( "RUNTIME_SUMMARY" ) );
+		Q->addToOutputList( std::string( "COUNT(*)" ) );
+		coral::AttributeList V;
+		V.extend( std::string( "firstFillNumber" ), typeid( unsigned short ) );
+		V[ std::string( "firstFillNumber" ) ].data<unsigned short>() = m_firstFill;
+		V.extend( std::string( "lastFillNumber" ), typeid( unsigned short ) );
+		V[ std::string( "lastFillNumber" ) ].data<unsigned short>() = m_lastFill;
+		std::string cStr( "BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
+		Q->setCondition( cStr, V );
+		//Q->addToOrderList( std::string( "COLUMNS" ) );
+		coral::AttributeList O;
+		O.extend<int>( std::string( "COLUMNS" ) );
+		Q->defineOutput( O );
+		std::cout <<"\n\n\nQuerying OMDS for all tables...\n\n\n"<<std::endl;
+		coral::ICursor& C = Q->execute();
+		std::cout <<"Query executed!\n";
+		while( C.next() ) {
+		if( m_debug ) {
+				        std::ostringstream Output;
+				        C.currentRow().toOutputStream( Output );
+				        std::cout << Output.str() << std::endl;
+				        }
+		}
 
-			AllTablesQuery->addToTableList( std::string( "RUNTIME_SUMMARY" ) );
-
-			AllTablesQuery->addToOutputList( std::string( "*" ) );
-
-			coral::AttributeList TNames;
-			TNames.extend<std::string>( std::string( "TABLES" ) );
-
-			std::cout <<"\n\n\nQuerying OMDS for all tables...\n\n\n"<<std::endl;
-			coral::ICursor& C = AllTablesQuery->execute();
-			std::cout <<"Query executed!\n";
-
-			while( fillDataCursor.next() ) {
-			if( m_debug ) {
-					std::ostringstream O;
-					C.currentRow().toOutputStream( O );
-					std::cout << O.str() << std::endl;
-					}
-			}
-			std::cout << TNames << std::endl;*/
+//Prevent unnecessary execution of code.
+//Note remove the while loop to populate the database.
+    while( fillDataCursor.next() );
 
   	//@A Debugging...
     int i1 = 1;

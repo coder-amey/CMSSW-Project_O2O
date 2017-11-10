@@ -26,16 +26,16 @@ PluginManager Info PluginManager loaded CORAL/RelationalPlugins/sqlite factory f
 CORAL/Services/ConnectionService Debug No valid connection for string "sqlite_file:test_output.db" found in the pool. Creating a new connection.
 CORAL/Services/ConnectionService Debug Trying to get a new update session on "sqlite_file:test_output.db"
 CORAL/Services/ConnectionService Debug Connection parameters are: Retry-Period=10sec, Retry-Timeout=60sec, Connection-Timeout=300sec.
-CORAL/Services/ConnectionService Info New connection to service "test_output.db" with connectionID=437145f2-c55a-11e7-8a4c-02163e0181a3 has been connected
-CORAL/Services/ConnectionService Info New user session with sessionID=43714d54-c55a-11e7-8a4c-02163e0181a3 started on connectionID=437145f2-c55a-11e7-8a4c-02163e0181a3 to service "test_output.db" for user "" in update mode
-CORAL/Services/ConnectionService Debug A new connection to service "test_output.db" has been added in the active list. Id=437145f2-c55a-11e7-8a4c-02163e0181a3
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@ctor 09-Nov-2017 15:28:32 CET  pre-events
+CORAL/Services/ConnectionService Info New connection to service "test_output.db" with connectionID=ea01f858-c640-11e7-a925-02163e018b9c has been connected
+CORAL/Services/ConnectionService Info New user session with sessionID=ea01ff06-c640-11e7-a925-02163e018b9c started on connectionID=ea01f858-c640-11e7-a925-02163e018b9c to service "test_output.db" for user "" in update mode
+CORAL/Services/ConnectionService Debug A new connection to service "test_output.db" has been added in the active list. Id=ea01f858-c640-11e7-a925-02163e018b9c
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@ctor 10-Nov-2017 18:59:36 CET  pre-events
 This is PopCon (Populator of Condition) v5.0.
 Please report any problem and feature request through the JIRA project CMSCONDDB.
 
 %MSG
-Begin processing the 1st record. Run 1, Event 1, LumiSection 1 at 09-Nov-2017 15:28:32.778 CET
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 09-Nov-2017 15:28:32 CET  PostEndRun
+Begin processing the 1st record. Run 1, Event 1, LumiSection 1 at 10-Nov-2017 18:59:36.469 CET
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 10-Nov-2017 18:59:36 CET  PostEndRun
 payload name FillInfo
 %MSG
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare BEGIN
@@ -57,7 +57,7 @@ CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 09-Nov-2017 15:28:32 CET  PostEndRun
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 10-Nov-2017 18:59:36 CET  PostEndRun
 destination DB: sqlite_file:test_output.db, target DB: sqlite_file:test_output.db
 TAG: fillinfo_test; First writer to this new tag.
 %MSG
@@ -66,7 +66,7 @@ TAG: fillinfo_test; First writer to this new tag.
 Getting new objects...
 
 
-%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  09-Nov-2017 15:28:32 CET PostEndRun
+%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  10-Nov-2017 18:59:36 CET PostEndRun
 New tag fillinfo_test; from FillInfoPopConSourceHandler::getNewObjects
 %MSG
 CORAL/Services/ConnectionService Info Disable connection sharing
@@ -84,305 +84,36 @@ CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT AUTHO.C_ROLE, 
 CORAL/Services/ConnectionService Debug No valid connection for string "oracle://cms_orcon_adg/CMS_RUNTIME_LOGGER" found in the pool. Creating a new connection.
 CORAL/Services/ConnectionService Debug Trying to get a new read-only session on "oracle://cms_orcon_adg/CMS_RUNTIME_LOGGER"
 CORAL/Services/ConnectionService Debug Connection parameters are: Retry-Period=10sec, Retry-Timeout=60sec, Connection-Timeout=300sec.
-CORAL/Services/ConnectionService Info New connection to service "cms_orcon_adg" with connectionID=439cb58e-c55a-11e7-8a4c-02163e0181a3 has been connected
+CORAL/Services/ConnectionService Info New connection to service "cms_orcon_adg" with connectionID=ea233464-c640-11e7-a925-02163e018b9c has been connected
 CORAL/RelationalPlugins/oracle Info Disable plan baseline use by ALTER SESSION SET OPTIMIZER_USE_SQL_PLAN_BASELINES=FALSE
 CORAL/RelationalPlugins/oracle Debug Prepared statement : "ALTER SESSION SET OPTIMIZER_USE_SQL_PLAN_BASELINES=FALSE"
 CORAL/RelationalPlugins/oracle Info CORAL_ORA_SKIP_TRANS_READONLY is not set: this session will use OCI serializable read-only transactions
-CORAL/Services/ConnectionService Info New user session with sessionID=43a062ce-c55a-11e7-8a4c-02163e0181a3 started on connectionID=439cb58e-c55a-11e7-8a4c-02163e0181a3 to service "cms_orcon_adg" for user "CMS_COND_GENERAL_R" in read-only mode
-CORAL/Services/ConnectionService Debug A new connection to service "cms_orcon_adg" has been added in the active list. Id=439cb58e-c55a-11e7-8a4c-02163e0181a3
+CORAL/Services/ConnectionService Info New user session with sessionID=ea26a482-c640-11e7-a925-02163e018b9c started on connectionID=ea233464-c640-11e7-a925-02163e018b9c to service "cms_orcon_adg" for user "CMS_COND_GENERAL_R" in read-only mode
+CORAL/Services/ConnectionService Debug A new connection to service "cms_orcon_adg" has been added in the active list. Id=ea233464-c640-11e7-a925-02163e018b9c
+
+
+
+Querying OMDS for all tables...
+
+
+
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."RUNTIME_SUMMARY" "RUNTIME_SUMMARY" WHERE BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :"firstFillNumber" AND :"lastFillNumber""
+Query executed!
+[COLUMNS (int) : 4]
 ##### executing query on OMDS
 CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT LHCFILL, NBUNCHESBEAM1, NBUNCHESBEAM2, NCOLLIDINGBUNCHES, NTARGETBUNCHES, RUNTIME_TYPE_ID, PARTY1, PARTY2, CROSSINGANGLE, BETASTAR, INTENSITYBEAM1, INTENSITYBEAM2, ENERGY, CREATETIME, BEGINTIME, ENDTIME, INJECTIONSCHEME FROM CMS_RUNTIME_LOGGER."RUNTIME_SUMMARY" "RUNTIME_SUMMARY" WHERE BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :"firstFillNumber" AND :"lastFillNumber" ORDER BY LHCFILL"
-
-
-
-Processing Record 1...
-
-%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  09-Nov-2017 15:28:33 CET PostEndRun
-[LHCFILL (unsigned short) : 6300], [NBUNCHESBEAM1 (unsigned short) : 1868], [NBUNCHESBEAM2 (unsigned short) : 1868], [NCOLLIDINGBUNCHES (unsigned short) : 1866], [NTARGETBUNCHES (unsigned short) : 1866], [RUNTIME_TYPE_ID (int) : 1], [PARTY1 (int) : 1], [PARTY2 (int) : 1], [CROSSINGANGLE (float) : 150], [BETASTAR (float) : 30], [INTENSITYBEAM1 (float) : 2.29025e+14], [INTENSITYBEAM2 (float) : 2.30119e+14], [ENERGY (float) : 6499.2], [CREATETIME (time stamp) : 2017/10/15 06:29:41.394238], [BEGINTIME (time stamp) : 2017/10/15 09:04:01.922363], [ENDTIME (time stamp) : 2017/10/15 15:56:0.051238], [INJECTIONSCHEME (string) : 25ns_1868b_1866_1089_1749_128bpi_17i8b4e]
-from FillInfoPopConSourceHandler::getNewObjects
+CORAL/Services/ConnectionService Info User session with sessionID=ea26a482-c640-11e7-a925-02163e018b9c will be ended on connectionID=ea233464-c640-11e7-a925-02163e018b9c
+CORAL/Services/ConnectionService Debug Connection id=ea233464-c640-11e7-a925-02163e018b9c to service "cms_orcon_adg" has 0 session(s) opened.
+CORAL/Services/ConnectionService Debug The active connection id=ea233464-c640-11e7-a925-02163e018b9c to service "cms_orcon_adg" has been removed from the active list.
+CORAL/Services/ConnectionService Debug The valid active connection id=ea233464-c640-11e7-a925-02163e018b9c to service "cms_orcon_adg" has been moved to the idle list.
+%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  10-Nov-2017 18:59:36 CET PostEndRun
+Transferring 0 payload(s); from FillInfoPopConSourceHandler::getNewObjects
 %MSG
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT * FROM (SELECT BEAMCONF.DIPTIME AS "DIPTIME", BUCKETS.COLUMN_VALUE AS "BUCKET" FROM CMS_BEAM_COND."LHC_CIRCBUNCHCONFIG_BEAM1" "BEAMCONF", TABLE( BEAMCONF.VALUE ) "BUCKETS" WHERE DIPTIME <= :"stableBeamStartTimeStamp" ORDER BY DIPTIME DESC) WHERE ROWNUM < 2809"
-
-
-
-Data parsed by Cursor1:  2808 units.
-
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT * FROM (SELECT BEAMCONF.DIPTIME AS "DIPTIME", BUCKETS.COLUMN_VALUE AS "BUCKET" FROM CMS_BEAM_COND."LHC_CIRCBUNCHCONFIG_BEAM2" "BEAMCONF", TABLE( BEAMCONF.VALUE ) "BUCKETS" WHERE DIPTIME <= :"stableBeamStartTimeStamp" ORDER BY DIPTIME DESC) WHERE ROWNUM < 2809"
-
-
-
-Data parsed by Cursor2:  2808 units.
-
-%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  09-Nov-2017 15:28:38 CET PostEndRun
-Entering fake fill between fill number 1 and current fill number 6300, from 1 ( 1970-01-01T00:00:00 ) to 6477060826480649335 ( 2017-10-15T09:04:01.922362 ); from FillInfoPopConSourceHandler::getNewObjects
-%MSG
-%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  09-Nov-2017 15:28:38 CET PostEndRun
-The new payload to be inserted into tag fillinfo_test with validity 6477060826480649336 ( 2017-10-15T09:04:01.922363 ) has values:
-from FillInfoPopConSourceHandler::getNewObjects
-%MSG
-
-
-
-Processing Record 2...
-
-%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  09-Nov-2017 15:28:38 CET PostEndRun
-[LHCFILL (unsigned short) : 6303], [NBUNCHESBEAM1 (unsigned short) : 1868], [NBUNCHESBEAM2 (unsigned short) : 1868], [NCOLLIDINGBUNCHES (unsigned short) : 1866], [NTARGETBUNCHES (unsigned short) : 1866], [RUNTIME_TYPE_ID (int) : 1], [PARTY1 (int) : 1], [PARTY2 (int) : 1], [CROSSINGANGLE (float) : 150], [BETASTAR (float) : 30], [INTENSITYBEAM1 (float) : 2.26236e+14], [INTENSITYBEAM2 (float) : 2.28482e+14], [ENERGY (float) : 6499.2], [CREATETIME (time stamp) : 2017/10/15 20:34:5.243613], [BEGINTIME (time stamp) : 2017/10/15 23:05:048.479988], [ENDTIME (time stamp) : 2017/10/16 12:33:58.308613], [INJECTIONSCHEME (string) : 25ns_1868b_1866_1089_1749_128bpi_17i8b4e]
-from FillInfoPopConSourceHandler::getNewObjects
-%MSG
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT * FROM (SELECT BEAMCONF.DIPTIME AS "DIPTIME", BUCKETS.COLUMN_VALUE AS "BUCKET" FROM CMS_BEAM_COND."LHC_CIRCBUNCHCONFIG_BEAM1" "BEAMCONF", TABLE( BEAMCONF.VALUE ) "BUCKETS" WHERE DIPTIME <= :"stableBeamStartTimeStamp" ORDER BY DIPTIME DESC) WHERE ROWNUM < 2809"
-
-
-
-Data parsed by Cursor1:  2808 units.
-
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT * FROM (SELECT BEAMCONF.DIPTIME AS "DIPTIME", BUCKETS.COLUMN_VALUE AS "BUCKET" FROM CMS_BEAM_COND."LHC_CIRCBUNCHCONFIG_BEAM2" "BEAMCONF", TABLE( BEAMCONF.VALUE ) "BUCKETS" WHERE DIPTIME <= :"stableBeamStartTimeStamp" ORDER BY DIPTIME DESC) WHERE ROWNUM < 2809"
-
-
-
-Data parsed by Cursor2:  2808 units.
-
-%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  09-Nov-2017 15:28:42 CET PostEndRun
-Entering fake fill between fill number 6300 and current fill number 6303, from 6477166992906114161 ( 2017-10-15T15:56:00.051238 ) to 6477277751951493407 ( 2017-10-15T23:05:48.479987 ); from FillInfoPopConSourceHandler::getNewObjects
-%MSG
-%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  09-Nov-2017 15:28:42 CET PostEndRun
-The new payload to be inserted into tag fillinfo_test with validity 6477277751951493408 ( 2017-10-15T23:05:48.479988 ) has values:
-from FillInfoPopConSourceHandler::getNewObjects
-%MSG
-
-
-
-Processing Record 3...
-
-%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  09-Nov-2017 15:28:42 CET PostEndRun
-[LHCFILL (unsigned short) : 6304], [NBUNCHESBEAM1 (unsigned short) : 1868], [NBUNCHESBEAM2 (unsigned short) : 1868], [NCOLLIDINGBUNCHES (unsigned short) : 1866], [NTARGETBUNCHES (unsigned short) : 1866], [RUNTIME_TYPE_ID (int) : 1], [PARTY1 (int) : 1], [PARTY2 (int) : 1], [CROSSINGANGLE (float) : 150], [BETASTAR (float) : 30], [INTENSITYBEAM1 (float) : 2.25779e+14], [INTENSITYBEAM2 (float) : 2.27705e+14], [ENERGY (float) : 6499.2], [CREATETIME (time stamp) : 2017/10/16 12:47:16.237613], [BEGINTIME (time stamp) : 2017/10/16 17:18:45.815363], [ENDTIME (time stamp) : 2017/10/17 05:38:34.562488], [INJECTIONSCHEME (string) : 25ns_1868b_1866_1089_1749_128bpi_17i8b4e]
-from FillInfoPopConSourceHandler::getNewObjects
-%MSG
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT * FROM (SELECT BEAMCONF.DIPTIME AS "DIPTIME", BUCKETS.COLUMN_VALUE AS "BUCKET" FROM CMS_BEAM_COND."LHC_CIRCBUNCHCONFIG_BEAM1" "BEAMCONF", TABLE( BEAMCONF.VALUE ) "BUCKETS" WHERE DIPTIME <= :"stableBeamStartTimeStamp" ORDER BY DIPTIME DESC) WHERE ROWNUM < 2809"
-
-
-
-Data parsed by Cursor1:  2808 units.
-
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT * FROM (SELECT BEAMCONF.DIPTIME AS "DIPTIME", BUCKETS.COLUMN_VALUE AS "BUCKET" FROM CMS_BEAM_COND."LHC_CIRCBUNCHCONFIG_BEAM2" "BEAMCONF", TABLE( BEAMCONF.VALUE ) "BUCKETS" WHERE DIPTIME <= :"stableBeamStartTimeStamp" ORDER BY DIPTIME DESC) WHERE ROWNUM < 2809"
-
-
-
-Data parsed by Cursor2:  2808 units.
-
-%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  09-Nov-2017 15:28:44 CET PostEndRun
-Entering fake fill between fill number 6303 and current fill number 6304, from 6477486014744301449 ( 2017-10-16T12:33:58.308613 ) to 6477559403357238199 ( 2017-10-16T17:18:45.815362 ); from FillInfoPopConSourceHandler::getNewObjects
-%MSG
-%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  09-Nov-2017 15:28:44 CET PostEndRun
-The new payload to be inserted into tag fillinfo_test with validity 6477559403357238200 ( 2017-10-16T17:18:45.815363 ) has values:
-from FillInfoPopConSourceHandler::getNewObjects
-%MSG
-
-
-
-Processing Record 4...
-
-%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  09-Nov-2017 15:28:44 CET PostEndRun
-[LHCFILL (unsigned short) : 6305], [NBUNCHESBEAM1 (unsigned short) : 1868], [NBUNCHESBEAM2 (unsigned short) : 1868], [NCOLLIDINGBUNCHES (unsigned short) : 1866], [NTARGETBUNCHES (unsigned short) : 1866], [RUNTIME_TYPE_ID (int) : 1], [PARTY1 (int) : 1], [PARTY2 (int) : 1], [CROSSINGANGLE (float) : 150], [BETASTAR (float) : 30], [INTENSITYBEAM1 (float) : 2.27508e+14], [INTENSITYBEAM2 (float) : 2.29636e+14], [ENERGY (float) : 6499.2], [CREATETIME (time stamp) : 2017/10/17 05:43:22.752988], [BEGINTIME (time stamp) : 2017/10/17 08:17:16.987863], [ENDTIME (time stamp) : 2017/10/17 21:20:0.941488], [INJECTIONSCHEME (string) : 25ns_1868b_1866_1089_1749_128bpi_17i8b4e]
-from FillInfoPopConSourceHandler::getNewObjects
-%MSG
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT * FROM (SELECT BEAMCONF.DIPTIME AS "DIPTIME", BUCKETS.COLUMN_VALUE AS "BUCKET" FROM CMS_BEAM_COND."LHC_CIRCBUNCHCONFIG_BEAM1" "BEAMCONF", TABLE( BEAMCONF.VALUE ) "BUCKETS" WHERE DIPTIME <= :"stableBeamStartTimeStamp" ORDER BY DIPTIME DESC) WHERE ROWNUM < 2809"
-
-
-
-Data parsed by Cursor1:  2808 units.
-
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT * FROM (SELECT BEAMCONF.DIPTIME AS "DIPTIME", BUCKETS.COLUMN_VALUE AS "BUCKET" FROM CMS_BEAM_COND."LHC_CIRCBUNCHCONFIG_BEAM2" "BEAMCONF", TABLE( BEAMCONF.VALUE ) "BUCKETS" WHERE DIPTIME <= :"stableBeamStartTimeStamp" ORDER BY DIPTIME DESC) WHERE ROWNUM < 2809"
-
-
-
-Data parsed by Cursor2:  2808 units.
-
-%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  09-Nov-2017 15:28:48 CET PostEndRun
-Entering fake fill between fill number 6304 and current fill number 6305, from 6477750052407665345 ( 2017-10-17T05:38:34.562488 ) to 6477790949511632855 ( 2017-10-17T08:17:16.987862 ); from FillInfoPopConSourceHandler::getNewObjects
-%MSG
-%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  09-Nov-2017 15:28:48 CET PostEndRun
-The new payload to be inserted into tag fillinfo_test with validity 6477790949511632856 ( 2017-10-17T08:17:16.987863 ) has values:
-from FillInfoPopConSourceHandler::getNewObjects
-%MSG
-CORAL/Services/ConnectionService Info User session with sessionID=43a062ce-c55a-11e7-8a4c-02163e0181a3 will be ended on connectionID=439cb58e-c55a-11e7-8a4c-02163e0181a3
-CORAL/Services/ConnectionService Debug Connection id=439cb58e-c55a-11e7-8a4c-02163e0181a3 to service "cms_orcon_adg" has 0 session(s) opened.
-CORAL/Services/ConnectionService Debug The active connection id=439cb58e-c55a-11e7-8a4c-02163e0181a3 to service "cms_orcon_adg" has been removed from the active list.
-CORAL/Services/ConnectionService Debug The valid active connection id=439cb58e-c55a-11e7-8a4c-02163e0181a3 to service "cms_orcon_adg" has been moved to the idle list.
-%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  09-Nov-2017 15:28:48 CET PostEndRun
-Transferring 8 payload(s); from FillInfoPopConSourceHandler::getNewObjects
-%MSG
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 09-Nov-2017 15:28:48 CET  PostEndRun
-Since 1
-%MSG
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 09-Nov-2017 15:28:48 CET  PostEndRun
-Since 6477060826480649336
-%MSG
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 09-Nov-2017 15:28:48 CET  PostEndRun
-Since 6477166992906114161
-%MSG
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 09-Nov-2017 15:28:48 CET  PostEndRun
-Since 6477277751951493408
-%MSG
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 09-Nov-2017 15:28:48 CET  PostEndRun
-Since 6477486014744301449
-%MSG
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 09-Nov-2017 15:28:48 CET  PostEndRun
-Since 6477559403357238200
-%MSG
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 09-Nov-2017 15:28:48 CET  PostEndRun
-Since 6477750052407665345
-%MSG
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 09-Nov-2017 15:28:48 CET  PostEndRun
-Since 6477790949511632856
-%MSG
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare PRAGMA table_info("PAYLOAD")
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "PAYLOAD"."HASH" FROM "PAYLOAD" WHERE "PAYLOAD"."HASH" = :HASH_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables HASH_0(string) d3add6e830ffdf3fe1f19aae8c936e3fae6783ec 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "PAYLOAD" ( "HASH", "OBJECT_TYPE", "DATA", "STREAMER_INFO", "VERSION", "INSERTION_TIME" ) VALUES ( :HASH, :OBJECT_TYPE, :DATA, :STREAMER_INFO, :VERSION, :INSERTION_TIME )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables HASH(string) d3add6e830ffdf3fe1f19aae8c936e3fae6783ec  , OBJECT_TYPE(string) FillInfo  , DATA(BLOB) of size 7166  , STREAMER_INFO(BLOB) of size 136  , VERSION(string) dummy  , INSERTION_TIME(TIME) 2017-11-09 14:28:48.580211 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "TAG" ( "NAME", "TIME_TYPE", "OBJECT_TYPE", "SYNCHRONIZATION", "END_OF_VALIDITY", "DESCRIPTION", "LAST_VALIDATED_TIME", "INSERTION_TIME", "MODIFICATION_TIME" ) VALUES ( :NAME, :TIME_TYPE, :OBJECT_TYPE, :SYNCHRONIZATION, :END_OF_VALIDITY, :DESCRIPTION, :LAST_VALIDATED_TIME, :INSERTION_TIME, :MODIFICATION_TIME )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME(string) fillinfo_test  , TIME_TYPE(string) Time  , OBJECT_TYPE(string) FillInfo  , SYNCHRONIZATION(string) any  , END_OF_VALIDITY(unsigned long long int) 18446744073709551615  , DESCRIPTION(string) New Tag  , LAST_VALIDATED_TIME(unsigned long long int) 0  , INSERTION_TIME(TIME) 2017-11-09 14:28:48.584594  , MODIFICATION_TIME(TIME) 2017-11-09 14:28:48.584594 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "TAG_LOG" ( "TAG_NAME", "EVENT_TIME", "USER_NAME", "HOST_NAME", "COMMAND", "ACTION", "USER_TEXT" ) VALUES ( :TAG_NAME, :EVENT_TIME, :USER_NAME, :HOST_NAME, :COMMAND, :ACTION, :USER_TEXT )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables TAG_NAME(string) fillinfo_test  , EVENT_TIME(TIME) 2017-11-09 14:28:48.584594  , USER_NAME(string) anoolkar  , HOST_NAME(string) lxplus068.cern.ch  , COMMAND(string) cmsRun test/FillInfoPopConAnalyzer.py   , ACTION(string) New tag created.  , USER_TEXT(string) - 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "IOV" ( "TAG_NAME", "SINCE", "PAYLOAD_HASH", "INSERTION_TIME" ) VALUES ( :TAG_NAME, :SINCE, :PAYLOAD_HASH, :INSERTION_TIME )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables TAG_NAME(string) fillinfo_test  , SINCE(unsigned long long int) 1  , PAYLOAD_HASH(string) d3add6e830ffdf3fe1f19aae8c936e3fae6783ec  , INSERTION_TIME(TIME) 2017-11-09 14:28:48.584613 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "TAG_LOG" ( "TAG_NAME", "EVENT_TIME", "USER_NAME", "HOST_NAME", "COMMAND", "ACTION", "USER_TEXT" ) VALUES ( :TAG_NAME, :EVENT_TIME, :USER_NAME, :HOST_NAME, :COMMAND, :ACTION, :USER_TEXT )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables TAG_NAME(string) fillinfo_test  , EVENT_TIME(TIME) 2017-11-09 14:28:48.584623  , USER_NAME(string) anoolkar  , HOST_NAME(string) lxplus068.cern.ch  , COMMAND(string) cmsRun test/FillInfoPopConAnalyzer.py   , ACTION(string) 1 iov(s) inserted.  , USER_TEXT(string) PopCon v5.0; first payload Since 1, last payload Since 6477790949511632856;  fill = 6300;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-15T09:04:01.922363;	end time: 2017-10-15T15:56:00.051238.
- fill = 6303;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-15T23:05:48.479988;	end time: 2017-10-16T12:33:58.308613.
- fill = 6304;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-16T17:18:45.815363;	end time: 2017-10-17T05:38:34.562488.
- fill = 6305;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-17T08:17:16.987863;	end time: 2017-10-17T21:20:00.941488.
- 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "PAYLOAD"."HASH" FROM "PAYLOAD" WHERE "PAYLOAD"."HASH" = :HASH_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables HASH_0(string) 03edf054f73e611ed723b74ca3dcf7bcbca1becd 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "PAYLOAD" ( "HASH", "OBJECT_TYPE", "DATA", "STREAMER_INFO", "VERSION", "INSERTION_TIME" ) VALUES ( :HASH, :OBJECT_TYPE, :DATA, :STREAMER_INFO, :VERSION, :INSERTION_TIME )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables HASH(string) 03edf054f73e611ed723b74ca3dcf7bcbca1becd  , OBJECT_TYPE(string) FillInfo  , DATA(BLOB) of size 7260  , STREAMER_INFO(BLOB) of size 136  , VERSION(string) dummy  , INSERTION_TIME(TIME) 2017-11-09 14:28:48.586121 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."TIME_TYPE", "TAG"."OBJECT_TYPE", "TAG"."SYNCHRONIZATION", "TAG"."END_OF_VALIDITY", "TAG"."DESCRIPTION", "TAG"."LAST_VALIDATED_TIME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "IOV" ( "TAG_NAME", "SINCE", "PAYLOAD_HASH", "INSERTION_TIME" ) VALUES ( :TAG_NAME, :SINCE, :PAYLOAD_HASH, :INSERTION_TIME )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables TAG_NAME(string) fillinfo_test  , SINCE(unsigned long long int) 6477060826480649336  , PAYLOAD_HASH(string) 03edf054f73e611ed723b74ca3dcf7bcbca1becd  , INSERTION_TIME(TIME) 2017-11-09 14:28:48.586765 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "TAG_LOG" ( "TAG_NAME", "EVENT_TIME", "USER_NAME", "HOST_NAME", "COMMAND", "ACTION", "USER_TEXT" ) VALUES ( :TAG_NAME, :EVENT_TIME, :USER_NAME, :HOST_NAME, :COMMAND, :ACTION, :USER_TEXT )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables TAG_NAME(string) fillinfo_test  , EVENT_TIME(TIME) 2017-11-09 14:28:48.586767  , USER_NAME(string) anoolkar  , HOST_NAME(string) lxplus068.cern.ch  , COMMAND(string) cmsRun test/FillInfoPopConAnalyzer.py   , ACTION(string) 1 iov(s) inserted.  , USER_TEXT(string) PopCon v5.0; first payload Since 1, last payload Since 6477790949511632856;  fill = 6300;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-15T09:04:01.922363;	end time: 2017-10-15T15:56:00.051238.
- fill = 6303;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-15T23:05:48.479988;	end time: 2017-10-16T12:33:58.308613.
- fill = 6304;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-16T17:18:45.815363;	end time: 2017-10-17T05:38:34.562488.
- fill = 6305;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-17T08:17:16.987863;	end time: 2017-10-17T21:20:00.941488.
- 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "PAYLOAD"."HASH" FROM "PAYLOAD" WHERE "PAYLOAD"."HASH" = :HASH_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables HASH_0(string) d3add6e830ffdf3fe1f19aae8c936e3fae6783ec 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."TIME_TYPE", "TAG"."OBJECT_TYPE", "TAG"."SYNCHRONIZATION", "TAG"."END_OF_VALIDITY", "TAG"."DESCRIPTION", "TAG"."LAST_VALIDATED_TIME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "IOV" ( "TAG_NAME", "SINCE", "PAYLOAD_HASH", "INSERTION_TIME" ) VALUES ( :TAG_NAME, :SINCE, :PAYLOAD_HASH, :INSERTION_TIME )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables TAG_NAME(string) fillinfo_test  , SINCE(unsigned long long int) 6477166992906114161  , PAYLOAD_HASH(string) d3add6e830ffdf3fe1f19aae8c936e3fae6783ec  , INSERTION_TIME(TIME) 2017-11-09 14:28:48.587463 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "TAG_LOG" ( "TAG_NAME", "EVENT_TIME", "USER_NAME", "HOST_NAME", "COMMAND", "ACTION", "USER_TEXT" ) VALUES ( :TAG_NAME, :EVENT_TIME, :USER_NAME, :HOST_NAME, :COMMAND, :ACTION, :USER_TEXT )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables TAG_NAME(string) fillinfo_test  , EVENT_TIME(TIME) 2017-11-09 14:28:48.587465  , USER_NAME(string) anoolkar  , HOST_NAME(string) lxplus068.cern.ch  , COMMAND(string) cmsRun test/FillInfoPopConAnalyzer.py   , ACTION(string) 1 iov(s) inserted.  , USER_TEXT(string) PopCon v5.0; first payload Since 1, last payload Since 6477790949511632856;  fill = 6300;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-15T09:04:01.922363;	end time: 2017-10-15T15:56:00.051238.
- fill = 6303;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-15T23:05:48.479988;	end time: 2017-10-16T12:33:58.308613.
- fill = 6304;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-16T17:18:45.815363;	end time: 2017-10-17T05:38:34.562488.
- fill = 6305;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-17T08:17:16.987863;	end time: 2017-10-17T21:20:00.941488.
- 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "PAYLOAD"."HASH" FROM "PAYLOAD" WHERE "PAYLOAD"."HASH" = :HASH_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables HASH_0(string) 274c090746051f5da64e052524b30a79dcdd84ae 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "PAYLOAD" ( "HASH", "OBJECT_TYPE", "DATA", "STREAMER_INFO", "VERSION", "INSERTION_TIME" ) VALUES ( :HASH, :OBJECT_TYPE, :DATA, :STREAMER_INFO, :VERSION, :INSERTION_TIME )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables HASH(string) 274c090746051f5da64e052524b30a79dcdd84ae  , OBJECT_TYPE(string) FillInfo  , DATA(BLOB) of size 7260  , STREAMER_INFO(BLOB) of size 136  , VERSION(string) dummy  , INSERTION_TIME(TIME) 2017-11-09 14:28:48.588636 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."TIME_TYPE", "TAG"."OBJECT_TYPE", "TAG"."SYNCHRONIZATION", "TAG"."END_OF_VALIDITY", "TAG"."DESCRIPTION", "TAG"."LAST_VALIDATED_TIME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "IOV" ( "TAG_NAME", "SINCE", "PAYLOAD_HASH", "INSERTION_TIME" ) VALUES ( :TAG_NAME, :SINCE, :PAYLOAD_HASH, :INSERTION_TIME )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables TAG_NAME(string) fillinfo_test  , SINCE(unsigned long long int) 6477277751951493408  , PAYLOAD_HASH(string) 274c090746051f5da64e052524b30a79dcdd84ae  , INSERTION_TIME(TIME) 2017-11-09 14:28:48.589506 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "TAG_LOG" ( "TAG_NAME", "EVENT_TIME", "USER_NAME", "HOST_NAME", "COMMAND", "ACTION", "USER_TEXT" ) VALUES ( :TAG_NAME, :EVENT_TIME, :USER_NAME, :HOST_NAME, :COMMAND, :ACTION, :USER_TEXT )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables TAG_NAME(string) fillinfo_test  , EVENT_TIME(TIME) 2017-11-09 14:28:48.589508  , USER_NAME(string) anoolkar  , HOST_NAME(string) lxplus068.cern.ch  , COMMAND(string) cmsRun test/FillInfoPopConAnalyzer.py   , ACTION(string) 1 iov(s) inserted.  , USER_TEXT(string) PopCon v5.0; first payload Since 1, last payload Since 6477790949511632856;  fill = 6300;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-15T09:04:01.922363;	end time: 2017-10-15T15:56:00.051238.
- fill = 6303;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-15T23:05:48.479988;	end time: 2017-10-16T12:33:58.308613.
- fill = 6304;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-16T17:18:45.815363;	end time: 2017-10-17T05:38:34.562488.
- fill = 6305;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-17T08:17:16.987863;	end time: 2017-10-17T21:20:00.941488.
- 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "PAYLOAD"."HASH" FROM "PAYLOAD" WHERE "PAYLOAD"."HASH" = :HASH_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables HASH_0(string) d3add6e830ffdf3fe1f19aae8c936e3fae6783ec 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."TIME_TYPE", "TAG"."OBJECT_TYPE", "TAG"."SYNCHRONIZATION", "TAG"."END_OF_VALIDITY", "TAG"."DESCRIPTION", "TAG"."LAST_VALIDATED_TIME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "IOV" ( "TAG_NAME", "SINCE", "PAYLOAD_HASH", "INSERTION_TIME" ) VALUES ( :TAG_NAME, :SINCE, :PAYLOAD_HASH, :INSERTION_TIME )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables TAG_NAME(string) fillinfo_test  , SINCE(unsigned long long int) 6477486014744301449  , PAYLOAD_HASH(string) d3add6e830ffdf3fe1f19aae8c936e3fae6783ec  , INSERTION_TIME(TIME) 2017-11-09 14:28:48.590987 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "TAG_LOG" ( "TAG_NAME", "EVENT_TIME", "USER_NAME", "HOST_NAME", "COMMAND", "ACTION", "USER_TEXT" ) VALUES ( :TAG_NAME, :EVENT_TIME, :USER_NAME, :HOST_NAME, :COMMAND, :ACTION, :USER_TEXT )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables TAG_NAME(string) fillinfo_test  , EVENT_TIME(TIME) 2017-11-09 14:28:48.590988  , USER_NAME(string) anoolkar  , HOST_NAME(string) lxplus068.cern.ch  , COMMAND(string) cmsRun test/FillInfoPopConAnalyzer.py   , ACTION(string) 1 iov(s) inserted.  , USER_TEXT(string) PopCon v5.0; first payload Since 1, last payload Since 6477790949511632856;  fill = 6300;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-15T09:04:01.922363;	end time: 2017-10-15T15:56:00.051238.
- fill = 6303;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-15T23:05:48.479988;	end time: 2017-10-16T12:33:58.308613.
- fill = 6304;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-16T17:18:45.815363;	end time: 2017-10-17T05:38:34.562488.
- fill = 6305;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-17T08:17:16.987863;	end time: 2017-10-17T21:20:00.941488.
- 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "PAYLOAD"."HASH" FROM "PAYLOAD" WHERE "PAYLOAD"."HASH" = :HASH_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables HASH_0(string) 3b3c4c4f81c4367afe682b2e35179fba746a0f25 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "PAYLOAD" ( "HASH", "OBJECT_TYPE", "DATA", "STREAMER_INFO", "VERSION", "INSERTION_TIME" ) VALUES ( :HASH, :OBJECT_TYPE, :DATA, :STREAMER_INFO, :VERSION, :INSERTION_TIME )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables HASH(string) 3b3c4c4f81c4367afe682b2e35179fba746a0f25  , OBJECT_TYPE(string) FillInfo  , DATA(BLOB) of size 7260  , STREAMER_INFO(BLOB) of size 136  , VERSION(string) dummy  , INSERTION_TIME(TIME) 2017-11-09 14:28:48.591264 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."TIME_TYPE", "TAG"."OBJECT_TYPE", "TAG"."SYNCHRONIZATION", "TAG"."END_OF_VALIDITY", "TAG"."DESCRIPTION", "TAG"."LAST_VALIDATED_TIME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "IOV" ( "TAG_NAME", "SINCE", "PAYLOAD_HASH", "INSERTION_TIME" ) VALUES ( :TAG_NAME, :SINCE, :PAYLOAD_HASH, :INSERTION_TIME )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables TAG_NAME(string) fillinfo_test  , SINCE(unsigned long long int) 6477559403357238200  , PAYLOAD_HASH(string) 3b3c4c4f81c4367afe682b2e35179fba746a0f25  , INSERTION_TIME(TIME) 2017-11-09 14:28:48.591747 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "TAG_LOG" ( "TAG_NAME", "EVENT_TIME", "USER_NAME", "HOST_NAME", "COMMAND", "ACTION", "USER_TEXT" ) VALUES ( :TAG_NAME, :EVENT_TIME, :USER_NAME, :HOST_NAME, :COMMAND, :ACTION, :USER_TEXT )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables TAG_NAME(string) fillinfo_test  , EVENT_TIME(TIME) 2017-11-09 14:28:48.591748  , USER_NAME(string) anoolkar  , HOST_NAME(string) lxplus068.cern.ch  , COMMAND(string) cmsRun test/FillInfoPopConAnalyzer.py   , ACTION(string) 1 iov(s) inserted.  , USER_TEXT(string) PopCon v5.0; first payload Since 1, last payload Since 6477790949511632856;  fill = 6300;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-15T09:04:01.922363;	end time: 2017-10-15T15:56:00.051238.
- fill = 6303;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-15T23:05:48.479988;	end time: 2017-10-16T12:33:58.308613.
- fill = 6304;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-16T17:18:45.815363;	end time: 2017-10-17T05:38:34.562488.
- fill = 6305;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-17T08:17:16.987863;	end time: 2017-10-17T21:20:00.941488.
- 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "PAYLOAD"."HASH" FROM "PAYLOAD" WHERE "PAYLOAD"."HASH" = :HASH_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables HASH_0(string) d3add6e830ffdf3fe1f19aae8c936e3fae6783ec 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."TIME_TYPE", "TAG"."OBJECT_TYPE", "TAG"."SYNCHRONIZATION", "TAG"."END_OF_VALIDITY", "TAG"."DESCRIPTION", "TAG"."LAST_VALIDATED_TIME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "IOV" ( "TAG_NAME", "SINCE", "PAYLOAD_HASH", "INSERTION_TIME" ) VALUES ( :TAG_NAME, :SINCE, :PAYLOAD_HASH, :INSERTION_TIME )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables TAG_NAME(string) fillinfo_test  , SINCE(unsigned long long int) 6477750052407665345  , PAYLOAD_HASH(string) d3add6e830ffdf3fe1f19aae8c936e3fae6783ec  , INSERTION_TIME(TIME) 2017-11-09 14:28:48.592636 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "TAG_LOG" ( "TAG_NAME", "EVENT_TIME", "USER_NAME", "HOST_NAME", "COMMAND", "ACTION", "USER_TEXT" ) VALUES ( :TAG_NAME, :EVENT_TIME, :USER_NAME, :HOST_NAME, :COMMAND, :ACTION, :USER_TEXT )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables TAG_NAME(string) fillinfo_test  , EVENT_TIME(TIME) 2017-11-09 14:28:48.592637  , USER_NAME(string) anoolkar  , HOST_NAME(string) lxplus068.cern.ch  , COMMAND(string) cmsRun test/FillInfoPopConAnalyzer.py   , ACTION(string) 1 iov(s) inserted.  , USER_TEXT(string) PopCon v5.0; first payload Since 1, last payload Since 6477790949511632856;  fill = 6300;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-15T09:04:01.922363;	end time: 2017-10-15T15:56:00.051238.
- fill = 6303;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-15T23:05:48.479988;	end time: 2017-10-16T12:33:58.308613.
- fill = 6304;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-16T17:18:45.815363;	end time: 2017-10-17T05:38:34.562488.
- fill = 6305;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-17T08:17:16.987863;	end time: 2017-10-17T21:20:00.941488.
- 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "PAYLOAD"."HASH" FROM "PAYLOAD" WHERE "PAYLOAD"."HASH" = :HASH_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables HASH_0(string) 9ac0bb57e6c36dfb2a183c409fc8864870a8613c 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "PAYLOAD" ( "HASH", "OBJECT_TYPE", "DATA", "STREAMER_INFO", "VERSION", "INSERTION_TIME" ) VALUES ( :HASH, :OBJECT_TYPE, :DATA, :STREAMER_INFO, :VERSION, :INSERTION_TIME )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables HASH(string) 9ac0bb57e6c36dfb2a183c409fc8864870a8613c  , OBJECT_TYPE(string) FillInfo  , DATA(BLOB) of size 7260  , STREAMER_INFO(BLOB) of size 136  , VERSION(string) dummy  , INSERTION_TIME(TIME) 2017-11-09 14:28:48.593026 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."TIME_TYPE", "TAG"."OBJECT_TYPE", "TAG"."SYNCHRONIZATION", "TAG"."END_OF_VALIDITY", "TAG"."DESCRIPTION", "TAG"."LAST_VALIDATED_TIME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "IOV" ( "TAG_NAME", "SINCE", "PAYLOAD_HASH", "INSERTION_TIME" ) VALUES ( :TAG_NAME, :SINCE, :PAYLOAD_HASH, :INSERTION_TIME )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables TAG_NAME(string) fillinfo_test  , SINCE(unsigned long long int) 6477790949511632856  , PAYLOAD_HASH(string) 9ac0bb57e6c36dfb2a183c409fc8864870a8613c  , INSERTION_TIME(TIME) 2017-11-09 14:28:48.593537 
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare INSERT INTO "TAG_LOG" ( "TAG_NAME", "EVENT_TIME", "USER_NAME", "HOST_NAME", "COMMAND", "ACTION", "USER_TEXT" ) VALUES ( :TAG_NAME, :EVENT_TIME, :USER_NAME, :HOST_NAME, :COMMAND, :ACTION, :USER_TEXT )
-CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables TAG_NAME(string) fillinfo_test  , EVENT_TIME(TIME) 2017-11-09 14:28:48.593538  , USER_NAME(string) anoolkar  , HOST_NAME(string) lxplus068.cern.ch  , COMMAND(string) cmsRun test/FillInfoPopConAnalyzer.py   , ACTION(string) 1 iov(s) inserted.  , USER_TEXT(string) PopCon v5.0; first payload Since 1, last payload Since 6477790949511632856;  fill = 6300;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-15T09:04:01.922363;	end time: 2017-10-15T15:56:00.051238.
- fill = 6303;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-15T23:05:48.479988;	end time: 2017-10-16T12:33:58.308613.
- fill = 6304;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-16T17:18:45.815363;	end time: 2017-10-17T05:38:34.562488.
- fill = 6305;	injection scheme: 25ns_1868b_1866_1089_1749_128bpi_17i8b4e;	start time: 2017-10-17T08:17:16.987863;	end time: 2017-10-17T21:20:00.941488.
- 
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare COMMIT
-CORAL/Services/ConnectionService Info User session with sessionID=43714d54-c55a-11e7-8a4c-02163e0181a3 will be ended on connectionID=437145f2-c55a-11e7-8a4c-02163e0181a3
-CORAL/Services/ConnectionService Debug Connection id=437145f2-c55a-11e7-8a4c-02163e0181a3 to service "test_output.db" has 0 session(s) opened.
-CORAL/Services/ConnectionService Debug The active connection id=437145f2-c55a-11e7-8a4c-02163e0181a3 to service "test_output.db" has been removed from the active list.
-CORAL/Services/ConnectionService Debug The valid active connection id=437145f2-c55a-11e7-8a4c-02163e0181a3 to service "test_output.db" has been moved to the idle list.
+CORAL/Services/ConnectionService Info User session with sessionID=ea01ff06-c640-11e7-a925-02163e018b9c will be ended on connectionID=ea01f858-c640-11e7-a925-02163e018b9c
+CORAL/Services/ConnectionService Debug Connection id=ea01f858-c640-11e7-a925-02163e018b9c to service "test_output.db" has 0 session(s) opened.
+CORAL/Services/ConnectionService Debug The active connection id=ea01f858-c640-11e7-a925-02163e018b9c to service "test_output.db" has been removed from the active list.
+CORAL/Services/ConnectionService Debug The valid active connection id=ea01f858-c640-11e7-a925-02163e018b9c to service "test_output.db" has been moved to the idle list.
 CORAL/Services/ConnectionService Info Deleting the ConnectionPool
-CORAL/Services/ConnectionService Info Connection to service "test_output.db" with connectionID=437145f2-c55a-11e7-8a4c-02163e0181a3 will be disconnected
-CORAL/Services/ConnectionService Info Connection to service "cms_orcon_adg" with connectionID=439cb58e-c55a-11e7-8a4c-02163e0181a3 will be disconnected
+CORAL/Services/ConnectionService Info Connection to service "test_output.db" with connectionID=ea01f858-c640-11e7-a925-02163e018b9c will be disconnected
+CORAL/Services/ConnectionService Info Connection to service "cms_orcon_adg" with connectionID=ea233464-c640-11e7-a925-02163e018b9c will be disconnected
