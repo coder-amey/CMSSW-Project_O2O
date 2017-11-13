@@ -39,6 +39,7 @@ process.Test1 = cms.EDAnalyzer("FillInfoPopConAnalyzer",
                                    authenticationPath =  cms.untracked.string("/afs/cern.ch/user/a/anoolkar/private"),
                                    debug=cms.untracked.bool(True)
                                                  ),
+                              # loggingOn = cms.untracked.bool(True),
                                loggingOn = cms.untracked.bool(True),
                                IsDestDbCheckedInQueryLog = cms.untracked.bool(False)
                                )

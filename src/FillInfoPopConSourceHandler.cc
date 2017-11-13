@@ -7,6 +7,13 @@
 #include "RelationalAccess/ISchema.h"
 #include "RelationalAccess/IQuery.h"
 #include "RelationalAccess/ICursor.h"
+#include "RelationalAccess/ITable.h"
+#include "RelationalAccess/ITableDescription.h"
+#include "RelationalAccess/IColumn.h"
+#include "RelationalAccess/IIndex.h"
+#include "RelationalAccess/IPrimaryKey.h"
+#include "RelationalAccess/IForeignKey.h"
+
 #include "CoralBase/AttributeList.h"
 #include "CoralBase/Attribute.h"
 #include "CoralBase/AttributeSpecification.h"
@@ -76,7 +83,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 			    << " EXITING. from " << m_name << "::getNewObjects";
     return;
   }
-  
+
   //retrieve the data from the relational database source
   cond::persistency::ConnectionPool connection;
   //configure the connection
@@ -93,7 +100,31 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   coral::ISchema& runTimeLoggerSchema = session.nominalSchema();
   //start the transaction against the fill logging schema
   session.transaction().start(true);
-  //prepare the query:
+ 
+coral::ITable& fillTable = runTimeLoggerSchema.tableHandle("RUNTIME_SUMMARY");
+const coral::ITableDescription& description = fillTable.description();
+std::cout<<"\n\n\n--------------------------"<<std::endl;
+std::cout << "FIll Table Name: " << description.name()<<std::endl;
+std::cout << "FIll Table Space: " << description.tableSpaceName()<<std::endl;
+int Col = 5;
+COL: try{
+std::cout << "FIll Table Name: " << description.name()<<std::endl;
+const coral::IColumn& column = description.columnDescription( Col );
+std::cout << "Details of the first column:\nName: " << column.name() << std::endl;
+std::cout << "FIll Table Indices: " << description.numberOfIndices()<<std::endl;
+std::cout << "FIll Table Columns: " << description.numberOfColumns() <<std::endl;
+std::cout<<"--------------------------\n\n\n"<<std::endl;
+}
+
+catch(std::exception E)
+{
+	std::cout << "Exception encountered! (" << Col << ")\n";
+	if(--Col >= 0)
+		goto COL;
+}
+
+
+ //prepare the query:
   std::unique_ptr<coral::IQuery> fillDataQuery( runTimeLoggerSchema.newQuery() );
   //FROM clause
   fillDataQuery->addToTableList( std::string( "RUNTIME_SUMMARY" ) );
