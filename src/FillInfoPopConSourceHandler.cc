@@ -23,6 +23,7 @@
 #include <sstream>
 #include <utility>
 #include <vector>
+#include <set>
 
 FillInfoPopConSourceHandler::FillInfoPopConSourceHandler( edm::ParameterSet const & pset ):
   m_debug( pset.getUntrackedParameter<bool>( "debug", false ) )
@@ -100,28 +101,31 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   coral::ISchema& runTimeLoggerSchema = session.nominalSchema();
   //start the transaction against the fill logging schema
   session.transaction().start(true);
- 
-coral::ITable& fillTable = runTimeLoggerSchema.tableHandle("RUNTIME_SUMMARY");
-const coral::ITableDescription& description = fillTable.description();
-std::cout<<"\n\n\n--------------------------"<<std::endl;
-std::cout << "FIll Table Name: " << description.name()<<std::endl;
-std::cout << "FIll Table Space: " << description.tableSpaceName()<<std::endl;
-int Col = 5;
-COL: try{
-std::cout << "FIll Table Name: " << description.name()<<std::endl;
-const coral::IColumn& column = description.columnDescription( Col );
-std::cout << "Details of the first column:\nName: " << column.name() << std::endl;
-std::cout << "FIll Table Indices: " << description.numberOfIndices()<<std::endl;
-std::cout << "FIll Table Columns: " << description.numberOfColumns() <<std::endl;
-std::cout<<"--------------------------\n\n\n"<<std::endl;
-}
 
-catch(std::exception E)
+std::set<std::string> List = runTimeLoggerSchema.listTables();
+std::cout<<"\n\n\n--------------------------"<<std::endl;
+std::cout << "Schema Description:\n";
+std::cout << "Schema Name: " << runTimeLoggerSchema.schemaName() << std::endl;
+std::cout << "All Tables:\n";
+std::set<std::string>::iterator I;
+for(I = List.begin(); I != List.end(); ++I)
+    std::cout << '\t' << *I << std::endl;
+std::cout << std::endl; 
+for(I = List.begin(); I != List.end(); ++I)
 {
-	std::cout << "Exception encountered! (" << Col << ")\n";
-	if(--Col >= 0)
-		goto COL;
+    try{
+			coral::ITable& fillTable = runTimeLoggerSchema.tableHandle(*I);
+			const coral::ITableDescription& description = fillTable.description();
+			std::cout << "Table Name:\t\t\t" << description.name()<<std::endl;
+			std::cout << "Number of Columns:\t\t" << description.numberOfColumns() <<std::endl << std::endl;
+		}
+		
+		catch(std::exception E)
+		{
+				std::cout << "Exception encountered for table:  " << *I << "\n";
+		}
 }
+std::cout<<"--------------------------\n\n\n"<<std::endl;
 
 
  //prepare the query:
@@ -142,16 +146,12 @@ catch(std::exception E)
   fillDataQuery->addToOutputList( std::string( "INTENSITYBEAM1" ) );
   fillDataQuery->addToOutputList( std::string( "INTENSITYBEAM2" ) );
   fillDataQuery->addToOutputList( std::string( "ENERGY" ) );
-  fillDataQuery->addToOutputList( std::string( "CREATETIME" ) );
-  fillDataQuery->addToOutputList( std::string( "BEGINTIME" ) );
-  fillDataQuery->addToOutputList( std::string( "ENDTIME" ) );
-  fillDataQuery->addToOutputList( std::string( "INJECTIONSCHEME" ) );
   //WHERE clause
   coral::AttributeList fillDataBindVariables;
   fillDataBindVariables.extend( std::string( "firstFillNumber" ), typeid( unsigned short ) );
   fillDataBindVariables[ std::string( "firstFillNumber" ) ].data<unsigned short>() = m_firstFill;
   fillDataBindVariables.extend( std::string( "lastFillNumber" ), typeid( unsigned short ) );
-  fillDataBindVariables[ std::string( "lastFillNumber" ) ].data<unsigned short>() = m_lastFill;
+  fillDataBindVariables[ std::string( "lastFillNumber" ) ].data<unsigned short>() = m_lastFill; 
   //by imposing BEGINTIME IS NOT NULL, we remove fills which never went into stable beams,
   //or the most recent one, just declared but not yet in stable beams
   std::string conditionStr( "BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
@@ -198,12 +198,12 @@ catch(std::exception E)
   std::ostringstream ss;
   //loop over the cursor where the result of the query were fetched
   
-  //FETCH, STORE AND DISPLAY RETRIEVED DATA.
+ //FETCH, STORE AND DISPLAY RETRIEVED DATA.
 
 
 
 //QUERYING FOR ALL TABLES.
-
+/*
 		std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
 		Q->addToTableList( std::string( "RUNTIME_SUMMARY" ) );
 		Q->addToOutputList( std::string( "COUNT(*)" ) );
@@ -228,10 +228,10 @@ catch(std::exception E)
 				        std::cout << Output.str() << std::endl;
 				        }
 		}
-
+*/
 //Prevent unnecessary execution of code.
 //Note remove the while loop to populate the database.
-    while( fillDataCursor.next() );
+   // while( fillDataCursor.next() );
 
   	//@A Debugging...
     int i1 = 1;
