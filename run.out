@@ -26,16 +26,16 @@ PluginManager Info PluginManager loaded CORAL/RelationalPlugins/sqlite factory f
 CORAL/Services/ConnectionService Debug No valid connection for string "sqlite_file:test_output.db" found in the pool. Creating a new connection.
 CORAL/Services/ConnectionService Debug Trying to get a new update session on "sqlite_file:test_output.db"
 CORAL/Services/ConnectionService Debug Connection parameters are: Retry-Period=10sec, Retry-Timeout=60sec, Connection-Timeout=300sec.
-CORAL/Services/ConnectionService Info New connection to service "test_output.db" with connectionID=2a117fb8-c9ca-11e7-a7e0-02163e018850 has been connected
-CORAL/Services/ConnectionService Info New user session with sessionID=2a1187e2-c9ca-11e7-a7e0-02163e018850 started on connectionID=2a117fb8-c9ca-11e7-a7e0-02163e018850 to service "test_output.db" for user "" in update mode
-CORAL/Services/ConnectionService Debug A new connection to service "test_output.db" has been added in the active list. Id=2a117fb8-c9ca-11e7-a7e0-02163e018850
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@ctor 15-Nov-2017 06:59:38 CET  pre-events
+CORAL/Services/ConnectionService Info New connection to service "test_output.db" with connectionID=d7732a44-ca06-11e7-87c4-02163e0189bd has been connected
+CORAL/Services/ConnectionService Info New user session with sessionID=d7733156-ca06-11e7-87c4-02163e0189bd started on connectionID=d7732a44-ca06-11e7-87c4-02163e0189bd to service "test_output.db" for user "" in update mode
+CORAL/Services/ConnectionService Debug A new connection to service "test_output.db" has been added in the active list. Id=d7732a44-ca06-11e7-87c4-02163e0189bd
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@ctor 15-Nov-2017 14:13:59 CET  pre-events
 This is PopCon (Populator of Condition) v5.0.
 Please report any problem and feature request through the JIRA project CMSCONDDB.
 
 %MSG
-Begin processing the 1st record. Run 1, Event 1, LumiSection 1 at 15-Nov-2017 06:59:38.497 CET
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 15-Nov-2017 06:59:38 CET  PostEndRun
+Begin processing the 1st record. Run 1, Event 1, LumiSection 1 at 15-Nov-2017 14:13:59.176 CET
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 15-Nov-2017 14:13:59 CET  PostEndRun
 payload name FillInfo
 %MSG
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare BEGIN
@@ -57,7 +57,7 @@ CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 15-Nov-2017 06:59:38 CET  PostEndRun
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 15-Nov-2017 14:13:59 CET  PostEndRun
 destination DB: sqlite_file:test_output.db, target DB: sqlite_file:test_output.db
 TAG: fillinfo_test; First writer to this new tag.
 %MSG
@@ -66,7 +66,7 @@ TAG: fillinfo_test; First writer to this new tag.
 Getting new objects...
 
 
-%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  15-Nov-2017 06:59:38 CET PostEndRun
+%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  15-Nov-2017 14:13:59 CET PostEndRun
 New tag fillinfo_test; from FillInfoPopConSourceHandler::getNewObjects
 %MSG
 CORAL/Services/ConnectionService Info Disable connection sharing
@@ -84,12 +84,12 @@ CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT AUTHO.C_ROLE, 
 CORAL/Services/ConnectionService Debug No valid connection for string "oracle://cms_orcon_adg/CMS_RUNTIME_LOGGER" found in the pool. Creating a new connection.
 CORAL/Services/ConnectionService Debug Trying to get a new read-only session on "oracle://cms_orcon_adg/CMS_RUNTIME_LOGGER"
 CORAL/Services/ConnectionService Debug Connection parameters are: Retry-Period=10sec, Retry-Timeout=60sec, Connection-Timeout=300sec.
-CORAL/Services/ConnectionService Info New connection to service "cms_orcon_adg" with connectionID=2a372542-c9ca-11e7-a7e0-02163e018850 has been connected
+CORAL/Services/ConnectionService Info New connection to service "cms_orcon_adg" with connectionID=d79e90f8-ca06-11e7-87c4-02163e0189bd has been connected
 CORAL/RelationalPlugins/oracle Info Disable plan baseline use by ALTER SESSION SET OPTIMIZER_USE_SQL_PLAN_BASELINES=FALSE
 CORAL/RelationalPlugins/oracle Debug Prepared statement : "ALTER SESSION SET OPTIMIZER_USE_SQL_PLAN_BASELINES=FALSE"
 CORAL/RelationalPlugins/oracle Info CORAL_ORA_SKIP_TRANS_READONLY is not set: this session will use OCI serializable read-only transactions
-CORAL/Services/ConnectionService Info New user session with sessionID=2a3a0d7a-c9ca-11e7-a7e0-02163e018850 started on connectionID=2a372542-c9ca-11e7-a7e0-02163e018850 to service "cms_orcon_adg" for user "CMS_COND_GENERAL_R" in read-only mode
-CORAL/Services/ConnectionService Debug A new connection to service "cms_orcon_adg" has been added in the active list. Id=2a372542-c9ca-11e7-a7e0-02163e018850
+CORAL/Services/ConnectionService Info New user session with sessionID=d7a3caf0-ca06-11e7-87c4-02163e0189bd started on connectionID=d79e90f8-ca06-11e7-87c4-02163e0189bd to service "cms_orcon_adg" for user "CMS_COND_GENERAL_R" in read-only mode
+CORAL/Services/ConnectionService Debug A new connection to service "cms_orcon_adg" has been added in the active list. Id=d79e90f8-ca06-11e7-87c4-02163e0189bd
 CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT /* user has no SELECT ANY TABLE privileges */ TABLE_NAME FROM ALL_TABLES WHERE OWNER=:OWNER"
 
 
@@ -122,98 +122,386 @@ All Tables:
 	WEEKLY_LUMINOSITY_WT
 	YEARLY_LUMINOSITY
 
-Table Name:			BUNCH_LUMI_SECTIONS
-Number of Columns:		8
 
-Table Name:			BUNCH_MAP
-Number of Columns:		3
+Detailed Table Description:
+Table Name:		No. of Columns:
+(Column Details follow.)
 
-Table Name:			CMS_PAGE1_IMAGE
-Number of Columns:		4
+BUNCH_LUMI_SECTIONS		8
+	RUNNUMBER (int)
+	LUMISECTION (int)
+	LHCFILL (int)
+	BUNCH (int)
+	TIME (time stamp)
+	BUNCHLUMI (float)
+	INTENSITYBEAM1 (float)
+	INTENSITYBEAM2 (float)
 
-Table Name:			CMS_PAGE1_MESSAGES
-Number of Columns:		10
 
-Table Name:			CMS_PAGE1_MESSAGES_CURRENT
-Number of Columns:		11
+BUNCH_MAP		3
+	BUNCH (int)
+	ENABLED (bool)
+	BUNCH2808 (int)
 
-Table Name:			DAILY_LUMINOSITY
-Number of Columns:		8
 
-Table Name:			DAILY_LUMINOSITY_77
-Number of Columns:		8
+CMS_PAGE1_IMAGE		4
+	UPDATETIME (time stamp)
+	HOSTNAME (string)
+	IMAGE (blob)
+	IMAGELENGTH (int)
 
-Table Name:			DCS_STATUS_CURRENT
-Number of Columns:		7
 
-Table Name:			DCS_STATUS_HISTORY
-Number of Columns:		7
+CMS_PAGE1_MESSAGES		10
+	ID (int)
+	CREATETIME (time stamp)
+	ENABLED (char)
+	MESSAGE (string)
+	NAME (string)
+	ELOG_URL (string)
+	USERNAME (string)
+	OS_USER (string)
+	HOST (string)
+	IP_ADDRESS (string)
 
-Table Name:			DOWNTIME_CATEGORIES
-Number of Columns:		6
 
-Table Name:			DOWNTIME_EVENTS
-Number of Columns:		14
+CMS_PAGE1_MESSAGES_CURRENT		11
+	ID (int)
+	CREATETIME (time stamp)
+	ENABLED (char)
+	MESSAGE (string)
+	NAME (string)
+	ELOG_URL (string)
+	USERNAME (string)
+	OS_USER (string)
+	HOST (string)
+	IP_ADDRESS (string)
+	IMAGE (blob)
 
-Table Name:			DOWNTIME_EVENTS_COMMENTS
-Number of Columns:		7
 
-Table Name:			DOWNTIME_EVENTS_HISTORY
-Number of Columns:		17
+DAILY_LUMINOSITY		8
+	YEAR (int)
+	DAY (int)
+	PEAKLUMI (double)
+	RECORDED (double)
+	DELIVERED (double)
+	LASTUPDATE (time stamp)
+	DURATION (float)
+	RUNTIME_TYPE_ID (int)
 
-Table Name:			DOWNTIME_GROUPS
-Number of Columns:		5
 
-Table Name:			FILL_ERA
-Number of Columns:		12
+DAILY_LUMINOSITY_77		8
+	YEAR (int)
+	DAY (int)
+	PEAKLUMI (double)
+	RECORDED (double)
+	DELIVERED (double)
+	LASTUPDATE (time stamp)
+	DURATION (float)
+	RUNTIME_TYPE_ID (int)
 
-Table Name:			FILL_INITLUMIPERBUNCH
-Number of Columns:		7
 
-Table Name:			INITIAL_PRESCALE_INDEX
-Number of Columns:		3
+DCS_STATUS_CURRENT		7
+	ID (long long)
+	CREATETIME (time stamp)
+	DIPTIME (time stamp)
+	DCSSTATUS (int)
+	PREVIOUSDCSSTATUS (int)
+	RUNNUMBER (int)
+	LUMISECTION (int)
 
-Table Name:			LUMI_SECTIONS
-Number of Columns:		57
 
-Table Name:			RUNTIME_SUMMARY
+DCS_STATUS_HISTORY		7
+	ID (long long)
+	CREATETIME (time stamp)
+	DIPTIME (time stamp)
+	DCSSTATUS (int)
+	PREVIOUSDCSSTATUS (int)
+	RUNNUMBER (int)
+	LUMISECTION (int)
+
+
+DOWNTIME_CATEGORIES		6
+	ID (short)
+	NAME (string)
+	ENABLED (char)
+	GROUP_ID (short)
+	DESCRIPTION (string)
+	COLOR (int)
+
+
+DOWNTIME_EVENTS		14
+	ID (int)
+	DOWNTIME (time stamp)
+	ENABLED (char)
+	CAT_ID (short)
+	UPTIME (time stamp)
+	RUNNUMBER (int)
+	RUNTIME_ID (int)
+	LOSTLUMI (float)
+	LOSTTIME (double)
+	DETAILS (string)
+	ELOG_URL (string)
+	CREATETIME (time stamp)
+	UPDATETIME (time stamp)
+	AUTOMATIC (bool)
+
+
+DOWNTIME_EVENTS_COMMENTS		7
+	ID (int)
+	EVENT_ID (int)
+	CREATETIME (time stamp)
+	UPDATETIME (time stamp)
+	AUTHOR (string)
+	COMPONENT (string)
+	TEXT (string)
+
+
+DOWNTIME_EVENTS_HISTORY		17
+	ID (int)
+	UPDATETIME (time stamp)
+	DOWNTIME (time stamp)
+	ENABLED (char)
+	CAT_ID (short)
+	UPTIME (time stamp)
+	RUNNUMBER (int)
+	RUNTIME_ID (int)
+	LOSTLUMI (double)
+	LOSTTIME (double)
+	DETAILS (string)
+	ELOG_URL (string)
+	AUTOMATIC (bool)
+	USERNAME (string)
+	OS_USER (string)
+	HOST (string)
+	IP_ADDRESS (string)
+
+
+DOWNTIME_GROUPS		5
+	ID (short)
+	NAME (string)
+	ENABLED (char)
+	DESCRIPTION (string)
+	COLOR (int)
+
+
+FILL_ERA		12
+	ERA (string)
+	BEGINTIME (time stamp)
+	LHCFILL_LOW (int)
+	RUN_LOW (int)
+	LHCFILL_HIGH (int)
+	ENDTIME (time stamp)
+	RUN_HIGH (int)
+	COMMENTS (string)
+	CREATETIME (time stamp)
+	CREATEUSER (string)
+	UPDATETIME (time stamp)
+	UPDATEUSER (string)
+
+
+FILL_INITLUMIPERBUNCH		7
+	LHCFILL (int)
+	BUNCH (int)
+	INITBUNCHLUMI (float)
+	INTENSITYBEAM1 (float)
+	INTENSITYBEAM2 (float)
+	BEAM1CONFIG (bool)
+	BEAM2CONFIG (bool)
+
+
+INITIAL_PRESCALE_INDEX		3
+	RUNNUMBER (int)
+	INITIALPRESCALEINDEX (int)
+	ZEROBIASPRESCALE (int)
+
+
+LUMI_SECTIONS		57
+	RUNNUMBER (int)
+	LUMISECTION (int)
+	STARTORBIT (long long)
+	STARTTIME (time stamp)
+	STOPTIME (time stamp)
+	INSTLUMI (float)
+	INSTLUMIERROR (float)
+	DELIVLUMI (float)
+	LIVELUMI (float)
+	DEADTIME (float)
+	BEAM1_STABLE (bool)
+	BEAM2_STABLE (bool)
+	EBP_READY (bool)
+	EBM_READY (bool)
+	EEP_READY (bool)
+	EEM_READY (bool)
+	HBHEA_READY (bool)
+	HBHEB_READY (bool)
+	HBHEC_READY (bool)
+	HF_READY (bool)
+	HO_READY (bool)
+	RPC_READY (bool)
+	DT0_READY (bool)
+	DTP_READY (bool)
+	DTM_READY (bool)
+	CSCP_READY (bool)
+	CSCM_READY (bool)
+	CASTOR_READY (bool)
+	TIBTID_READY (bool)
+	TOB_READY (bool)
+	TECP_READY (bool)
+	TECM_READY (bool)
+	BPIX_READY (bool)
+	FPIX_READY (bool)
+	ESP_READY (bool)
+	ESM_READY (bool)
+	DCSSTATUS (int)
+	BEAM1_PRESENT (bool)
+	BEAM2_PRESENT (bool)
+	BEAM1_SAFE (bool)
+	BEAM2_SAFE (bool)
+	BEAM1_MOVEABLE (bool)
+	BEAM2_MOVEABLE (bool)
+	BEAM1_SMP (short)
+	BEAM2_SMP (short)
+	LHCFILL (int)
+	DELIVLUMISECTION (float)
+	LIVELUMISECTION (float)
+	ZDC_READY (bool)
+	LASTUPDATE (time stamp)
+	BEAM1_INTENSITY (float)
+	CMS_ACTIVE (bool)
+	BEAM2_INTENSITY (float)
+	PHYSICS_FLAG (bool)
+	INSTLUMISQUARES (float)
+	PILEUP (float)
+	PILEUPRMS (float)
+
 CORAL/RelationalPlugins/oracle Error Cannot handle the type of column RUNTIME in table CMS_RUNTIME_LOGGER.RUNTIME_SUMMARY
 Exception encountered for table:  RUNTIME_SUMMARY
-Table Name:			RUNTIME_TYPE
-Number of Columns:		4
 
-Table Name:			WEEKLY_LUMINOSITY
-Number of Columns:		8
 
-Table Name:			WEEKLY_LUMINOSITY_WT
-Number of Columns:		8
+RUNTIME_TYPE		4
+	ID (float)
+	NAME (string)
+	ENABLED (char)
+	DESCRIPTION (string)
 
-Table Name:			YEARLY_LUMINOSITY
-Number of Columns:		65
+
+WEEKLY_LUMINOSITY		8
+	YEAR (int)
+	WEEK (int)
+	PEAKLUMI (double)
+	RECORDED (double)
+	DELIVERED (double)
+	LASTUPDATE (time stamp)
+	HUEBNERFACTOR (double)
+	RUNTIME_TYPE_ID (int)
+
+
+WEEKLY_LUMINOSITY_WT		8
+	YEAR (int)
+	WEEK (int)
+	PEAKLUMI (double)
+	RECORDED (double)
+	DELIVERED (double)
+	LASTUPDATE (time stamp)
+	HUEBNERFACTOR (double)
+	RUNTIME_TYPE_ID (int)
+
+
+YEARLY_LUMINOSITY		65
+	YEAR (int)
+	PEAKLUMI (double)
+	RECORDEDLUMI (double)
+	DELIVEREDLUMI (double)
+	MAXLUMIFILL (double)
+	MAXLUMIDAY (double)
+	MAXLUMIWEEK (double)
+	MAXLUMIMONTH (double)
+	MAXBUNCHES (int)
+	MAXPILEUP (double)
+	LONGESTFILL (int)
+	LONGESTDAY (int)
+	LONGESTWEEK (int)
+	LONGESTMONTH (int)
+	LONGESTFILL_HOURS (double)
+	LONGESTDAY_HOURS (double)
+	LONGESTWEEK_HOURS (double)
+	LONGESTMONTH_HOURS (double)
+	FASTEST_TO_READY_FILL (int)
+	FASTEST_TO_READY_RUN (int)
+	FASTEST_TO_READY_MINUTES (double)
+	FASTEST_BEAM_TURNAROUND_FILL1 (int)
+	FASTEST_BEAM_TURNAROUND_FILL2 (int)
+	FASTEST_BEAM_TURNAROUND_HOURS (double)
+	BESTEFFICIENCYFILL (int)
+	BESTEFFICIENCYDAY (int)
+	BESTEFFICIENCYWEEK (int)
+	BESTEFFICIENCYMONTH (int)
+	BESTEFFICIENCYFILL_PERCENT (double)
+	BESTEFFICIENCYDAY_PERCENT (double)
+	BESTEFFICIENCYWEEK_PERCENT (double)
+	BESTEFFICIENCYMONTH_PERCENT (double)
+	LASTUPDATE (time stamp)
+	HUEBNERFACTOR (double)
+	MAXLUMIFILL_FILL (int)
+	MAXLUMIDAY_DAY (int)
+	MAXLUMIWEEK_WEEK (int)
+	MAXLUMIMONTH_MONTH (int)
+	PEAKLUMI_TIME (time stamp)
+	MAXPILEUP_TIME (time stamp)
+	MAXPILEUP_FILL (int)
+	PEAKLUMI_FILL (int)
+	MAXBUNCHES_TIME (time stamp)
+	MAXBUNCHES_FILL (int)
+	RUNTIME_TYPE_ID (int)
+	CONDITIONS (bool)
+	MAXLUMIRECORDEDFILL (double)
+	MAXLUMIRECORDEDFILL_FILL (int)
+	MAXLUMIRECORDEDDAY (double)
+	MAXLUMIRECORDEDDAY_DAY (int)
+	MAXLUMIRECORDEDWEEK (double)
+	MAXLUMIRECORDEDWEEK_WEEK (int)
+	MAXLUMIRECORDEDMONTH (double)
+	MAXLUMIRECORDEDMONTH_MONTH (int)
+	MAXLUMIRECORDEDFILL_EFF (double)
+	MAXLUMIRECORDEDDAY_EFF (double)
+	MAXLUMIRECORDEDWEEK_EFF (double)
+	MAXLUMIRECORDEDMONTH_EFF (double)
+	CONDITIONS_COMMENTS (string)
+	UNITS_HF_INT_LUMI (int)
+	UNITS_HF_INST_LUMI (int)
+	UNITS_HF_INST_LUMI_WBM (int)
+	UNITS_BCM1F_INST_LUMI (int)
+	UNITS_ATLAS_INST_LUMI (int)
+	UNITS_INT_LUMI_WBM (int)
 
 --------------------------
 
 
 
 ##### executing query on OMDS
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT LHCFILL, NBUNCHESBEAM1, NBUNCHESBEAM2, NCOLLIDINGBUNCHES, NTARGETBUNCHES, RUNTIME_TYPE_ID, PARTY1, PARTY2, CROSSINGANGLE, BETASTAR, INTENSITYBEAM1, INTENSITYBEAM2, ENERGY FROM CMS_RUNTIME_LOGGER."RUNTIME_SUMMARY" "RUNTIME_SUMMARY" WHERE BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :"firstFillNumber" AND :"lastFillNumber" ORDER BY LHCFILL"
-CORAL/RelationalPlugins/oracle Error ORA-01007: variable not in select list (Defining the output for variable : "CREATETIME" in "SELECT LHCFILL, NBUNCHESBEAM1, NBUNCHESBEAM2, NCOLLIDINGBUNCHES, NTARGETBUNCHES, RUNTIME_TYPE_ID, PARTY1, PARTY2, CROSSINGANGLE, BETASTAR, INTENSITYBEAM1, INTENSITYBEAM2, ENERGY FROM CMS_RUNTIME_LOGGER."RUNTIME_SUMMARY" "RUNTIME_SUMMARY" WHERE BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :"firstFillNumber" AND :"lastFillNumber" ORDER BY LHCFILL")
-CORAL/Services/ConnectionService Info User session with sessionID=2a3a0d7a-c9ca-11e7-a7e0-02163e018850 will be ended on connectionID=2a372542-c9ca-11e7-a7e0-02163e018850
-CORAL/Services/ConnectionService Debug Connection id=2a372542-c9ca-11e7-a7e0-02163e018850 to service "cms_orcon_adg" has 0 session(s) opened.
-CORAL/Services/ConnectionService Debug The active connection id=2a372542-c9ca-11e7-a7e0-02163e018850 to service "cms_orcon_adg" has been removed from the active list.
-CORAL/Services/ConnectionService Debug The valid active connection id=2a372542-c9ca-11e7-a7e0-02163e018850 to service "cms_orcon_adg" has been moved to the idle list.
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT LHCFILL, NBUNCHESBEAM1, NBUNCHESBEAM2, NCOLLIDINGBUNCHES, NTARGETBUNCHES, RUNTIME_TYPE_ID, PARTY1, PARTY2, CROSSINGANGLE, BETASTAR, INTENSITYBEAM1, INTENSITYBEAM2, ENERGY, CREATETIME, BEGINTIME, ENDTIME, INJECTIONSCHEME FROM CMS_RUNTIME_LOGGER."RUNTIME_SUMMARY" "RUNTIME_SUMMARY" WHERE BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :"firstFillNumber" AND :"lastFillNumber" ORDER BY LHCFILL"
+
+
+____________________________________
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT RUNTIME FROM CMS_RUNTIME_LOGGER."RUNTIME_SUMMARY" "RUNTIME_SUMMARY" WHERE BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :"firstFillNumber" AND :"lastFillNumber""
+Query executed!
+CORAL/RelationalPlugins/oracle Error ORA-00932: inconsistent datatypes: expected BLOB got INTERVAL (Fetching the next row from "SELECT RUNTIME FROM CMS_RUNTIME_LOGGER."RUNTIME_SUMMARY" "RUNTIME_SUMMARY" WHERE BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :"firstFillNumber" AND :"lastFillNumber"")
+CORAL/Services/ConnectionService Info User session with sessionID=d7a3caf0-ca06-11e7-87c4-02163e0189bd will be ended on connectionID=d79e90f8-ca06-11e7-87c4-02163e0189bd
+CORAL/Services/ConnectionService Debug Connection id=d79e90f8-ca06-11e7-87c4-02163e0189bd to service "cms_orcon_adg" has 0 session(s) opened.
+CORAL/Services/ConnectionService Debug The active connection id=d79e90f8-ca06-11e7-87c4-02163e0189bd to service "cms_orcon_adg" has been removed from the active list.
+CORAL/Services/ConnectionService Debug The valid active connection id=d79e90f8-ca06-11e7-87c4-02163e0189bd to service "cms_orcon_adg" has been moved to the idle list.
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare COMMIT
------ Begin Fatal Exception 15-Nov-2017 06:59:38 CET-----------------------
+----- Begin Fatal Exception 15-Nov-2017 14:13:59 CET-----------------------
 An exception of category 'StdException' occurred while
    [0] Calling endJob for module FillInfoPopConAnalyzer/'Test1'
 Exception Message:
 A std::exception was thrown.
-ORA-01007: variable not in select list (Defining the output for variable : "CREATETIME" in "SELECT LHCFILL, NBUNCHESBEAM1, NBUNCHESBEAM2, NCOLLIDINGBUNCHES, NTARGETBUNCHES, RUNTIME_TYPE_ID, PARTY1, PARTY2, CROSSINGANGLE, BETASTAR, INTENSITYBEAM1, INTENSITYBEAM2, ENERGY FROM CMS_RUNTIME_LOGGER."RUNTIME_SUMMARY" "RUNTIME_SUMMARY" WHERE BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :"firstFillNumber" AND :"lastFillNumber" ORDER BY LHCFILL") ( CORAL : "OracleStatement" from "CORAL/RelationalPlugins/oracle" )
+ORA-00932: inconsistent datatypes: expected BLOB got INTERVAL (Fetching the next row from "SELECT RUNTIME FROM CMS_RUNTIME_LOGGER."RUNTIME_SUMMARY" "RUNTIME_SUMMARY" WHERE BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :"firstFillNumber" AND :"lastFillNumber"") ( CORAL : "OracleStatement" from "CORAL/RelationalPlugins/oracle" )
 ----- End Fatal Exception -------------------------------------------------
-CORAL/Services/ConnectionService Info User session with sessionID=2a1187e2-c9ca-11e7-a7e0-02163e018850 will be ended on connectionID=2a117fb8-c9ca-11e7-a7e0-02163e018850
-CORAL/Services/ConnectionService Debug Connection id=2a117fb8-c9ca-11e7-a7e0-02163e018850 to service "test_output.db" has 0 session(s) opened.
-CORAL/Services/ConnectionService Debug The active connection id=2a117fb8-c9ca-11e7-a7e0-02163e018850 to service "test_output.db" has been removed from the active list.
-CORAL/Services/ConnectionService Debug The valid active connection id=2a117fb8-c9ca-11e7-a7e0-02163e018850 to service "test_output.db" has been moved to the idle list.
+CORAL/Services/ConnectionService Info User session with sessionID=d7733156-ca06-11e7-87c4-02163e0189bd will be ended on connectionID=d7732a44-ca06-11e7-87c4-02163e0189bd
+CORAL/Services/ConnectionService Debug Connection id=d7732a44-ca06-11e7-87c4-02163e0189bd to service "test_output.db" has 0 session(s) opened.
+CORAL/Services/ConnectionService Debug The active connection id=d7732a44-ca06-11e7-87c4-02163e0189bd to service "test_output.db" has been removed from the active list.
+CORAL/Services/ConnectionService Debug The valid active connection id=d7732a44-ca06-11e7-87c4-02163e0189bd to service "test_output.db" has been moved to the idle list.
 CORAL/Services/ConnectionService Info Deleting the ConnectionPool
-CORAL/Services/ConnectionService Info Connection to service "test_output.db" with connectionID=2a117fb8-c9ca-11e7-a7e0-02163e018850 will be disconnected
-CORAL/Services/ConnectionService Info Connection to service "cms_orcon_adg" with connectionID=2a372542-c9ca-11e7-a7e0-02163e018850 will be disconnected
+CORAL/Services/ConnectionService Info Connection to service "test_output.db" with connectionID=d7732a44-ca06-11e7-87c4-02163e0189bd will be disconnected
+CORAL/Services/ConnectionService Info Connection to service "cms_orcon_adg" with connectionID=d79e90f8-ca06-11e7-87c4-02163e0189bd will be disconnected

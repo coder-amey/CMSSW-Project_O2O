@@ -18,6 +18,7 @@
 #include "CoralBase/Attribute.h"
 #include "CoralBase/AttributeSpecification.h"
 #include "CoralBase/TimeStamp.h"
+#include "CoralBase/Blob.h"
 #include <iostream>
 #include <memory>
 #include <sstream>
@@ -111,18 +112,25 @@ std::set<std::string>::iterator I;
 for(I = List.begin(); I != List.end(); ++I)
     std::cout << '\t' << *I << std::endl;
 std::cout << std::endl; 
+std::cout << "\nDetailed Table Description:\nTable Name:\t\tNo. of Columns:\n(Column Details follow.)" << std::endl;
 for(I = List.begin(); I != List.end(); ++I)
 {
     try{
 			coral::ITable& fillTable = runTimeLoggerSchema.tableHandle(*I);
 			const coral::ITableDescription& description = fillTable.description();
-			std::cout << "Table Name:\t\t\t" << description.name()<<std::endl;
-			std::cout << "Number of Columns:\t\t" << description.numberOfColumns() <<std::endl << std::endl;
+			int c = description.numberOfColumns();
+			std::cout << "\n" << description.name() << "\t\t" << c << std::endl;
+			for(int i = 0; i < c; i++)
+			{
+				const coral::IColumn& col = description.columnDescription(i);
+				std::cout << "\t" << col.name() << " (" << col.type() << ")" << std::endl;
+			}
+			std::cout << std::endl;
 		}
 		
 		catch(std::exception E)
 		{
-				std::cout << "Exception encountered for table:  " << *I << "\n";
+				std::cout << "Exception encountered for table:  " << *I << "\n\n";
 		}
 }
 std::cout<<"--------------------------\n\n\n"<<std::endl;
@@ -146,6 +154,10 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
   fillDataQuery->addToOutputList( std::string( "INTENSITYBEAM1" ) );
   fillDataQuery->addToOutputList( std::string( "INTENSITYBEAM2" ) );
   fillDataQuery->addToOutputList( std::string( "ENERGY" ) );
+  fillDataQuery->addToOutputList( std::string( "CREATETIME" ) );
+  fillDataQuery->addToOutputList( std::string( "BEGINTIME" ) );
+  fillDataQuery->addToOutputList( std::string( "ENDTIME" ) );
+  fillDataQuery->addToOutputList( std::string( "INJECTIONSCHEME" ) );
   //WHERE clause
   coral::AttributeList fillDataBindVariables;
   fillDataBindVariables.extend( std::string( "firstFillNumber" ), typeid( unsigned short ) );
@@ -203,10 +215,10 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 
 
 //QUERYING FOR ALL TABLES.
-/*
+
 		std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
 		Q->addToTableList( std::string( "RUNTIME_SUMMARY" ) );
-		Q->addToOutputList( std::string( "COUNT(*)" ) );
+		Q->addToOutputList( std::string( "RUNTIME" ) );
 		coral::AttributeList V;
 		V.extend( std::string( "firstFillNumber" ), typeid( unsigned short ) );
 		V[ std::string( "firstFillNumber" ) ].data<unsigned short>() = m_firstFill;
@@ -214,11 +226,10 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 		V[ std::string( "lastFillNumber" ) ].data<unsigned short>() = m_lastFill;
 		std::string cStr( "BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
 		Q->setCondition( cStr, V );
-		//Q->addToOrderList( std::string( "COLUMNS" ) );
 		coral::AttributeList O;
-		O.extend<int>( std::string( "COLUMNS" ) );
+		O.extend<coral::Blob>( std::string( "RUNTIME" ) );
 		Q->defineOutput( O );
-		std::cout <<"\n\n\nQuerying OMDS for all tables...\n\n\n"<<std::endl;
+		std::cout <<"\n\n____________________________________"<<std::endl;
 		coral::ICursor& C = Q->execute();
 		std::cout <<"Query executed!\n";
 		while( C.next() ) {
@@ -228,10 +239,10 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 				        std::cout << Output.str() << std::endl;
 				        }
 		}
-*/
+
 //Prevent unnecessary execution of code.
 //Note remove the while loop to populate the database.
-   // while( fillDataCursor.next() );
+    while( fillDataCursor.next() );
 
   	//@A Debugging...
     int i1 = 1;
