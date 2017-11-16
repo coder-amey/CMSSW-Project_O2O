@@ -26,16 +26,16 @@ PluginManager Info PluginManager loaded CORAL/RelationalPlugins/sqlite factory f
 CORAL/Services/ConnectionService Debug No valid connection for string "sqlite_file:test_output.db" found in the pool. Creating a new connection.
 CORAL/Services/ConnectionService Debug Trying to get a new update session on "sqlite_file:test_output.db"
 CORAL/Services/ConnectionService Debug Connection parameters are: Retry-Period=10sec, Retry-Timeout=60sec, Connection-Timeout=300sec.
-CORAL/Services/ConnectionService Info New connection to service "test_output.db" with connectionID=979ce14c-caf8-11e7-a626-02163e018b42 has been connected
-CORAL/Services/ConnectionService Info New user session with sessionID=979ce962-caf8-11e7-a626-02163e018b42 started on connectionID=979ce14c-caf8-11e7-a626-02163e018b42 to service "test_output.db" for user "" in update mode
-CORAL/Services/ConnectionService Debug A new connection to service "test_output.db" has been added in the active list. Id=979ce14c-caf8-11e7-a626-02163e018b42
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@ctor 16-Nov-2017 19:04:30 CET  pre-events
+CORAL/Services/ConnectionService Info New connection to service "test_output.db" with connectionID=21453358-caff-11e7-9825-02163e018c96 has been connected
+CORAL/Services/ConnectionService Info New user session with sessionID=21457a3e-caff-11e7-9825-02163e018c96 started on connectionID=21453358-caff-11e7-9825-02163e018c96 to service "test_output.db" for user "" in update mode
+CORAL/Services/ConnectionService Debug A new connection to service "test_output.db" has been added in the active list. Id=21453358-caff-11e7-9825-02163e018c96
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@ctor 16-Nov-2017 19:51:18 CET  pre-events
 This is PopCon (Populator of Condition) v5.0.
 Please report any problem and feature request through the JIRA project CMSCONDDB.
 
 %MSG
-Begin processing the 1st record. Run 1, Event 1, LumiSection 1 at 16-Nov-2017 19:04:30.393 CET
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 16-Nov-2017 19:04:30 CET  PostEndRun
+Begin processing the 1st record. Run 1, Event 1, LumiSection 1 at 16-Nov-2017 19:51:18.286 CET
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 16-Nov-2017 19:51:18 CET  PostEndRun
 payload name FillInfo
 %MSG
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare BEGIN
@@ -57,16 +57,11 @@ CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 16-Nov-2017 19:04:30 CET  PostEndRun
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 16-Nov-2017 19:51:18 CET  PostEndRun
 destination DB: sqlite_file:test_output.db, target DB: sqlite_file:test_output.db
 TAG: fillinfo_test; First writer to this new tag.
 %MSG
-
-
-Getting new objects...
-
-
-%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  16-Nov-2017 19:04:30 CET PostEndRun
+%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  16-Nov-2017 19:51:18 CET PostEndRun
 New tag fillinfo_test; from FillInfoPopConSourceHandler::getNewObjects
 %MSG
 CORAL/Services/ConnectionService Info Disable connection sharing
@@ -84,34 +79,35 @@ CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT AUTHO.C_ROLE, 
 CORAL/Services/ConnectionService Debug No valid connection for string "oracle://cms_orcon_adg/CMS_RUNTIME_LOGGER" found in the pool. Creating a new connection.
 CORAL/Services/ConnectionService Debug Trying to get a new read-only session on "oracle://cms_orcon_adg/CMS_RUNTIME_LOGGER"
 CORAL/Services/ConnectionService Debug Connection parameters are: Retry-Period=10sec, Retry-Timeout=60sec, Connection-Timeout=300sec.
-CORAL/Services/ConnectionService Info New connection to service "cms_orcon_adg" with connectionID=9849892e-caf8-11e7-a626-02163e018b42 has been connected
+CORAL/Services/ConnectionService Info New connection to service "cms_orcon_adg" with connectionID=21961890-caff-11e7-9825-02163e018c96 has been connected
 CORAL/RelationalPlugins/oracle Info Disable plan baseline use by ALTER SESSION SET OPTIMIZER_USE_SQL_PLAN_BASELINES=FALSE
 CORAL/RelationalPlugins/oracle Debug Prepared statement : "ALTER SESSION SET OPTIMIZER_USE_SQL_PLAN_BASELINES=FALSE"
 CORAL/RelationalPlugins/oracle Info CORAL_ORA_SKIP_TRANS_READONLY is not set: this session will use OCI serializable read-only transactions
-CORAL/Services/ConnectionService Info New user session with sessionID=98506442-caf8-11e7-a626-02163e018b42 started on connectionID=9849892e-caf8-11e7-a626-02163e018b42 to service "cms_orcon_adg" for user "CMS_COND_GENERAL_R" in read-only mode
-CORAL/Services/ConnectionService Debug A new connection to service "cms_orcon_adg" has been added in the active list. Id=9849892e-caf8-11e7-a626-02163e018b42
+CORAL/Services/ConnectionService Info New user session with sessionID=219b068e-caff-11e7-9825-02163e018c96 started on connectionID=21961890-caff-11e7-9825-02163e018c96 to service "cms_orcon_adg" for user "CMS_COND_GENERAL_R" in read-only mode
+CORAL/Services/ConnectionService Debug A new connection to service "cms_orcon_adg" has been added in the active list. Id=21961890-caff-11e7-9825-02163e018c96
 
 
-Querying the OMDS
+Querying the OMDS...
 
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT LHCFILL, NBUNCHESBEAM1, NBUNCHESBEAM2, NCOLLIDINGBUNCHES, NTARGETBUNCHES, RUNTIME_TYPE_ID, PARTY1, PARTY2, CROSSINGANGLE, BETASTAR, INTENSITYBEAM1, INTENSITYBEAM2, ENERGY, CREATETIME, BEGINTIME, ENDTIME, INJECTIONSCHEME, INSTLUMI FROM CMS_RUNTIME_LOGGER."RUNTIME_SUMMARY" "RUNTIME_SUMMARY", CMS_RUNTIME_LOGGER."LUMI_SECTIONS" "LUMI_SECTIONS" WHERE BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :"firstFillNumber" AND :"lastFillNumber" ORDER BY LHCFILL"
-CORAL/RelationalPlugins/oracle Error ORA-00918: column ambiguously defined (Executing statement "SELECT LHCFILL, NBUNCHESBEAM1, NBUNCHESBEAM2, NCOLLIDINGBUNCHES, NTARGETBUNCHES, RUNTIME_TYPE_ID, PARTY1, PARTY2, CROSSINGANGLE, BETASTAR, INTENSITYBEAM1, INTENSITYBEAM2, ENERGY, CREATETIME, BEGINTIME, ENDTIME, INJECTIONSCHEME, INSTLUMI FROM CMS_RUNTIME_LOGGER."RUNTIME_SUMMARY" "RUNTIME_SUMMARY", CMS_RUNTIME_LOGGER."LUMI_SECTIONS" "LUMI_SECTIONS" WHERE BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :"firstFillNumber" AND :"lastFillNumber" ORDER BY LHCFILL")
-CORAL/Services/ConnectionService Info User session with sessionID=98506442-caf8-11e7-a626-02163e018b42 will be ended on connectionID=9849892e-caf8-11e7-a626-02163e018b42
-CORAL/Services/ConnectionService Debug Connection id=9849892e-caf8-11e7-a626-02163e018b42 to service "cms_orcon_adg" has 0 session(s) opened.
-CORAL/Services/ConnectionService Debug The active connection id=9849892e-caf8-11e7-a626-02163e018b42 to service "cms_orcon_adg" has been removed from the active list.
-CORAL/Services/ConnectionService Debug The valid active connection id=9849892e-caf8-11e7-a626-02163e018b42 to service "cms_orcon_adg" has been moved to the idle list.
+
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT LHCFILL, NBUNCHESBEAM1, NBUNCHESBEAM2, NCOLLIDINGBUNCHES, NTARGETBUNCHES, RUNTIME_TYPE_ID, PARTY1, PARTY2, CROSSINGANGLE, BETASTAR, INTENSITYBEAM1, INTENSITYBEAM2, ENERGY, LUMI_SECTIONS.INSTLUMI, CREATETIME, BEGINTIME, ENDTIME, INJECTIONSCHEME FROM CMS_RUNTIME_LOGGER."RUNTIME_SUMMARY" "RUNTIME_SUMMARY", CMS_RUNTIME_LOGGER."LUMI_SECTIONS" "LUMI_SECTIONS" WHERE BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :"firstFillNumber" AND :"lastFillNumber" ORDER BY LHCFILL"
+CORAL/RelationalPlugins/oracle Error ORA-00918: column ambiguously defined (Executing statement "SELECT LHCFILL, NBUNCHESBEAM1, NBUNCHESBEAM2, NCOLLIDINGBUNCHES, NTARGETBUNCHES, RUNTIME_TYPE_ID, PARTY1, PARTY2, CROSSINGANGLE, BETASTAR, INTENSITYBEAM1, INTENSITYBEAM2, ENERGY, LUMI_SECTIONS.INSTLUMI, CREATETIME, BEGINTIME, ENDTIME, INJECTIONSCHEME FROM CMS_RUNTIME_LOGGER."RUNTIME_SUMMARY" "RUNTIME_SUMMARY", CMS_RUNTIME_LOGGER."LUMI_SECTIONS" "LUMI_SECTIONS" WHERE BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :"firstFillNumber" AND :"lastFillNumber" ORDER BY LHCFILL")
+CORAL/Services/ConnectionService Info User session with sessionID=219b068e-caff-11e7-9825-02163e018c96 will be ended on connectionID=21961890-caff-11e7-9825-02163e018c96
+CORAL/Services/ConnectionService Debug Connection id=21961890-caff-11e7-9825-02163e018c96 to service "cms_orcon_adg" has 0 session(s) opened.
+CORAL/Services/ConnectionService Debug The active connection id=21961890-caff-11e7-9825-02163e018c96 to service "cms_orcon_adg" has been removed from the active list.
+CORAL/Services/ConnectionService Debug The valid active connection id=21961890-caff-11e7-9825-02163e018c96 to service "cms_orcon_adg" has been moved to the idle list.
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare COMMIT
------ Begin Fatal Exception 16-Nov-2017 19:04:31 CET-----------------------
+----- Begin Fatal Exception 16-Nov-2017 19:51:18 CET-----------------------
 An exception of category 'StdException' occurred while
    [0] Calling endJob for module FillInfoPopConAnalyzer/'Test1'
 Exception Message:
 A std::exception was thrown.
 Could not execute a query ( CORAL : "IQuery::execute" from "CORAL/RelationalPlugins/oracle" )
 ----- End Fatal Exception -------------------------------------------------
-CORAL/Services/ConnectionService Info User session with sessionID=979ce962-caf8-11e7-a626-02163e018b42 will be ended on connectionID=979ce14c-caf8-11e7-a626-02163e018b42
-CORAL/Services/ConnectionService Debug Connection id=979ce14c-caf8-11e7-a626-02163e018b42 to service "test_output.db" has 0 session(s) opened.
-CORAL/Services/ConnectionService Debug The active connection id=979ce14c-caf8-11e7-a626-02163e018b42 to service "test_output.db" has been removed from the active list.
-CORAL/Services/ConnectionService Debug The valid active connection id=979ce14c-caf8-11e7-a626-02163e018b42 to service "test_output.db" has been moved to the idle list.
+CORAL/Services/ConnectionService Info User session with sessionID=21457a3e-caff-11e7-9825-02163e018c96 will be ended on connectionID=21453358-caff-11e7-9825-02163e018c96
+CORAL/Services/ConnectionService Debug Connection id=21453358-caff-11e7-9825-02163e018c96 to service "test_output.db" has 0 session(s) opened.
+CORAL/Services/ConnectionService Debug The active connection id=21453358-caff-11e7-9825-02163e018c96 to service "test_output.db" has been removed from the active list.
+CORAL/Services/ConnectionService Debug The valid active connection id=21453358-caff-11e7-9825-02163e018c96 to service "test_output.db" has been moved to the idle list.
 CORAL/Services/ConnectionService Info Deleting the ConnectionPool
-CORAL/Services/ConnectionService Info Connection to service "test_output.db" with connectionID=979ce14c-caf8-11e7-a626-02163e018b42 will be disconnected
-CORAL/Services/ConnectionService Info Connection to service "cms_orcon_adg" with connectionID=9849892e-caf8-11e7-a626-02163e018b42 will be disconnected
+CORAL/Services/ConnectionService Info Connection to service "test_output.db" with connectionID=21453358-caff-11e7-9825-02163e018c96 will be disconnected
+CORAL/Services/ConnectionService Info Connection to service "cms_orcon_adg" with connectionID=21961890-caff-11e7-9825-02163e018c96 will be disconnected

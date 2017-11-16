@@ -103,7 +103,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   //FROM clause
   fillDataQuery->addToTableList( std::string( "RUNTIME_SUMMARY" ) );
   //@A
-  fillDataQuery->addToTableList( std::string( "LUMI_SECTIONS ) );
+  fillDataQuery->addToTableList( std::string( "LUMI_SECTIONS" ) );
   //SELECT clause
   fillDataQuery->addToOutputList( std::string( "LHCFILL" ) );
   fillDataQuery->addToOutputList( std::string( "NBUNCHESBEAM1" ) );
@@ -119,7 +119,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   fillDataQuery->addToOutputList( std::string( "INTENSITYBEAM2" ) );
   fillDataQuery->addToOutputList( std::string( "ENERGY" ) );
   //@A
-  fillDataQuery->addToOutputList( std::string( "INSTLUMI" ) );
+  fillDataQuery->addToOutputList( std::string( "LUMI_SECTIONS.INSTLUMI" ) );
   fillDataQuery->addToOutputList( std::string( "CREATETIME" ) );
   fillDataQuery->addToOutputList( std::string( "BEGINTIME" ) );
   fillDataQuery->addToOutputList( std::string( "ENDTIME" ) );
