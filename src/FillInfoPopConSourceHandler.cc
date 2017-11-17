@@ -102,8 +102,6 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   std::unique_ptr<coral::IQuery> fillDataQuery( runTimeLoggerSchema.newQuery() );
   //FROM clause
   fillDataQuery->addToTableList( std::string( "RUNTIME_SUMMARY" ) );
-  //@A
-  fillDataQuery->addToTableList( std::string( "LUMI_SECTIONS" ) );
   //SELECT clause
   fillDataQuery->addToOutputList( std::string( "LHCFILL" ) );
   fillDataQuery->addToOutputList( std::string( "NBUNCHESBEAM1" ) );
@@ -118,8 +116,6 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   fillDataQuery->addToOutputList( std::string( "INTENSITYBEAM1" ) );
   fillDataQuery->addToOutputList( std::string( "INTENSITYBEAM2" ) );
   fillDataQuery->addToOutputList( std::string( "ENERGY" ) );
-  //@A
-  fillDataQuery->addToOutputList( std::string( "LUMI_SECTIONS.INSTLUMI" ) );
   fillDataQuery->addToOutputList( std::string( "CREATETIME" ) );
   fillDataQuery->addToOutputList( std::string( "BEGINTIME" ) );
   fillDataQuery->addToOutputList( std::string( "ENDTIME" ) );
@@ -151,8 +147,6 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   fillDataOutput.extend<float>( std::string( "INTENSITYBEAM1" ) );
   fillDataOutput.extend<float>( std::string( "INTENSITYBEAM2" ) );
   fillDataOutput.extend<float>( std::string( "ENERGY" ) );
-  //@A
-  fillDataOutput.extend<float>( std::string( "INSTLUMI" ) );
   fillDataOutput.extend<coral::TimeStamp>( std::string( "CREATETIME" ) );
   fillDataOutput.extend<coral::TimeStamp>( std::string( "BEGINTIME" ) );
   fillDataOutput.extend<coral::TimeStamp>( std::string( "ENDTIME" ) );
@@ -171,21 +165,34 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   unsigned short bunches1 = 0, bunches2 = 0, collidingBunches = 0, targetBunches = 0;
   FillInfo::FillTypeId fillType = FillInfo::UNKNOWN;
   FillInfo::ParticleTypeId particleType1 = FillInfo::NONE, particleType2 = FillInfo::NONE;
-//@A
-  float crossingAngle = 0., betastar = 0., intensityBeam1 = 0., intensityBeam2 = 0., energy = 0., instLumi = 0.;
+  float crossingAngle = 0., betastar = 0., intensityBeam1 = 0., intensityBeam2 = 0., energy = 0.;
   coral::TimeStamp stableBeamStartTimeStamp, beamDumpTimeStamp;
   cond::Time_t creationTime = 0ULL, stableBeamStartTime = 0ULL, beamDumpTime = 0ULL;
   std::string injectionScheme( "None" );
   std::ostringstream ss;
   //loop over the cursor where the result of the query were fetched
-  
 
+//@A
+/*  fillDataQuery->addToTableList( std::string( "LUMI_SECTIONS" ) );
+
+  fillDataQuery->addToOutputList( std::string( "LUMI_SECTIONS.INSTLUMI" ) );
+
+  fillDataOutput.extend<float>( std::string( "INSTLUMI" ) );
+
+    coral::Attribute const & instLumiAttribute = fillDataCursor.currentRow()[ std::string( "INSTLUMI" ) ];
+    if( instLumiAttribute.isNull() ){
+      instLumi = 0.;
+    } else {
+      instLumi = instLumiAttribute.data<float>();
+      ilv.push_back(instLumi);
+    }
+float instLumi = 0.;
+std::vector<float> ilv;
+*/
 //Prevent unnecessary execution of code.
 //Note remove the while loop to populate the database.
     //while( fillDataCursor.next() );
 
-  	//@A...
-  	std::vector<float> ilv;
     int i1 = 1;
 
     while( fillDataCursor.next() ) {
@@ -265,14 +272,6 @@ void FillInfoPopConSourceHandler::getNewObjects() {
     } else {
       energy = energyAttribute.data<float>();
     }
-//@A    
-    coral::Attribute const & instLumiAttribute = fillDataCursor.currentRow()[ std::string( "INSTLUMI" ) ];
-    if( instLumiAttribute.isNull() ){
-      instLumi = 0.;
-    } else {
-      instLumi = instLumiAttribute.data<float>();
-      ilv.push_back(instLumi);
-    }
     //CREATETIME IS NOT NULL
     creationTime = cond::time::from_boost( fillDataCursor.currentRow()[ std::string( "CREATETIME" ) ].data<coral::TimeStamp>().time() );
     //BEGINTIME is imposed to be NOT NULL in the WHERE clause
@@ -321,11 +320,11 @@ void FillInfoPopConSourceHandler::getNewObjects() {
     session.transaction().start( true );
 
 //@A
-/*
+
 std::set<std::string> List = beamCondSchema.listTables();
 std::cout<<"\n\n\n--------------------------"<<std::endl;
 std::cout << "Schema Description:\n";
-std::cout << "Schema Name: " << runTimeLoggerSchema.schemaName() << std::endl;
+std::cout << "Schema Name: " << beamCondSchema.schemaName() << std::endl;
 std::cout << "All Tables:\n";
 std::set<std::string>::iterator I;
 for(I = List.begin(); I != List.end(); ++I)
@@ -335,7 +334,7 @@ std::cout << "\nDetailed Table Description:\nTable Name:\t\tNo. of Columns:\n(Co
 for(I = List.begin(); I != List.end(); ++I)
 {
     try{
-			coral::ITable& fillTable = runTimeLoggerSchema.tableHandle(*I);
+			coral::ITable& fillTable = beamCondSchema.tableHandle(*I);
 			const coral::ITableDescription& description = fillTable.description();
 			int c = description.numberOfColumns();
 			std::cout << "\n" << description.name() << "\t\t" << c << std::endl;
@@ -352,8 +351,21 @@ for(I = List.begin(); I != List.end(); ++I)
 				std::cout << "Exception encountered for table:  " << *I << "\n\n";
 		}
 }
+ try{
+			coral::ITable& fillTable = runTimeLoggerSchema.tableHandle("LUMI_SECTIONS");
+			const coral::ITableDescription& description = fillTable.description();
+			const coral::IColumn& col = description.columnDescription("INSTLUMI");
+			int k = description.numberOfForeignKeys();
+			std::cout << "Description for INSTLUMI:\nTable:\t" << description.name() << "\nNo. of Foreign keys:\t" << k << "\nColumn name:\t" << col.name() << " (" << col.type() << ")" << std::endl;
+			std::cout << std::endl;
+		}
+		
+		catch(std::exception E)
+		{
+				std::cout << "Exception encountered for table:  " << *I << "\n\n";
+		}
 std::cout<<"--------------------------\n\n\n"<<std::endl;
-*/
+
     //prepare the WHERE clause for both queries
     coral::AttributeList bunchConfBindVariables;
     bunchConfBindVariables.extend<coral::TimeStamp>( std::string( "stableBeamStartTimeStamp" ) );
@@ -502,11 +514,11 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
   edm::LogInfo( m_name ) << "Transferring " << m_to_transfer.size() << " payload(s); from " << m_name << "::getNewObjects";
   
 //@A
-  std::cout << "\n\nObtained values of instLumi:\n";
+  /*std::cout << "\n\nObtained values of instLumi:\n";
   	for(std::vector<float>::iterator I = ilv.begin(); I != ilv.end(); ++I)
   		std::cout << *I << "\t";
   	std::cout << "\n\n\n";
-}
+}*/
 
 std::string FillInfoPopConSourceHandler::id() const { 
   return m_name;
