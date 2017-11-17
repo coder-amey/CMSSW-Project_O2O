@@ -98,7 +98,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   coral::ISchema& runTimeLoggerSchema = session.nominalSchema();
   //start the transaction against the fill logging schema
   session.transaction().start(true);
- //prepare the query:
+ //prepare the query for table 1:
   std::unique_ptr<coral::IQuery> fillDataQuery( runTimeLoggerSchema.newQuery() );
   //FROM clause
   fillDataQuery->addToTableList( std::string( "RUNTIME_SUMMARY" ) );
@@ -170,12 +170,85 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   cond::Time_t creationTime = 0ULL, stableBeamStartTime = 0ULL, beamDumpTime = 0ULL;
   std::string injectionScheme( "None" );
   std::ostringstream ss;
-  //loop over the cursor where the result of the query were fetched
 
 //@A
 
+//prepare the query for table 1:
+  std::unique_ptr<coral::IQuery> fillDataQuery( runTimeLoggerSchema.newQuery() );
+  //FROM clause
+  fillDataQuery->addToTableList( std::string( "RUNTIME_SUMMARY" ) );
+  //SELECT clause
+  fillDataQuery->addToOutputList( std::string( "LHCFILL" ) );
+  fillDataQuery->addToOutputList( std::string( "NBUNCHESBEAM1" ) );
+  fillDataQuery->addToOutputList( std::string( "NBUNCHESBEAM2" ) );
+  fillDataQuery->addToOutputList( std::string( "NCOLLIDINGBUNCHES" ) );
+  fillDataQuery->addToOutputList( std::string( "NTARGETBUNCHES" ) );
+  fillDataQuery->addToOutputList( std::string( "RUNTIME_TYPE_ID" ) );
+  fillDataQuery->addToOutputList( std::string( "PARTY1" ) );
+  fillDataQuery->addToOutputList( std::string( "PARTY2" ) );
+  fillDataQuery->addToOutputList( std::string( "CROSSINGANGLE" ) );
+  fillDataQuery->addToOutputList( std::string( "BETASTAR" ) );
+  fillDataQuery->addToOutputList( std::string( "INTENSITYBEAM1" ) );
+  fillDataQuery->addToOutputList( std::string( "INTENSITYBEAM2" ) );
+  fillDataQuery->addToOutputList( std::string( "ENERGY" ) );
+  fillDataQuery->addToOutputList( std::string( "CREATETIME" ) );
+  fillDataQuery->addToOutputList( std::string( "BEGINTIME" ) );
+  fillDataQuery->addToOutputList( std::string( "ENDTIME" ) );
+  fillDataQuery->addToOutputList( std::string( "INJECTIONSCHEME" ) );
+  //WHERE clause
+  coral::AttributeList fillDataBindVariables;
+  fillDataBindVariables.extend( std::string( "firstFillNumber" ), typeid( unsigned short ) );
+  fillDataBindVariables[ std::string( "firstFillNumber" ) ].data<unsigned short>() = m_firstFill;
+  fillDataBindVariables.extend( std::string( "lastFillNumber" ), typeid( unsigned short ) );
+  fillDataBindVariables[ std::string( "lastFillNumber" ) ].data<unsigned short>() = m_lastFill; 
+  //by imposing BEGINTIME IS NOT NULL, we remove fills which never went into stable beams,
+  //or the most recent one, just declared but not yet in stable beams
+  std::string conditionStr( "BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
+  fillDataQuery->setCondition( conditionStr, fillDataBindVariables );
+  //ORDER BY clause
+  fillDataQuery->addToOrderList( std::string( "LHCFILL" ) );
+  //define query output
+  coral::AttributeList fillDataOutput;
+  fillDataOutput.extend<unsigned short>( std::string( "LHCFILL" ) );
+  fillDataOutput.extend<unsigned short>( std::string( "NBUNCHESBEAM1" ) );
+  fillDataOutput.extend<unsigned short>( std::string( "NBUNCHESBEAM2" ) );
+  fillDataOutput.extend<unsigned short>( std::string( "NCOLLIDINGBUNCHES" ) );
+  fillDataOutput.extend<unsigned short>( std::string( "NTARGETBUNCHES" ) );
+  fillDataOutput.extend<int>( std::string( "RUNTIME_TYPE_ID" ) );
+  fillDataOutput.extend<int>( std::string( "PARTY1" ) );
+  fillDataOutput.extend<int>( std::string( "PARTY2" ) );
+  fillDataOutput.extend<float>( std::string( "CROSSINGANGLE" ) );
+  fillDataOutput.extend<float>( std::string( "BETASTAR" ) );
+  fillDataOutput.extend<float>( std::string( "INTENSITYBEAM1" ) );
+  fillDataOutput.extend<float>( std::string( "INTENSITYBEAM2" ) );
+  fillDataOutput.extend<float>( std::string( "ENERGY" ) );
+  fillDataOutput.extend<coral::TimeStamp>( std::string( "CREATETIME" ) );
+  fillDataOutput.extend<coral::TimeStamp>( std::string( "BEGINTIME" ) );
+  fillDataOutput.extend<coral::TimeStamp>( std::string( "ENDTIME" ) );
+  fillDataOutput.extend<std::string>( std::string( "INJECTIONSCHEME" ) );
+  fillDataQuery->defineOutput( fillDataOutput );
+  //execute the query
+  std::cout <<"\n\nQuerying the OMDS...\n\n"<<std::endl;
+  coral::ICursor& fillDataCursor = fillDataQuery->execute();
+  //initialize loop variables
+  unsigned short previousFillNumber = 1, currentFill = m_firstFill;
+  cond::Time_t previousFillEndTime = 0ULL, afterPreviousFillEndTime = 0ULL, beforeStableBeamStartTime = 0ULL;
+  if( tagInfo().size > 0 ) {
+    previousFillNumber = previousFill->fillNumber();
+    previousFillEndTime = previousFill->endTime();
+  }
+  unsigned short bunches1 = 0, bunches2 = 0, collidingBunches = 0, targetBunches = 0;
+  FillInfo::FillTypeId fillType = FillInfo::UNKNOWN;
+  FillInfo::ParticleTypeId particleType1 = FillInfo::NONE, particleType2 = FillInfo::NONE;
+  float crossingAngle = 0., betastar = 0., intensityBeam1 = 0., intensityBeam2 = 0., energy = 0.;
+  coral::TimeStamp stableBeamStartTimeStamp, beamDumpTimeStamp;
+  cond::Time_t creationTime = 0ULL, stableBeamStartTime = 0ULL, beamDumpTime = 0ULL;
+  std::string injectionScheme( "None" );
+  std::ostringstream ss;
+
+
+/*
 coral::ISchema& BCS = session.coralSession().schema( m_dipSchema );
-//start the transaction against the DIP "deep" database backend schema
 session.transaction().start( true );
 std::set<std::string> List = BCS.listTables();
 std::cout<<"\n\n\n--------------------------"<<std::endl;
@@ -220,8 +293,9 @@ catch(std::exception E)
 {
 	std::cout << "Exception encountered for table:  " << *I << "\n\n";
 }
+session.transaction.commit();
 std::cout<<"--------------------------\n\n\n"<<std::endl;
-
+*/
 
 /*  fillDataQuery->addToTableList( std::string( "LUMI_SECTIONS" ) );
 
@@ -241,8 +315,9 @@ std::vector<float> ilv;
 */
 //Prevent unnecessary execution of code.
 //Note remove the while loop to populate the database.
-    while( fillDataCursor.next() );
+//	while( fillDataCursor.next() );
 
+  //loop over the cursor where the result of the query were fetched
     int i1 = 1;
 
     while( fillDataCursor.next() ) {
