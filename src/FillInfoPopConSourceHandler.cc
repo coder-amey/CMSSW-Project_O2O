@@ -258,13 +258,17 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 //	while( fillDataCursor.next() );
 
   //loop over the cursor where the result of the query were fetched
+   
+    int i0 = 1, i1 = 1;
+
     std::cout <<"\n\nRetrieving INSTLUMI data...\n\n";
     while( fillDataCursor2.next() ) {
-		if( m_debug ) {
+		/*if( m_debug ) {
 		  std::ostringstream qs;
 		  fillDataCursor2.currentRow().toOutputStream( qs );
 		  edm::LogInfo( m_name ) << qs.str() << "\nfrom " << m_name << "::getNewObjects";
-		}
+		}*/
+		i0++;
 		coral::Attribute const & instLumiAttribute = fillDataCursor2.currentRow()[ std::string( "INSTLUMI" ) ];
 		if( instLumiAttribute.isNull() ){
 		  instLumi = 0.;
@@ -273,8 +277,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 		  ilv.push_back(instLumi);
 		}
 	}
-    
-    int i1 = 1;
+ std::cout <<"Records processed: "<< i0 << "...";
 
     while( fillDataCursor.next() ) {
        std::cout <<"\n\n\nProcessing Record "<< i1++<< "...\n\n";
