@@ -26,16 +26,16 @@ PluginManager Info PluginManager loaded CORAL/RelationalPlugins/sqlite factory f
 CORAL/Services/ConnectionService Debug No valid connection for string "sqlite_file:test_output.db" found in the pool. Creating a new connection.
 CORAL/Services/ConnectionService Debug Trying to get a new update session on "sqlite_file:test_output.db"
 CORAL/Services/ConnectionService Debug Connection parameters are: Retry-Period=10sec, Retry-Timeout=60sec, Connection-Timeout=300sec.
-CORAL/Services/ConnectionService Info New connection to service "test_output.db" with connectionID=64ec4bf2-cbd9-11e7-91e7-02163e018b1e has been connected
-CORAL/Services/ConnectionService Info New user session with sessionID=64ec5250-cbd9-11e7-91e7-02163e018b1e started on connectionID=64ec4bf2-cbd9-11e7-91e7-02163e018b1e to service "test_output.db" for user "" in update mode
-CORAL/Services/ConnectionService Debug A new connection to service "test_output.db" has been added in the active list. Id=64ec4bf2-cbd9-11e7-91e7-02163e018b1e
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@ctor 17-Nov-2017 21:53:42 CET  pre-events
+CORAL/Services/ConnectionService Info New connection to service "test_output.db" with connectionID=a31e460e-cbda-11e7-8a78-02163e018f2c has been connected
+CORAL/Services/ConnectionService Info New user session with sessionID=a31e4fbe-cbda-11e7-8a78-02163e018f2c started on connectionID=a31e460e-cbda-11e7-8a78-02163e018f2c to service "test_output.db" for user "" in update mode
+CORAL/Services/ConnectionService Debug A new connection to service "test_output.db" has been added in the active list. Id=a31e460e-cbda-11e7-8a78-02163e018f2c
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@ctor 17-Nov-2017 22:02:35 CET  pre-events
 This is PopCon (Populator of Condition) v5.0.
 Please report any problem and feature request through the JIRA project CMSCONDDB.
 
 %MSG
-Begin processing the 1st record. Run 1, Event 1, LumiSection 1 at 17-Nov-2017 21:53:42.004 CET
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 17-Nov-2017 21:53:42 CET  PostEndRun
+Begin processing the 1st record. Run 1, Event 1, LumiSection 1 at 17-Nov-2017 22:02:35.934 CET
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 17-Nov-2017 22:02:35 CET  PostEndRun
 payload name FillInfo
 %MSG
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare BEGIN
@@ -57,7 +57,7 @@ CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 17-Nov-2017 21:53:42 CET  PostEndRun
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 17-Nov-2017 22:02:35 CET  PostEndRun
 destination DB: sqlite_file:test_output.db, target DB: sqlite_file:test_output.db
 TAG: fillinfo_test; First writer to this new tag.
 %MSG
@@ -66,7 +66,7 @@ TAG: fillinfo_test; First writer to this new tag.
 Getting new objects...
 
 
-%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  17-Nov-2017 21:53:42 CET PostEndRun
+%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  17-Nov-2017 22:02:35 CET PostEndRun
 New tag fillinfo_test; from FillInfoPopConSourceHandler::getNewObjects
 %MSG
 CORAL/Services/ConnectionService Info Disable connection sharing
@@ -84,12 +84,12 @@ CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT AUTHO.C_ROLE, 
 CORAL/Services/ConnectionService Debug No valid connection for string "oracle://cms_orcon_adg/CMS_RUNTIME_LOGGER" found in the pool. Creating a new connection.
 CORAL/Services/ConnectionService Debug Trying to get a new read-only session on "oracle://cms_orcon_adg/CMS_RUNTIME_LOGGER"
 CORAL/Services/ConnectionService Debug Connection parameters are: Retry-Period=10sec, Retry-Timeout=60sec, Connection-Timeout=300sec.
-CORAL/Services/ConnectionService Info New connection to service "cms_orcon_adg" with connectionID=65141178-cbd9-11e7-91e7-02163e018b1e has been connected
+CORAL/Services/ConnectionService Info New connection to service "cms_orcon_adg" with connectionID=a388a7c4-cbda-11e7-8a78-02163e018f2c has been connected
 CORAL/RelationalPlugins/oracle Info Disable plan baseline use by ALTER SESSION SET OPTIMIZER_USE_SQL_PLAN_BASELINES=FALSE
 CORAL/RelationalPlugins/oracle Debug Prepared statement : "ALTER SESSION SET OPTIMIZER_USE_SQL_PLAN_BASELINES=FALSE"
 CORAL/RelationalPlugins/oracle Info CORAL_ORA_SKIP_TRANS_READONLY is not set: this session will use OCI serializable read-only transactions
-CORAL/Services/ConnectionService Info New user session with sessionID=6518775e-cbd9-11e7-91e7-02163e018b1e started on connectionID=65141178-cbd9-11e7-91e7-02163e018b1e to service "cms_orcon_adg" for user "CMS_COND_GENERAL_R" in read-only mode
-CORAL/Services/ConnectionService Debug A new connection to service "cms_orcon_adg" has been added in the active list. Id=65141178-cbd9-11e7-91e7-02163e018b1e
+CORAL/Services/ConnectionService Info New user session with sessionID=a38c7d86-cbda-11e7-8a78-02163e018f2c started on connectionID=a388a7c4-cbda-11e7-8a78-02163e018f2c to service "cms_orcon_adg" for user "CMS_COND_GENERAL_R" in read-only mode
+CORAL/Services/ConnectionService Debug A new connection to service "cms_orcon_adg" has been added in the active list. Id=a388a7c4-cbda-11e7-8a78-02163e018f2c
 CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT /* user has no SELECT ANY TABLE privileges */ TABLE_NAME FROM ALL_TABLES WHERE OWNER=:OWNER"
 
 
@@ -128,484 +128,347 @@ Table Name:		No. of Columns:
 (Column Details follow.)
 
 BUNCH_LUMI_SECTIONS		8
-	RUNNUMBER (int)
 CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."BUNCH_LUMI_SECTIONS" "BUNCH_LUMI_SECTIONS""
 CORAL/RelationalPlugins/oracle Error ORA-01013: user requested cancel of current operation (Fetching the next row from "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."BUNCH_LUMI_SECTIONS" "BUNCH_LUMI_SECTIONS"")
 Exception encountered for table:  BUNCH_LUMI_SECTIONS
 
 
 BUNCH_MAP		3
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."BUNCH_MAP" "BUNCH_MAP""
+[ROWS (int) : 3564]
 	BUNCH (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."BUNCH_MAP" "BUNCH_MAP""
-[ROWS (int) : 3564]
 	ENABLED (bool)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."BUNCH_MAP" "BUNCH_MAP""
-[ROWS (int) : 3564]
 	BUNCH2808 (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."BUNCH_MAP" "BUNCH_MAP""
-[ROWS (int) : 3564]
 
 
 CMS_PAGE1_IMAGE		4
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_IMAGE" "CMS_PAGE1_IMAGE""
+[ROWS (int) : 4]
 	UPDATETIME (time stamp)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_IMAGE" "CMS_PAGE1_IMAGE""
-[ROWS (int) : 4]
 	HOSTNAME (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_IMAGE" "CMS_PAGE1_IMAGE""
-[ROWS (int) : 4]
 	IMAGE (blob)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_IMAGE" "CMS_PAGE1_IMAGE""
-[ROWS (int) : 4]
 	IMAGELENGTH (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_IMAGE" "CMS_PAGE1_IMAGE""
-[ROWS (int) : 4]
 
 
 CMS_PAGE1_MESSAGES		10
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES" "CMS_PAGE1_MESSAGES""
+[ROWS (int) : 2552]
 	ID (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES" "CMS_PAGE1_MESSAGES""
-[ROWS (int) : 2552]
 	CREATETIME (time stamp)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES" "CMS_PAGE1_MESSAGES""
-[ROWS (int) : 2552]
 	ENABLED (char)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES" "CMS_PAGE1_MESSAGES""
-[ROWS (int) : 2552]
 	MESSAGE (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES" "CMS_PAGE1_MESSAGES""
-[ROWS (int) : 2552]
 	NAME (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES" "CMS_PAGE1_MESSAGES""
-[ROWS (int) : 2552]
 	ELOG_URL (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES" "CMS_PAGE1_MESSAGES""
-[ROWS (int) : 2552]
 	USERNAME (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES" "CMS_PAGE1_MESSAGES""
-[ROWS (int) : 2552]
 	OS_USER (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES" "CMS_PAGE1_MESSAGES""
-[ROWS (int) : 2552]
 	HOST (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES" "CMS_PAGE1_MESSAGES""
-[ROWS (int) : 2552]
 	IP_ADDRESS (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES" "CMS_PAGE1_MESSAGES""
-[ROWS (int) : 2552]
 
 
 CMS_PAGE1_MESSAGES_CURRENT		11
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES_CURRENT" "CMS_PAGE1_MESSAGES_CURRENT""
+[ROWS (int) : 1]
 	ID (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES_CURRENT" "CMS_PAGE1_MESSAGES_CURRENT""
-[ROWS (int) : 1]
 	CREATETIME (time stamp)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES_CURRENT" "CMS_PAGE1_MESSAGES_CURRENT""
-[ROWS (int) : 1]
 	ENABLED (char)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES_CURRENT" "CMS_PAGE1_MESSAGES_CURRENT""
-[ROWS (int) : 1]
 	MESSAGE (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES_CURRENT" "CMS_PAGE1_MESSAGES_CURRENT""
-[ROWS (int) : 1]
 	NAME (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES_CURRENT" "CMS_PAGE1_MESSAGES_CURRENT""
-[ROWS (int) : 1]
 	ELOG_URL (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES_CURRENT" "CMS_PAGE1_MESSAGES_CURRENT""
-[ROWS (int) : 1]
 	USERNAME (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES_CURRENT" "CMS_PAGE1_MESSAGES_CURRENT""
-[ROWS (int) : 1]
 	OS_USER (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES_CURRENT" "CMS_PAGE1_MESSAGES_CURRENT""
-[ROWS (int) : 1]
 	HOST (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES_CURRENT" "CMS_PAGE1_MESSAGES_CURRENT""
-[ROWS (int) : 1]
 	IP_ADDRESS (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES_CURRENT" "CMS_PAGE1_MESSAGES_CURRENT""
-[ROWS (int) : 1]
 	IMAGE (blob)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."CMS_PAGE1_MESSAGES_CURRENT" "CMS_PAGE1_MESSAGES_CURRENT""
-[ROWS (int) : 1]
 
 
 DAILY_LUMINOSITY		8
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DAILY_LUMINOSITY" "DAILY_LUMINOSITY""
+[ROWS (int) : 2449]
 	YEAR (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DAILY_LUMINOSITY" "DAILY_LUMINOSITY""
-[ROWS (int) : 2449]
 	DAY (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DAILY_LUMINOSITY" "DAILY_LUMINOSITY""
-[ROWS (int) : 2449]
 	PEAKLUMI (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DAILY_LUMINOSITY" "DAILY_LUMINOSITY""
-[ROWS (int) : 2449]
 	RECORDED (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DAILY_LUMINOSITY" "DAILY_LUMINOSITY""
-[ROWS (int) : 2449]
 	DELIVERED (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DAILY_LUMINOSITY" "DAILY_LUMINOSITY""
-[ROWS (int) : 2449]
 	LASTUPDATE (time stamp)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DAILY_LUMINOSITY" "DAILY_LUMINOSITY""
-[ROWS (int) : 2449]
 	DURATION (float)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DAILY_LUMINOSITY" "DAILY_LUMINOSITY""
-[ROWS (int) : 2449]
 	RUNTIME_TYPE_ID (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DAILY_LUMINOSITY" "DAILY_LUMINOSITY""
-[ROWS (int) : 2449]
 
 
 DAILY_LUMINOSITY_77		8
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DAILY_LUMINOSITY_77" "DAILY_LUMINOSITY_77""
+[ROWS (int) : 220]
 	YEAR (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DAILY_LUMINOSITY_77" "DAILY_LUMINOSITY_77""
-[ROWS (int) : 220]
 	DAY (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DAILY_LUMINOSITY_77" "DAILY_LUMINOSITY_77""
-[ROWS (int) : 220]
 	PEAKLUMI (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DAILY_LUMINOSITY_77" "DAILY_LUMINOSITY_77""
-[ROWS (int) : 220]
 	RECORDED (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DAILY_LUMINOSITY_77" "DAILY_LUMINOSITY_77""
-[ROWS (int) : 220]
 	DELIVERED (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DAILY_LUMINOSITY_77" "DAILY_LUMINOSITY_77""
-[ROWS (int) : 220]
 	LASTUPDATE (time stamp)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DAILY_LUMINOSITY_77" "DAILY_LUMINOSITY_77""
-[ROWS (int) : 220]
 	DURATION (float)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DAILY_LUMINOSITY_77" "DAILY_LUMINOSITY_77""
-[ROWS (int) : 220]
 	RUNTIME_TYPE_ID (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DAILY_LUMINOSITY_77" "DAILY_LUMINOSITY_77""
-[ROWS (int) : 220]
 
 
 DCS_STATUS_CURRENT		7
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DCS_STATUS_CURRENT" "DCS_STATUS_CURRENT""
+[ROWS (int) : 1]
 	ID (long long)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DCS_STATUS_CURRENT" "DCS_STATUS_CURRENT""
-[ROWS (int) : 1]
 	CREATETIME (time stamp)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DCS_STATUS_CURRENT" "DCS_STATUS_CURRENT""
-[ROWS (int) : 1]
 	DIPTIME (time stamp)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DCS_STATUS_CURRENT" "DCS_STATUS_CURRENT""
-[ROWS (int) : 1]
 	DCSSTATUS (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DCS_STATUS_CURRENT" "DCS_STATUS_CURRENT""
-[ROWS (int) : 1]
 	PREVIOUSDCSSTATUS (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DCS_STATUS_CURRENT" "DCS_STATUS_CURRENT""
-[ROWS (int) : 1]
 	RUNNUMBER (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DCS_STATUS_CURRENT" "DCS_STATUS_CURRENT""
-[ROWS (int) : 1]
 	LUMISECTION (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DCS_STATUS_CURRENT" "DCS_STATUS_CURRENT""
-[ROWS (int) : 1]
 
 
 DCS_STATUS_HISTORY		7
-	ID (long long)
 CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DCS_STATUS_HISTORY" "DCS_STATUS_HISTORY""
 CORAL/RelationalPlugins/oracle Error ORA-01013: user requested cancel of current operation (Fetching the next row from "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DCS_STATUS_HISTORY" "DCS_STATUS_HISTORY"")
 Exception encountered for table:  DCS_STATUS_HISTORY
 
 
 DOWNTIME_CATEGORIES		6
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_CATEGORIES" "DOWNTIME_CATEGORIES""
+[ROWS (int) : 70]
 	ID (short)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_CATEGORIES" "DOWNTIME_CATEGORIES""
-[ROWS (int) : 70]
 	NAME (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_CATEGORIES" "DOWNTIME_CATEGORIES""
-[ROWS (int) : 70]
 	ENABLED (char)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_CATEGORIES" "DOWNTIME_CATEGORIES""
-[ROWS (int) : 70]
 	GROUP_ID (short)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_CATEGORIES" "DOWNTIME_CATEGORIES""
-[ROWS (int) : 70]
 	DESCRIPTION (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_CATEGORIES" "DOWNTIME_CATEGORIES""
-[ROWS (int) : 70]
 	COLOR (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_CATEGORIES" "DOWNTIME_CATEGORIES""
-[ROWS (int) : 70]
 
 
 DOWNTIME_EVENTS		14
-	ID (int)
 CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_EVENTS" "DOWNTIME_EVENTS""
 CORAL/RelationalPlugins/oracle Error ORA-01013: user requested cancel of current operation (Fetching the next row from "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_EVENTS" "DOWNTIME_EVENTS"")
 Exception encountered for table:  DOWNTIME_EVENTS
 
 
 DOWNTIME_EVENTS_COMMENTS		7
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_EVENTS_COMMENTS" "DOWNTIME_EVENTS_COMMENTS""
+[ROWS (int) : 46]
 	ID (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_EVENTS_COMMENTS" "DOWNTIME_EVENTS_COMMENTS""
-[ROWS (int) : 46]
 	EVENT_ID (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_EVENTS_COMMENTS" "DOWNTIME_EVENTS_COMMENTS""
-[ROWS (int) : 46]
 	CREATETIME (time stamp)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_EVENTS_COMMENTS" "DOWNTIME_EVENTS_COMMENTS""
-[ROWS (int) : 46]
 	UPDATETIME (time stamp)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_EVENTS_COMMENTS" "DOWNTIME_EVENTS_COMMENTS""
-[ROWS (int) : 46]
 	AUTHOR (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_EVENTS_COMMENTS" "DOWNTIME_EVENTS_COMMENTS""
-[ROWS (int) : 46]
 	COMPONENT (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_EVENTS_COMMENTS" "DOWNTIME_EVENTS_COMMENTS""
-[ROWS (int) : 46]
 	TEXT (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_EVENTS_COMMENTS" "DOWNTIME_EVENTS_COMMENTS""
-[ROWS (int) : 46]
 
 
 DOWNTIME_EVENTS_HISTORY		17
-	ID (int)
 CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_EVENTS_HISTORY" "DOWNTIME_EVENTS_HISTORY""
 CORAL/RelationalPlugins/oracle Error ORA-01013: user requested cancel of current operation (Fetching the next row from "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_EVENTS_HISTORY" "DOWNTIME_EVENTS_HISTORY"")
 Exception encountered for table:  DOWNTIME_EVENTS_HISTORY
 
 
 DOWNTIME_GROUPS		5
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_GROUPS" "DOWNTIME_GROUPS""
+[ROWS (int) : 8]
 	ID (short)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_GROUPS" "DOWNTIME_GROUPS""
-[ROWS (int) : 8]
 	NAME (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_GROUPS" "DOWNTIME_GROUPS""
-[ROWS (int) : 8]
 	ENABLED (char)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_GROUPS" "DOWNTIME_GROUPS""
-[ROWS (int) : 8]
 	DESCRIPTION (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_GROUPS" "DOWNTIME_GROUPS""
-[ROWS (int) : 8]
 	COLOR (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."DOWNTIME_GROUPS" "DOWNTIME_GROUPS""
-[ROWS (int) : 8]
 
 
 FILL_ERA		12
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."FILL_ERA" "FILL_ERA""
+[ROWS (int) : 32]
 	ERA (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."FILL_ERA" "FILL_ERA""
-[ROWS (int) : 32]
 	BEGINTIME (time stamp)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."FILL_ERA" "FILL_ERA""
-[ROWS (int) : 32]
 	LHCFILL_LOW (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."FILL_ERA" "FILL_ERA""
-[ROWS (int) : 32]
 	RUN_LOW (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."FILL_ERA" "FILL_ERA""
-[ROWS (int) : 32]
 	LHCFILL_HIGH (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."FILL_ERA" "FILL_ERA""
-[ROWS (int) : 32]
 	ENDTIME (time stamp)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."FILL_ERA" "FILL_ERA""
-[ROWS (int) : 32]
 	RUN_HIGH (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."FILL_ERA" "FILL_ERA""
-[ROWS (int) : 32]
 	COMMENTS (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."FILL_ERA" "FILL_ERA""
-[ROWS (int) : 32]
 	CREATETIME (time stamp)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."FILL_ERA" "FILL_ERA""
-[ROWS (int) : 32]
 	CREATEUSER (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."FILL_ERA" "FILL_ERA""
-[ROWS (int) : 32]
 	UPDATETIME (time stamp)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."FILL_ERA" "FILL_ERA""
-[ROWS (int) : 32]
 	UPDATEUSER (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."FILL_ERA" "FILL_ERA""
-[ROWS (int) : 32]
 
 
 FILL_INITLUMIPERBUNCH		7
-	LHCFILL (int)
 CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."FILL_INITLUMIPERBUNCH" "FILL_INITLUMIPERBUNCH""
 CORAL/RelationalPlugins/oracle Error ORA-01013: user requested cancel of current operation (Fetching the next row from "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."FILL_INITLUMIPERBUNCH" "FILL_INITLUMIPERBUNCH"")
 Exception encountered for table:  FILL_INITLUMIPERBUNCH
 
 
 INITIAL_PRESCALE_INDEX		3
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."INITIAL_PRESCALE_INDEX" "INITIAL_PRESCALE_INDEX""
+[ROWS (int) : 32024]
 	RUNNUMBER (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."INITIAL_PRESCALE_INDEX" "INITIAL_PRESCALE_INDEX""
-[ROWS (int) : 32024]
 	INITIALPRESCALEINDEX (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."INITIAL_PRESCALE_INDEX" "INITIAL_PRESCALE_INDEX""
-[ROWS (int) : 32024]
 	ZEROBIASPRESCALE (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."INITIAL_PRESCALE_INDEX" "INITIAL_PRESCALE_INDEX""
-[ROWS (int) : 32024]
 
 
 LUMI_SECTIONS		57
-	RUNNUMBER (int)
 CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."LUMI_SECTIONS" "LUMI_SECTIONS""
-CORAL/RelationalPlugins/oracle Error ORA-01013: user requested cancel of current operation (Fetching the next row from "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."LUMI_SECTIONS" "LUMI_SECTIONS"")
-Exception encountered for table:  LUMI_SECTIONS
+[ROWS (int) : 6344703]
+	RUNNUMBER (int)
+	LUMISECTION (int)
+	STARTORBIT (long long)
+	STARTTIME (time stamp)
+	STOPTIME (time stamp)
+	INSTLUMI (float)
+	INSTLUMIERROR (float)
+	DELIVLUMI (float)
+	LIVELUMI (float)
+	DEADTIME (float)
+	BEAM1_STABLE (bool)
+	BEAM2_STABLE (bool)
+	EBP_READY (bool)
+	EBM_READY (bool)
+	EEP_READY (bool)
+	EEM_READY (bool)
+	HBHEA_READY (bool)
+	HBHEB_READY (bool)
+	HBHEC_READY (bool)
+	HF_READY (bool)
+	HO_READY (bool)
+	RPC_READY (bool)
+	DT0_READY (bool)
+	DTP_READY (bool)
+	DTM_READY (bool)
+	CSCP_READY (bool)
+	CSCM_READY (bool)
+	CASTOR_READY (bool)
+	TIBTID_READY (bool)
+	TOB_READY (bool)
+	TECP_READY (bool)
+	TECM_READY (bool)
+	BPIX_READY (bool)
+	FPIX_READY (bool)
+	ESP_READY (bool)
+	ESM_READY (bool)
+	DCSSTATUS (int)
+	BEAM1_PRESENT (bool)
+	BEAM2_PRESENT (bool)
+	BEAM1_SAFE (bool)
+	BEAM2_SAFE (bool)
+	BEAM1_MOVEABLE (bool)
+	BEAM2_MOVEABLE (bool)
+	BEAM1_SMP (short)
+	BEAM2_SMP (short)
+	LHCFILL (int)
+	DELIVLUMISECTION (float)
+	LIVELUMISECTION (float)
+	ZDC_READY (bool)
+	LASTUPDATE (time stamp)
+	BEAM1_INTENSITY (float)
+	CMS_ACTIVE (bool)
+	BEAM2_INTENSITY (float)
+	PHYSICS_FLAG (bool)
+	INSTLUMISQUARES (float)
+	PILEUP (float)
+	PILEUPRMS (float)
 
 CORAL/RelationalPlugins/oracle Error Cannot handle the type of column RUNTIME in table CMS_RUNTIME_LOGGER.RUNTIME_SUMMARY
 Exception encountered for table:  RUNTIME_SUMMARY
 
 
 RUNTIME_TYPE		4
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."RUNTIME_TYPE" "RUNTIME_TYPE""
+[ROWS (int) : 5]
 	ID (float)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."RUNTIME_TYPE" "RUNTIME_TYPE""
-[ROWS (int) : 5]
 	NAME (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."RUNTIME_TYPE" "RUNTIME_TYPE""
-[ROWS (int) : 5]
 	ENABLED (char)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."RUNTIME_TYPE" "RUNTIME_TYPE""
-[ROWS (int) : 5]
 	DESCRIPTION (string)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."RUNTIME_TYPE" "RUNTIME_TYPE""
-[ROWS (int) : 5]
 
 
 WEEKLY_LUMINOSITY		8
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."WEEKLY_LUMINOSITY" "WEEKLY_LUMINOSITY""
+[ROWS (int) : 378]
 	YEAR (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."WEEKLY_LUMINOSITY" "WEEKLY_LUMINOSITY""
-[ROWS (int) : 378]
 	WEEK (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."WEEKLY_LUMINOSITY" "WEEKLY_LUMINOSITY""
-[ROWS (int) : 378]
 	PEAKLUMI (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."WEEKLY_LUMINOSITY" "WEEKLY_LUMINOSITY""
-[ROWS (int) : 378]
 	RECORDED (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."WEEKLY_LUMINOSITY" "WEEKLY_LUMINOSITY""
-[ROWS (int) : 378]
 	DELIVERED (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."WEEKLY_LUMINOSITY" "WEEKLY_LUMINOSITY""
-[ROWS (int) : 378]
 	LASTUPDATE (time stamp)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."WEEKLY_LUMINOSITY" "WEEKLY_LUMINOSITY""
-[ROWS (int) : 378]
 	HUEBNERFACTOR (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."WEEKLY_LUMINOSITY" "WEEKLY_LUMINOSITY""
-[ROWS (int) : 378]
 	RUNTIME_TYPE_ID (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."WEEKLY_LUMINOSITY" "WEEKLY_LUMINOSITY""
-[ROWS (int) : 378]
 
 
 WEEKLY_LUMINOSITY_WT		8
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."WEEKLY_LUMINOSITY_WT" "WEEKLY_LUMINOSITY_WT""
+[ROWS (int) : 38]
 	YEAR (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."WEEKLY_LUMINOSITY_WT" "WEEKLY_LUMINOSITY_WT""
-[ROWS (int) : 38]
 	WEEK (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."WEEKLY_LUMINOSITY_WT" "WEEKLY_LUMINOSITY_WT""
-[ROWS (int) : 38]
 	PEAKLUMI (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."WEEKLY_LUMINOSITY_WT" "WEEKLY_LUMINOSITY_WT""
-[ROWS (int) : 38]
 	RECORDED (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."WEEKLY_LUMINOSITY_WT" "WEEKLY_LUMINOSITY_WT""
-[ROWS (int) : 38]
 	DELIVERED (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."WEEKLY_LUMINOSITY_WT" "WEEKLY_LUMINOSITY_WT""
-[ROWS (int) : 38]
 	LASTUPDATE (time stamp)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."WEEKLY_LUMINOSITY_WT" "WEEKLY_LUMINOSITY_WT""
-[ROWS (int) : 38]
 	HUEBNERFACTOR (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."WEEKLY_LUMINOSITY_WT" "WEEKLY_LUMINOSITY_WT""
-[ROWS (int) : 38]
 	RUNTIME_TYPE_ID (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."WEEKLY_LUMINOSITY_WT" "WEEKLY_LUMINOSITY_WT""
-[ROWS (int) : 38]
 
 
 YEARLY_LUMINOSITY		65
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
+[ROWS (int) : 40]
 	YEAR (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	PEAKLUMI (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	RECORDEDLUMI (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	DELIVEREDLUMI (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	MAXLUMIFILL (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	MAXLUMIDAY (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	MAXLUMIWEEK (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	MAXLUMIMONTH (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	MAXBUNCHES (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	MAXPILEUP (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	LONGESTFILL (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	LONGESTDAY (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	LONGESTWEEK (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	LONGESTMONTH (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	LONGESTFILL_HOURS (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	LONGESTDAY_HOURS (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	LONGESTWEEK_HOURS (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	LONGESTMONTH_HOURS (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	FASTEST_TO_READY_FILL (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	FASTEST_TO_READY_RUN (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	FASTEST_TO_READY_MINUTES (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	FASTEST_BEAM_TURNAROUND_FILL1 (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	FASTEST_BEAM_TURNAROUND_FILL2 (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	FASTEST_BEAM_TURNAROUND_HOURS (double)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-[ROWS (int) : 40]
 	BESTEFFICIENCYFILL (int)
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY""
-CORAL/RelationalPlugins/oracle Error ORA-01013: user requested cancel of current operation (Fetching the next row from "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."YEARLY_LUMINOSITY" "YEARLY_LUMINOSITY"")
-Exception encountered for table:  YEARLY_LUMINOSITY
+	BESTEFFICIENCYDAY (int)
+	BESTEFFICIENCYWEEK (int)
+	BESTEFFICIENCYMONTH (int)
+	BESTEFFICIENCYFILL_PERCENT (double)
+	BESTEFFICIENCYDAY_PERCENT (double)
+	BESTEFFICIENCYWEEK_PERCENT (double)
+	BESTEFFICIENCYMONTH_PERCENT (double)
+	LASTUPDATE (time stamp)
+	HUEBNERFACTOR (double)
+	MAXLUMIFILL_FILL (int)
+	MAXLUMIDAY_DAY (int)
+	MAXLUMIWEEK_WEEK (int)
+	MAXLUMIMONTH_MONTH (int)
+	PEAKLUMI_TIME (time stamp)
+	MAXPILEUP_TIME (time stamp)
+	MAXPILEUP_FILL (int)
+	PEAKLUMI_FILL (int)
+	MAXBUNCHES_TIME (time stamp)
+	MAXBUNCHES_FILL (int)
+	RUNTIME_TYPE_ID (int)
+	CONDITIONS (bool)
+	MAXLUMIRECORDEDFILL (double)
+	MAXLUMIRECORDEDFILL_FILL (int)
+	MAXLUMIRECORDEDDAY (double)
+	MAXLUMIRECORDEDDAY_DAY (int)
+	MAXLUMIRECORDEDWEEK (double)
+	MAXLUMIRECORDEDWEEK_WEEK (int)
+	MAXLUMIRECORDEDMONTH (double)
+	MAXLUMIRECORDEDMONTH_MONTH (int)
+	MAXLUMIRECORDEDFILL_EFF (double)
+	MAXLUMIRECORDEDDAY_EFF (double)
+	MAXLUMIRECORDEDWEEK_EFF (double)
+	MAXLUMIRECORDEDMONTH_EFF (double)
+	CONDITIONS_COMMENTS (string)
+	UNITS_HF_INT_LUMI (int)
+	UNITS_HF_INST_LUMI (int)
+	UNITS_HF_INST_LUMI_WBM (int)
+	UNITS_BCM1F_INST_LUMI (int)
+	UNITS_ATLAS_INST_LUMI (int)
+	UNITS_INT_LUMI_WBM (int)
 
 --------------------------
 
@@ -613,28 +476,18 @@ Exception encountered for table:  YEARLY_LUMINOSITY
 
 ##### executing query on OMDS
 CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT LHCFILL, NBUNCHESBEAM1, NBUNCHESBEAM2, NCOLLIDINGBUNCHES, NTARGETBUNCHES, RUNTIME_TYPE_ID, PARTY1, PARTY2, CROSSINGANGLE, BETASTAR, INTENSITYBEAM1, INTENSITYBEAM2, ENERGY, CREATETIME, BEGINTIME, ENDTIME, INJECTIONSCHEME FROM CMS_RUNTIME_LOGGER."RUNTIME_SUMMARY" "RUNTIME_SUMMARY" WHERE BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :"firstFillNumber" AND :"lastFillNumber" ORDER BY LHCFILL"
-
-
-____________________________________
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT RUNTIME FROM CMS_RUNTIME_LOGGER."RUNTIME_SUMMARY" "RUNTIME_SUMMARY" WHERE BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :"firstFillNumber" AND :"lastFillNumber""
-Query executed!
-CORAL/RelationalPlugins/oracle Error ORA-00932: inconsistent datatypes: expected BLOB got INTERVAL (Fetching the next row from "SELECT RUNTIME FROM CMS_RUNTIME_LOGGER."RUNTIME_SUMMARY" "RUNTIME_SUMMARY" WHERE BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :"firstFillNumber" AND :"lastFillNumber"")
-CORAL/Services/ConnectionService Info User session with sessionID=6518775e-cbd9-11e7-91e7-02163e018b1e will be ended on connectionID=65141178-cbd9-11e7-91e7-02163e018b1e
-CORAL/Services/ConnectionService Debug Connection id=65141178-cbd9-11e7-91e7-02163e018b1e to service "cms_orcon_adg" has 0 session(s) opened.
-CORAL/Services/ConnectionService Debug The active connection id=65141178-cbd9-11e7-91e7-02163e018b1e to service "cms_orcon_adg" has been removed from the active list.
-CORAL/Services/ConnectionService Debug The valid active connection id=65141178-cbd9-11e7-91e7-02163e018b1e to service "cms_orcon_adg" has been moved to the idle list.
+CORAL/Services/ConnectionService Info User session with sessionID=a38c7d86-cbda-11e7-8a78-02163e018f2c will be ended on connectionID=a388a7c4-cbda-11e7-8a78-02163e018f2c
+CORAL/Services/ConnectionService Debug Connection id=a388a7c4-cbda-11e7-8a78-02163e018f2c to service "cms_orcon_adg" has 0 session(s) opened.
+CORAL/Services/ConnectionService Debug The active connection id=a388a7c4-cbda-11e7-8a78-02163e018f2c to service "cms_orcon_adg" has been removed from the active list.
+CORAL/Services/ConnectionService Debug The valid active connection id=a388a7c4-cbda-11e7-8a78-02163e018f2c to service "cms_orcon_adg" has been moved to the idle list.
+%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  17-Nov-2017 22:06:09 CET PostEndRun
+Transferring 0 payload(s); from FillInfoPopConSourceHandler::getNewObjects
+%MSG
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare COMMIT
------ Begin Fatal Exception 17-Nov-2017 21:56:52 CET-----------------------
-An exception of category 'StdException' occurred while
-   [0] Calling endJob for module FillInfoPopConAnalyzer/'Test1'
-Exception Message:
-A std::exception was thrown.
-ORA-00932: inconsistent datatypes: expected BLOB got INTERVAL (Fetching the next row from "SELECT RUNTIME FROM CMS_RUNTIME_LOGGER."RUNTIME_SUMMARY" "RUNTIME_SUMMARY" WHERE BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :"firstFillNumber" AND :"lastFillNumber"") ( CORAL : "OracleStatement" from "CORAL/RelationalPlugins/oracle" )
------ End Fatal Exception -------------------------------------------------
-CORAL/Services/ConnectionService Info User session with sessionID=64ec5250-cbd9-11e7-91e7-02163e018b1e will be ended on connectionID=64ec4bf2-cbd9-11e7-91e7-02163e018b1e
-CORAL/Services/ConnectionService Debug Connection id=64ec4bf2-cbd9-11e7-91e7-02163e018b1e to service "test_output.db" has 0 session(s) opened.
-CORAL/Services/ConnectionService Debug The active connection id=64ec4bf2-cbd9-11e7-91e7-02163e018b1e to service "test_output.db" has been removed from the active list.
-CORAL/Services/ConnectionService Debug The valid active connection id=64ec4bf2-cbd9-11e7-91e7-02163e018b1e to service "test_output.db" has been moved to the idle list.
+CORAL/Services/ConnectionService Info User session with sessionID=a31e4fbe-cbda-11e7-8a78-02163e018f2c will be ended on connectionID=a31e460e-cbda-11e7-8a78-02163e018f2c
+CORAL/Services/ConnectionService Debug Connection id=a31e460e-cbda-11e7-8a78-02163e018f2c to service "test_output.db" has 0 session(s) opened.
+CORAL/Services/ConnectionService Debug The active connection id=a31e460e-cbda-11e7-8a78-02163e018f2c to service "test_output.db" has been removed from the active list.
+CORAL/Services/ConnectionService Debug The valid active connection id=a31e460e-cbda-11e7-8a78-02163e018f2c to service "test_output.db" has been moved to the idle list.
 CORAL/Services/ConnectionService Info Deleting the ConnectionPool
-CORAL/Services/ConnectionService Info Connection to service "test_output.db" with connectionID=64ec4bf2-cbd9-11e7-91e7-02163e018b1e will be disconnected
-CORAL/Services/ConnectionService Info Connection to service "cms_orcon_adg" with connectionID=65141178-cbd9-11e7-91e7-02163e018b1e will be disconnected
+CORAL/Services/ConnectionService Info Connection to service "test_output.db" with connectionID=a31e460e-cbda-11e7-8a78-02163e018f2c will be disconnected
+CORAL/Services/ConnectionService Info Connection to service "cms_orcon_adg" with connectionID=a388a7c4-cbda-11e7-8a78-02163e018f2c will be disconnected
