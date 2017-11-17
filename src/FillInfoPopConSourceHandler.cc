@@ -178,7 +178,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   //FROM clause
   fillDataQuery2->addToTableList( std::string( "BUNCH_LUMI_SECTIONS" ) );
   //SELECT clause
-  fillDataQuery->addToOutputList( std::string( "LHCFILL" ) );
+  fillDataQuery2->addToOutputList( std::string( "LHCFILL" ) );
   fillDataQuery2->addToOutputList( std::string( "BUNCHLUMI" ) );
   //WHERE clause
   //by imposing BEGINTIME IS NOT NULL, we remove fills which never went into stable beams,
@@ -191,7 +191,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   fillDataQuery2->addToOrderList( std::string( "LHCFILL" ) );
   //define query output
   coral::AttributeList fillDataOutput2;
-  fillDataOutput.extend<unsigned short>( std::string( "LHCFILL" ) );
+  fillDataOutput2.extend<unsigned short>( std::string( "LHCFILL" ) );
   fillDataOutput2.extend<float>( std::string( "BUNCHLUMI" ) );
   fillDataQuery2->defineOutput( fillDataOutput2 );
   //execute the query
@@ -258,8 +258,6 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 
   //loop over the cursor where the result of the query were fetched
    
-    int i0 = 1, i1 = 1;
-
     std::cout <<"\n\nRetrieving BUNCHLUMI data...\n\n";
     while( fillDataCursor2.next() ) {
 		/*if( m_debug ) {
@@ -267,8 +265,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 		  fillDataCursor2.currentRow().toOutputStream( qs );
 		  edm::LogInfo( m_name ) << qs.str() << "\nfrom " << m_name << "::getNewObjects";
 		}*/
-		i0++;
-		fillNo = fillDataCursor.currentRow()[ std::string( "LHCFILL" ) ].data<unsigned short>();
+		fillNo = fillDataCursor2.currentRow()[ std::string( "LHCFILL" ) ].data<unsigned short>();
 		coral::Attribute const & bunchLumiAttribute = fillDataCursor2.currentRow()[ std::string( "BUNCHLUMI" ) ];
 		if( bunchLumiAttribute.isNull() ){
 		  bunchLumi = 0.;
@@ -276,9 +273,10 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 		  bunchLumi = bunchLumiAttribute.data<float>();
 		  ilv.push_back(bunchLumi);
 		}
+		std::cout <<"Fill no. processed: "<< fillNo << "...";
 	}
- std::cout <<"Records processed: "<< i0 << "...";
 
+	int i1 = 1;
     while( fillDataCursor.next() ) {
        std::cout <<"\n\n\nProcessing Record "<< i1++<< "...\n\n";
 	//std::cout <<"New row"<<std::endl;
