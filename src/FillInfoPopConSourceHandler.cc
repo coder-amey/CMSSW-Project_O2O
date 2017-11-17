@@ -176,31 +176,27 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 //prepare the query for table 2:
   std::unique_ptr<coral::IQuery> fillDataQuery2( runTimeLoggerSchema.newQuery() );
   //FROM clause
-  fillDataQuery2->addToTableList( std::string( "LUMI_SECTIONS" ) );
+  fillDataQuery2->addToTableList( std::string( "BUNCH_LUMI_SECTIONS" ) );
   //SELECT clause
-  fillDataQuery2->addToOutputList( std::string( "INSTLUMI" ) );
+  fillDataQuery2->addToOutputList( std::string( "BUNCHLUMI" ) );
   //WHERE clause
-/*  coral::AttributeList fillDataBindVariables;
-  fillDataBindVariables.extend( std::string( "firstFillNumber" ), typeid( unsigned short ) );
-  fillDataBindVariables[ std::string( "firstFillNumber" ) ].data<unsigned short>() = m_firstFill;
-  fillDataBindVariables.extend( std::string( "lastFillNumber" ), typeid( unsigned short ) );
-  fillDataBindVariables[ std::string( "lastFillNumber" ) ].data<unsigned short>() = m_lastFill; 
   //by imposing BEGINTIME IS NOT NULL, we remove fills which never went into stable beams,
   //or the most recent one, just declared but not yet in stable beams
-  std::string conditionStr( "BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
-  fillDataQuery2->setCondition( conditionStr, fillDataBindVariables );
+  //std::string conditionStr( "BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
+  
+  std::string conditionStr2( "LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
+  fillDataQuery2->setCondition( conditionStr2, fillDataBindVariables );
   //ORDER BY clause
   fillDataQuery2->addToOrderList( std::string( "LHCFILL" ) );
-*/
   //define query output
   coral::AttributeList fillDataOutput2;
-  fillDataOutput2.extend<float>( std::string( "INSTLUMI" ) );
+  fillDataOutput2.extend<float>( std::string( "BUNCHLUMI" ) );
   fillDataQuery2->defineOutput( fillDataOutput2 );
   //execute the query
-  std::cout <<"\n\nQuerying the OMDS for LUMI_SECTIONS data...\n\n"<<std::endl;
+  std::cout <<"\n\nQuerying the OMDS for BUNCH_LUMI_SECTIONS data...\n\n"<<std::endl;
   coral::ICursor& fillDataCursor2 = fillDataQuery2->execute();
   //initialize loop variables
-  float instLumi = 0.;
+  float bunchLumi = 0.;
   std::vector<float> ilv;
 
 /*  CODE FOR DUMPING SCHEMA DESCRIPTION.
@@ -237,7 +233,7 @@ for(I = List.begin(); I != List.end(); ++I)
 		}
 }
  try{
-			coral::ITable& fillTable = runTimeLoggerSchema.tableHandle("LUMI_SECTIONS");
+			coral::ITable& fillTable = runTimeLoggerSchema.tableHandle("BUNCH_LUMI_SECTIONS");
 			const coral::ITableDescription& description = fillTable.description();
 			const coral::IColumn& col = description.columnDescription("INSTLUMI");
 			int k = description.numberOfForeignKeys();
@@ -261,7 +257,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
    
     int i0 = 1, i1 = 1;
 
-    std::cout <<"\n\nRetrieving INSTLUMI data...\n\n";
+    std::cout <<"\n\nRetrieving BUNCHLUMI data...\n\n";
     while( fillDataCursor2.next() ) {
 		/*if( m_debug ) {
 		  std::ostringstream qs;
@@ -269,12 +265,12 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 		  edm::LogInfo( m_name ) << qs.str() << "\nfrom " << m_name << "::getNewObjects";
 		}*/
 		i0++;
-		coral::Attribute const & instLumiAttribute = fillDataCursor2.currentRow()[ std::string( "INSTLUMI" ) ];
-		if( instLumiAttribute.isNull() ){
-		  instLumi = 0.;
+		coral::Attribute const & bunchLumiAttribute = fillDataCursor2.currentRow()[ std::string( "BUNCHLUMI" ) ];
+		if( bunchLumiAttribute.isNull() ){
+		  bunchLumi = 0.;
 		} else {
-		  instLumi = instLumiAttribute.data<float>();
-		  ilv.push_back(instLumi);
+		  bunchLumi = bunchLumiAttribute.data<float>();
+		  ilv.push_back(bunchLumi);
 		}
 	}
  std::cout <<"Records processed: "<< i0 << "...";
@@ -550,7 +546,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
   edm::LogInfo( m_name ) << "Transferring " << m_to_transfer.size() << " payload(s); from " << m_name << "::getNewObjects";
   
 //@A
-  std::cout << "\n\nObtained values of instLumi:\n";
+  std::cout << "\n\nObtained values of bunchLumi:\n";
   	for(std::vector<float>::iterator I = ilv.begin(); I != ilv.end(); ++I)
   		std::cout << *I << "\t";
   	std::cout << "\n\n\n";
