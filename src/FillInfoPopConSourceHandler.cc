@@ -173,6 +173,56 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   //loop over the cursor where the result of the query were fetched
 
 //@A
+
+coral::ISchema& BCS = session.coralSession().schema( m_dipSchema );
+//start the transaction against the DIP "deep" database backend schema
+session.transaction().start( true );
+std::set<std::string> List = BCS.listTables();
+std::cout<<"\n\n\n--------------------------"<<std::endl;
+std::cout << "Schema Description:\n";
+std::cout << "Schema Name: " << BCS.schemaName() << std::endl;
+std::cout << "All Tables:\n";
+std::set<std::string>::iterator I;
+for(I = List.begin(); I != List.end(); ++I)
+    std::cout << '\t' << *I << std::endl;
+std::cout << std::endl; 
+std::cout << "\nDetailed Table Description:\nTable Name:\t\tNo. of Columns:\n(Column Details follow.)" << std::endl;
+for(I = List.begin(); I != List.end(); ++I)
+{
+    try{
+			coral::ITable& fillTable = BCS.tableHandle(*I);
+			const coral::ITableDescription& description = fillTable.description();
+			int c = description.numberOfColumns();
+			std::cout << "\n" << description.name() << "\t\t" << c << std::endl;
+			for(int i = 0; i < c; i++)
+			{
+				const coral::IColumn& col = description.columnDescription(i);
+				std::cout << "\t" << col.name() << " (" << col.type() << ")" << std::endl;
+			}
+			std::cout << std::endl;
+		}
+		
+		catch(std::exception E)
+		{
+				std::cout << "Exception encountered for table:  " << *I << "\n\n";
+		}
+}
+ try{
+			coral::ITable& fillTable = runTimeLoggerSchema.tableHandle("LUMI_SECTIONS");
+			const coral::ITableDescription& description = fillTable.description();
+			const coral::IColumn& col = description.columnDescription("INSTLUMI");
+			int k = description.numberOfForeignKeys();
+			std::cout << "Description for INSTLUMI:\nTable:\t" << description.name() << "\nNo. of Foreign keys:\t" << k << "\nColumn name:\t" << col.name() << " (" << col.type() << ")" << std::endl;
+			std::cout << std::endl;
+		}
+		
+catch(std::exception E)
+{
+	std::cout << "Exception encountered for table:  " << *I << "\n\n";
+}
+std::cout<<"--------------------------\n\n\n"<<std::endl;
+
+
 /*  fillDataQuery->addToTableList( std::string( "LUMI_SECTIONS" ) );
 
   fillDataQuery->addToOutputList( std::string( "LUMI_SECTIONS.INSTLUMI" ) );
@@ -191,7 +241,7 @@ std::vector<float> ilv;
 */
 //Prevent unnecessary execution of code.
 //Note remove the while loop to populate the database.
-    //while( fillDataCursor.next() );
+    while( fillDataCursor.next() );
 
     int i1 = 1;
 
@@ -318,54 +368,6 @@ std::vector<float> ilv;
     coral::ISchema& beamCondSchema = session.coralSession().schema( m_dipSchema );
     //start the transaction against the DIP "deep" database backend schema
     session.transaction().start( true );
-
-//@A
-
-std::set<std::string> List = beamCondSchema.listTables();
-std::cout<<"\n\n\n--------------------------"<<std::endl;
-std::cout << "Schema Description:\n";
-std::cout << "Schema Name: " << beamCondSchema.schemaName() << std::endl;
-std::cout << "All Tables:\n";
-std::set<std::string>::iterator I;
-for(I = List.begin(); I != List.end(); ++I)
-    std::cout << '\t' << *I << std::endl;
-std::cout << std::endl; 
-std::cout << "\nDetailed Table Description:\nTable Name:\t\tNo. of Columns:\n(Column Details follow.)" << std::endl;
-for(I = List.begin(); I != List.end(); ++I)
-{
-    try{
-			coral::ITable& fillTable = beamCondSchema.tableHandle(*I);
-			const coral::ITableDescription& description = fillTable.description();
-			int c = description.numberOfColumns();
-			std::cout << "\n" << description.name() << "\t\t" << c << std::endl;
-			for(int i = 0; i < c; i++)
-			{
-				const coral::IColumn& col = description.columnDescription(i);
-				std::cout << "\t" << col.name() << " (" << col.type() << ")" << std::endl;
-			}
-			std::cout << std::endl;
-		}
-		
-		catch(std::exception E)
-		{
-				std::cout << "Exception encountered for table:  " << *I << "\n\n";
-		}
-}
- try{
-			coral::ITable& fillTable = runTimeLoggerSchema.tableHandle("LUMI_SECTIONS");
-			const coral::ITableDescription& description = fillTable.description();
-			const coral::IColumn& col = description.columnDescription("INSTLUMI");
-			int k = description.numberOfForeignKeys();
-			std::cout << "Description for INSTLUMI:\nTable:\t" << description.name() << "\nNo. of Foreign keys:\t" << k << "\nColumn name:\t" << col.name() << " (" << col.type() << ")" << std::endl;
-			std::cout << std::endl;
-		}
-		
-		catch(std::exception E)
-		{
-				std::cout << "Exception encountered for table:  " << *I << "\n\n";
-		}
-std::cout<<"--------------------------\n\n\n"<<std::endl;
-
     //prepare the WHERE clause for both queries
     coral::AttributeList bunchConfBindVariables;
     bunchConfBindVariables.extend<coral::TimeStamp>( std::string( "stableBeamStartTimeStamp" ) );
