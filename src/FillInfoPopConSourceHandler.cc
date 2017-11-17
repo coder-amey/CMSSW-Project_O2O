@@ -124,6 +124,19 @@ for(I = List.begin(); I != List.end(); ++I)
 			{
 				const coral::IColumn& col = description.columnDescription(i);
 				std::cout << "\t" << col.name() << " (" << col.type() << ")" << std::endl;
+				std::unique_ptr<coral::IQuery> Qry( runTimeLoggerSchema.newQuery() );
+				Qry->addToTableList( std::string( *I ) );
+				Qry->addToOutputList( std::string( "COUNT(*)" ) );
+				coral::AttributeList opt;
+				opt.extend<int>( std::string( "ROWS" ) );
+				Qry->defineOutput( opt );
+				coral::ICursor& Csr = Qry->execute();
+				while( Csr.next() )
+				{
+					std::ostringstream os;
+					Csr.currentRow().toOutputStream( os );
+					std::cout << os.str() << std::endl;
+				}
 			}
 			std::cout << std::endl;
 		}
