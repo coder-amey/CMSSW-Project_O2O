@@ -1,3 +1,13 @@
+RUNTIME_TYPE            4
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."RUNTIME_TYPE" "RUNTIME_TYPE""
+[ROWS (int) : 5]
+        ID (float)
+        NAME (string)
+        ENABLED (char)
+        DESCRIPTION (string)
+
+
+
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 #include "CondCore/CondDB/interface/ConnectionPool.h"
@@ -176,31 +186,26 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 //prepare the query for table 2:
   std::unique_ptr<coral::IQuery> fillDataQuery2( runTimeLoggerSchema.newQuery() );
   //FROM clause
-  fillDataQuery2->addToTableList( std::string( "BUNCH_LUMI_SECTIONS" ) );
+  fillDataQuery2->addToTableList( std::string( "RUNTIME_TYPE" ) );
   //SELECT clause
-  fillDataQuery2->addToOutputList( std::string( "LHCFILL" ) );
-  fillDataQuery2->addToOutputList( std::string( "BUNCHLUMI" ) );
+  fillDataQuery2->addToOutputList( std::string( "DESCRIPTION" ) );
   //WHERE clause
   //by imposing BEGINTIME IS NOT NULL, we remove fills which never went into stable beams,
   //or the most recent one, just declared but not yet in stable beams
   //std::string conditionStr( "BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
-  
-  std::string conditionStr2( "LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
-  fillDataQuery2->setCondition( conditionStr2, fillDataBindVariables );
+  /*fillDataQuery2->setCondition( conditionStr2, fillDataBindVariables );
   //ORDER BY clause
   fillDataQuery2->addToOrderList( std::string( "LHCFILL" ) );
-  //define query output
+  //define query output*/
   coral::AttributeList fillDataOutput2;
-  fillDataOutput2.extend<unsigned short>( std::string( "LHCFILL" ) );
-  fillDataOutput2.extend<float>( std::string( "BUNCHLUMI" ) );
+  fillDataOutput2.extend<std::string>( std::string( "DESCRIPTION" ) );
   fillDataQuery2->defineOutput( fillDataOutput2 );
   //execute the query
-  std::cout <<"\n\nQuerying the OMDS for BUNCH_LUMI_SECTIONS data...\n\n"<<std::endl;
+  std::cout <<"\n\nQuerying the OMDS for RUNTIME_TYPE data...\n\n"<<std::endl;
   coral::ICursor& fillDataCursor2 = fillDataQuery2->execute();
   //initialize loop variables
-  unsigned short fillNo;
-  float bunchLumi = 0.;
-  std::vector<float> ilv;
+  std::string Description = "";
+  std::vector<std::string> QV;
 
 /*  CODE FOR DUMPING SCHEMA DESCRIPTION.
 coral::ISchema& BCS = session.coralSession().schema( m_dipSchema );
@@ -236,7 +241,7 @@ for(I = List.begin(); I != List.end(); ++I)
 		}
 }
  try{
-			coral::ITable& fillTable = runTimeLoggerSchema.tableHandle("BUNCH_LUMI_SECTIONS");
+			coral::ITable& fillTable = runTimeLoggerSchema.tableHandle("RUNTIME_TYPE");
 			const coral::ITableDescription& description = fillTable.description();
 			const coral::IColumn& col = description.columnDescription("INSTLUMI");
 			int k = description.numberOfForeignKeys();
@@ -257,26 +262,25 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 //	while( fillDataCursor.next() );
 
   //loop over the cursor where the result of the query were fetched
-   
-    std::cout <<"\n\nRetrieving BUNCHLUMI data...\n\n";
+	int i0 = 1, i1 = 1;   
+    std::cout <<"\n\nRetrieving RUNTIME_TYPE DESCRIPTION data...\n\n";
     while( fillDataCursor2.next() ) {
 		/*if( m_debug ) {
 		  std::ostringstream qs;
 		  fillDataCursor2.currentRow().toOutputStream( qs );
 		  edm::LogInfo( m_name ) << qs.str() << "\nfrom " << m_name << "::getNewObjects";
 		}*/
-		fillNo = fillDataCursor2.currentRow()[ std::string( "LHCFILL" ) ].data<unsigned short>();
-		coral::Attribute const & bunchLumiAttribute = fillDataCursor2.currentRow()[ std::string( "BUNCHLUMI" ) ];
-		if( bunchLumiAttribute.isNull() ){
-		  bunchLumi = 0.;
+		i0++
+		coral::Attribute const & DescriptionAttribute = fillDataCursor2.currentRow()[ std::string( "DESCRIPTION" ) ];
+		if( DescriptionAttribute.isNull() ){
+		  Description = "";
 		} else {
-		  bunchLumi = bunchLumiAttribute.data<float>();
-		  ilv.push_back(bunchLumi);
+		  Description = DescriptionAttribute.data<std::string>();
+		  QV.push_back(Description);
 		}
-		std::cout <<"Fill no. processed: "<< fillNo << "...";
+		std::cout <<"RUNTIME_TYPE records processed: "<< i0 << "...";
 	}
 
-	int i1 = 1;
     while( fillDataCursor.next() ) {
        std::cout <<"\n\n\nProcessing Record "<< i1++<< "...\n\n";
 	//std::cout <<"New row"<<std::endl;
@@ -548,8 +552,8 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
   edm::LogInfo( m_name ) << "Transferring " << m_to_transfer.size() << " payload(s); from " << m_name << "::getNewObjects";
   
 //@A
-  std::cout << "\n\nObtained values of bunchLumi:\n";
-  	for(std::vector<float>::iterator I = ilv.begin(); I != ilv.end(); ++I)
+  std::cout << "\n\nObtained values of Description:\n";
+  	for(std::vector<float>::iterator I = QV.begin(); I != QV.end(); ++I)
   		std::cout << *I << "\t";
   	std::cout << "\n\n\n";
 }
