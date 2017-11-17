@@ -69,7 +69,7 @@ RunInfoRead::readData( const std::string & runinfo_schema
   connection.configure();
   edm::LogInfo( "RunInfoReader" ) << "[RunInfoRead::" << __func__ << "]: Initialising read-only session to " << m_connectionString << std::endl;
   //std::shared_ptr<coral::ISessionProxy> session = connection.createCoralSession( m_connectionString, false );
-  boost::shared_ptr<coral::ISessionProxy> session = connection.createCoralSession( m_connectionString, false );
+  std::shared_ptr<coral::ISessionProxy> session = connection.createCoralSession( m_connectionString, false );
   try{
     session->transaction().start( true );
     coral::ISchema& schema = session->schema( runinfo_schema );
