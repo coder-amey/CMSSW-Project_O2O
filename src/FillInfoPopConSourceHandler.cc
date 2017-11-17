@@ -153,7 +153,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   fillDataOutput.extend<std::string>( std::string( "INJECTIONSCHEME" ) );
   fillDataQuery->defineOutput( fillDataOutput );
   //execute the query
-  std::cout <<"\n\nQuerying the OMDS...\n\n"<<std::endl;
+  std::cout <<"\n\nQuerying the OMDS for RUNTIME_SUMMARY data...\n\n"<<std::endl;
   coral::ICursor& fillDataCursor = fillDataQuery->execute();
   //initialize loop variables
   unsigned short previousFillNumber = 1, currentFill = m_firstFill;
@@ -173,30 +173,14 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 
 //@A
 
-//prepare the query for table 1:
-  std::unique_ptr<coral::IQuery> fillDataQuery( runTimeLoggerSchema.newQuery() );
+//prepare the query for table 2:
+  std::unique_ptr<coral::IQuery> fillDataQuery2( runTimeLoggerSchema.newQuery() );
   //FROM clause
-  fillDataQuery->addToTableList( std::string( "RUNTIME_SUMMARY" ) );
+  fillDataQuery2->addToTableList( std::string( "LUMI_SECTIONS" ) );
   //SELECT clause
-  fillDataQuery->addToOutputList( std::string( "LHCFILL" ) );
-  fillDataQuery->addToOutputList( std::string( "NBUNCHESBEAM1" ) );
-  fillDataQuery->addToOutputList( std::string( "NBUNCHESBEAM2" ) );
-  fillDataQuery->addToOutputList( std::string( "NCOLLIDINGBUNCHES" ) );
-  fillDataQuery->addToOutputList( std::string( "NTARGETBUNCHES" ) );
-  fillDataQuery->addToOutputList( std::string( "RUNTIME_TYPE_ID" ) );
-  fillDataQuery->addToOutputList( std::string( "PARTY1" ) );
-  fillDataQuery->addToOutputList( std::string( "PARTY2" ) );
-  fillDataQuery->addToOutputList( std::string( "CROSSINGANGLE" ) );
-  fillDataQuery->addToOutputList( std::string( "BETASTAR" ) );
-  fillDataQuery->addToOutputList( std::string( "INTENSITYBEAM1" ) );
-  fillDataQuery->addToOutputList( std::string( "INTENSITYBEAM2" ) );
-  fillDataQuery->addToOutputList( std::string( "ENERGY" ) );
-  fillDataQuery->addToOutputList( std::string( "CREATETIME" ) );
-  fillDataQuery->addToOutputList( std::string( "BEGINTIME" ) );
-  fillDataQuery->addToOutputList( std::string( "ENDTIME" ) );
-  fillDataQuery->addToOutputList( std::string( "INJECTIONSCHEME" ) );
+  fillDataQuery2->addToOutputList( std::string( "INSTLUMI" ) );
   //WHERE clause
-  coral::AttributeList fillDataBindVariables;
+/*  coral::AttributeList fillDataBindVariables;
   fillDataBindVariables.extend( std::string( "firstFillNumber" ), typeid( unsigned short ) );
   fillDataBindVariables[ std::string( "firstFillNumber" ) ].data<unsigned short>() = m_firstFill;
   fillDataBindVariables.extend( std::string( "lastFillNumber" ), typeid( unsigned short ) );
@@ -204,50 +188,22 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   //by imposing BEGINTIME IS NOT NULL, we remove fills which never went into stable beams,
   //or the most recent one, just declared but not yet in stable beams
   std::string conditionStr( "BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
-  fillDataQuery->setCondition( conditionStr, fillDataBindVariables );
+  fillDataQuery2->setCondition( conditionStr, fillDataBindVariables );
   //ORDER BY clause
-  fillDataQuery->addToOrderList( std::string( "LHCFILL" ) );
+  fillDataQuery2->addToOrderList( std::string( "LHCFILL" ) );
+*/
   //define query output
-  coral::AttributeList fillDataOutput;
-  fillDataOutput.extend<unsigned short>( std::string( "LHCFILL" ) );
-  fillDataOutput.extend<unsigned short>( std::string( "NBUNCHESBEAM1" ) );
-  fillDataOutput.extend<unsigned short>( std::string( "NBUNCHESBEAM2" ) );
-  fillDataOutput.extend<unsigned short>( std::string( "NCOLLIDINGBUNCHES" ) );
-  fillDataOutput.extend<unsigned short>( std::string( "NTARGETBUNCHES" ) );
-  fillDataOutput.extend<int>( std::string( "RUNTIME_TYPE_ID" ) );
-  fillDataOutput.extend<int>( std::string( "PARTY1" ) );
-  fillDataOutput.extend<int>( std::string( "PARTY2" ) );
-  fillDataOutput.extend<float>( std::string( "CROSSINGANGLE" ) );
-  fillDataOutput.extend<float>( std::string( "BETASTAR" ) );
-  fillDataOutput.extend<float>( std::string( "INTENSITYBEAM1" ) );
-  fillDataOutput.extend<float>( std::string( "INTENSITYBEAM2" ) );
-  fillDataOutput.extend<float>( std::string( "ENERGY" ) );
-  fillDataOutput.extend<coral::TimeStamp>( std::string( "CREATETIME" ) );
-  fillDataOutput.extend<coral::TimeStamp>( std::string( "BEGINTIME" ) );
-  fillDataOutput.extend<coral::TimeStamp>( std::string( "ENDTIME" ) );
-  fillDataOutput.extend<std::string>( std::string( "INJECTIONSCHEME" ) );
-  fillDataQuery->defineOutput( fillDataOutput );
+  coral::AttributeList fillDataOutput2;
+  fillDataOutput2.extend<float>( std::string( "INSTLUMI" ) );
+  fillDataQuery2->defineOutput( fillDataOutput2 );
   //execute the query
-  std::cout <<"\n\nQuerying the OMDS...\n\n"<<std::endl;
-  coral::ICursor& fillDataCursor = fillDataQuery->execute();
+  std::cout <<"\n\nQuerying the OMDS for LUMI_SECTIONS data...\n\n"<<std::endl;
+  coral::ICursor& fillDataCursor2 = fillDataQuery2->execute();
   //initialize loop variables
-  unsigned short previousFillNumber = 1, currentFill = m_firstFill;
-  cond::Time_t previousFillEndTime = 0ULL, afterPreviousFillEndTime = 0ULL, beforeStableBeamStartTime = 0ULL;
-  if( tagInfo().size > 0 ) {
-    previousFillNumber = previousFill->fillNumber();
-    previousFillEndTime = previousFill->endTime();
-  }
-  unsigned short bunches1 = 0, bunches2 = 0, collidingBunches = 0, targetBunches = 0;
-  FillInfo::FillTypeId fillType = FillInfo::UNKNOWN;
-  FillInfo::ParticleTypeId particleType1 = FillInfo::NONE, particleType2 = FillInfo::NONE;
-  float crossingAngle = 0., betastar = 0., intensityBeam1 = 0., intensityBeam2 = 0., energy = 0.;
-  coral::TimeStamp stableBeamStartTimeStamp, beamDumpTimeStamp;
-  cond::Time_t creationTime = 0ULL, stableBeamStartTime = 0ULL, beamDumpTime = 0ULL;
-  std::string injectionScheme( "None" );
-  std::ostringstream ss;
+  float instLumi = 0.;
+  std::vector<float> ilv;
 
-
-/*
+/*  CODE FOR DUMPING SCHEMA DESCRIPTION.
 coral::ISchema& BCS = session.coralSession().schema( m_dipSchema );
 session.transaction().start( true );
 std::set<std::string> List = BCS.listTables();
@@ -297,27 +253,27 @@ session.transaction.commit();
 std::cout<<"--------------------------\n\n\n"<<std::endl;
 */
 
-/*  fillDataQuery->addToTableList( std::string( "LUMI_SECTIONS" ) );
-
-  fillDataQuery->addToOutputList( std::string( "LUMI_SECTIONS.INSTLUMI" ) );
-
-  fillDataOutput.extend<float>( std::string( "INSTLUMI" ) );
-
-    coral::Attribute const & instLumiAttribute = fillDataCursor.currentRow()[ std::string( "INSTLUMI" ) ];
-    if( instLumiAttribute.isNull() ){
-      instLumi = 0.;
-    } else {
-      instLumi = instLumiAttribute.data<float>();
-      ilv.push_back(instLumi);
-    }
-float instLumi = 0.;
-std::vector<float> ilv;
-*/
 //Prevent unnecessary execution of code.
 //Note remove the while loop to populate the database.
 //	while( fillDataCursor.next() );
 
   //loop over the cursor where the result of the query were fetched
+    std::cout <<"\n\nRetrieving INSTLUMI data...\n\n";
+    while( fillDataCursor2.next() ) {
+		if( m_debug ) {
+		  std::ostringstream qs;
+		  fillDataCursor2.currentRow().toOutputStream( qs );
+		  edm::LogInfo( m_name ) << qs.str() << "\nfrom " << m_name << "::getNewObjects";
+		}
+		coral::Attribute const & instLumiAttribute = fillDataCursor2.currentRow()[ std::string( "INSTLUMI" ) ];
+		if( instLumiAttribute.isNull() ){
+		  instLumi = 0.;
+		} else {
+		  instLumi = instLumiAttribute.data<float>();
+		  ilv.push_back(instLumi);
+		}
+	}
+    
     int i1 = 1;
 
     while( fillDataCursor.next() ) {
@@ -591,10 +547,10 @@ std::vector<float> ilv;
   edm::LogInfo( m_name ) << "Transferring " << m_to_transfer.size() << " payload(s); from " << m_name << "::getNewObjects";
   
 //@A
-  /*std::cout << "\n\nObtained values of instLumi:\n";
+  std::cout << "\n\nObtained values of instLumi:\n";
   	for(std::vector<float>::iterator I = ilv.begin(); I != ilv.end(); ++I)
   		std::cout << *I << "\t";
-  	std::cout << "\n\n\n";*/
+  	std::cout << "\n\n\n";
 }
 
 std::string FillInfoPopConSourceHandler::id() const { 
