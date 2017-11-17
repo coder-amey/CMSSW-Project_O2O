@@ -1,13 +1,3 @@
-RUNTIME_TYPE            4
-CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT COUNT(*) FROM CMS_RUNTIME_LOGGER."RUNTIME_TYPE" "RUNTIME_TYPE""
-[ROWS (int) : 5]
-        ID (float)
-        NAME (string)
-        ENABLED (char)
-        DESCRIPTION (string)
-
-
-
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 #include "CondCore/CondDB/interface/ConnectionPool.h"
@@ -270,7 +260,6 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 		  fillDataCursor2.currentRow().toOutputStream( qs );
 		  edm::LogInfo( m_name ) << qs.str() << "\nfrom " << m_name << "::getNewObjects";
 		}*/
-		i0++
 		coral::Attribute const & DescriptionAttribute = fillDataCursor2.currentRow()[ std::string( "DESCRIPTION" ) ];
 		if( DescriptionAttribute.isNull() ){
 		  Description = "";
@@ -278,7 +267,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 		  Description = DescriptionAttribute.data<std::string>();
 		  QV.push_back(Description);
 		}
-		std::cout <<"RUNTIME_TYPE records processed: "<< i0 << "...";
+		std::cout <<"RUNTIME_TYPE records processed: "<< i0++ << "...\n";
 	}
 
     while( fillDataCursor.next() ) {
@@ -553,8 +542,8 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
   
 //@A
   std::cout << "\n\nObtained values of Description:\n";
-  	for(std::vector<float>::iterator I = QV.begin(); I != QV.end(); ++I)
-  		std::cout << *I << "\t";
+  	for(std::vector<std::string>::iterator I = QV.begin(); I != QV.end(); ++I)
+  		std::cout << *I << "\n";
   	std::cout << "\n\n\n";
 }
 
