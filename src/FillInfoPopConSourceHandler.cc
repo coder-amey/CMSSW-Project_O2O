@@ -517,8 +517,8 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
   /*std::cout << "\n\nObtained values of instLumi:\n";
   	for(std::vector<float>::iterator I = ilv.begin(); I != ilv.end(); ++I)
   		std::cout << *I << "\t";
-  	std::cout << "\n\n\n";
-}*/
+  	std::cout << "\n\n\n";*/
+}
 
 std::string FillInfoPopConSourceHandler::id() const { 
   return m_name;
