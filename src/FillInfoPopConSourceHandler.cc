@@ -120,23 +120,23 @@ for(I = List.begin(); I != List.end(); ++I)
 			const coral::ITableDescription& description = fillTable.description();
 			int c = description.numberOfColumns();
 			std::cout << "\n" << description.name() << "\t\t" << c << std::endl;
+			std::unique_ptr<coral::IQuery> Qry( runTimeLoggerSchema.newQuery() );
+			Qry->addToTableList( std::string( *I ) );
+			Qry->addToOutputList( std::string( "COUNT(*)" ) );
+			coral::AttributeList opt;
+			opt.extend<int>( std::string( "ROWS" ) );
+			Qry->defineOutput( opt );
+			coral::ICursor& Csr = Qry->execute();
+			while( Csr.next() )
+			{
+				std::ostringstream os;
+				Csr.currentRow().toOutputStream( os );
+				std::cout << os.str() << std::endl;
+			}
 			for(int i = 0; i < c; i++)
 			{
 				const coral::IColumn& col = description.columnDescription(i);
 				std::cout << "\t" << col.name() << " (" << col.type() << ")" << std::endl;
-				std::unique_ptr<coral::IQuery> Qry( runTimeLoggerSchema.newQuery() );
-				Qry->addToTableList( std::string( *I ) );
-				Qry->addToOutputList( std::string( "COUNT(*)" ) );
-				coral::AttributeList opt;
-				opt.extend<int>( std::string( "ROWS" ) );
-				Qry->defineOutput( opt );
-				coral::ICursor& Csr = Qry->execute();
-				while( Csr.next() )
-				{
-					std::ostringstream os;
-					Csr.currentRow().toOutputStream( os );
-					std::cout << os.str() << std::endl;
-				}
 			}
 			std::cout << std::endl;
 		}
@@ -228,7 +228,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 
 
 //QUERYING FOR ALL TABLES.
-
+/*
 		std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
 		Q->addToTableList( std::string( "RUNTIME_SUMMARY" ) );
 		Q->addToOutputList( std::string( "RUNTIME" ) );
@@ -252,7 +252,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 				        std::cout << Output.str() << std::endl;
 				        }
 		}
-
+*/
 //Prevent unnecessary execution of code.
 //Note remove the while loop to populate the database.
     while( fillDataCursor.next() );
