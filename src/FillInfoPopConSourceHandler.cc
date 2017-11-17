@@ -178,6 +178,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   //FROM clause
   fillDataQuery2->addToTableList( std::string( "BUNCH_LUMI_SECTIONS" ) );
   //SELECT clause
+  fillDataQuery->addToOutputList( std::string( "LHCFILL" ) );
   fillDataQuery2->addToOutputList( std::string( "BUNCHLUMI" ) );
   //WHERE clause
   //by imposing BEGINTIME IS NOT NULL, we remove fills which never went into stable beams,
@@ -190,12 +191,14 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   fillDataQuery2->addToOrderList( std::string( "LHCFILL" ) );
   //define query output
   coral::AttributeList fillDataOutput2;
+  fillDataOutput.extend<unsigned short>( std::string( "LHCFILL" ) );
   fillDataOutput2.extend<float>( std::string( "BUNCHLUMI" ) );
   fillDataQuery2->defineOutput( fillDataOutput2 );
   //execute the query
   std::cout <<"\n\nQuerying the OMDS for BUNCH_LUMI_SECTIONS data...\n\n"<<std::endl;
   coral::ICursor& fillDataCursor2 = fillDataQuery2->execute();
   //initialize loop variables
+  unsigned short fillNo;
   float bunchLumi = 0.;
   std::vector<float> ilv;
 
@@ -265,6 +268,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 		  edm::LogInfo( m_name ) << qs.str() << "\nfrom " << m_name << "::getNewObjects";
 		}*/
 		i0++;
+		fillNo = fillDataCursor.currentRow()[ std::string( "LHCFILL" ) ].data<unsigned short>();
 		coral::Attribute const & bunchLumiAttribute = fillDataCursor2.currentRow()[ std::string( "BUNCHLUMI" ) ];
 		if( bunchLumiAttribute.isNull() ){
 		  bunchLumi = 0.;
