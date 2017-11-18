@@ -87,6 +87,7 @@ FillInfo::FillInfo(): m_isData( false )
 		    , m_beginTime( 0 )
 		    , m_endTime( 0 )
 		    , m_injectionScheme( "None" )
+		    , m_dummy( "NULL" )
 {}
 
 FillInfo::FillInfo( unsigned short const & lhcFill, bool const & fromData ): m_isData( fromData )
@@ -106,6 +107,7 @@ FillInfo::FillInfo( unsigned short const & lhcFill, bool const & fromData ): m_i
 									   , m_createTime( 0 )
 									   , m_beginTime( 0 )
 									   , m_endTime( 0 )
+		   							   , m_dummy( "NULL" )
 									   , m_injectionScheme( "None" )
 {}
 
@@ -133,6 +135,7 @@ void FillInfo::setFill( unsigned short const & lhcFill, bool const & fromData ) 
   m_injectionScheme = "None";
   m_bunchConfiguration1.reset();
   m_bunchConfiguration2.reset();
+  m_dummy = "NULL";
 }
 
 //getters
@@ -206,6 +209,11 @@ cond::Time_t const FillInfo::endTime() const {
 
 std::string const & FillInfo::injectionScheme() const {
   return m_injectionScheme;
+}
+
+//@A
+std::string const & FillInfo::dummy() const {
+  return m_dummy;
 }
 
 //returns a boolean, true if the injection scheme has a leading 25ns
@@ -302,6 +310,11 @@ void FillInfo::setInjectionScheme( std::string const & injectionScheme ) {
   m_injectionScheme = injectionScheme;
 }
 
+//@A
+void FillInfo::setDummy( std::string const & dummy ) {
+  m_dummy = dummy;
+}
+
 //sets all values in one go
 void FillInfo::setBeamInfo( unsigned short const & bunches1
 			    ,unsigned short const & bunches2
@@ -320,7 +333,8 @@ void FillInfo::setBeamInfo( unsigned short const & bunches1
 			    ,cond::Time_t const & endTime
 			    ,std::string const & scheme
 			    ,std::bitset<bunchSlots+1> const & bunchConf1
-			    ,std::bitset<bunchSlots+1> const & bunchConf2 ) {
+			    ,std::bitset<bunchSlots+1> const & bunchConf2
+			    ,std::string const & dummy ) {
   this->setBunchesInBeam1( bunches1 );
   this->setBunchesInBeam2( bunches2 );
   this->setCollidingBunches( collidingBunches );
@@ -337,6 +351,7 @@ void FillInfo::setBeamInfo( unsigned short const & bunches1
   this->setBeginTime( beginTime );
   this->setEndTime( endTime );
   this->setInjectionScheme( scheme );
+  this->setDummy( dummy );
   this->setBunchBitsetForBeam1( bunchConf1 );
   this->setBunchBitsetForBeam2( bunchConf2 );
 }
@@ -359,6 +374,7 @@ void FillInfo::print( std::stringstream & ss ) const {
      << "Begin time of Stable Beam flag: " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( m_beginTime ) ) << std::endl
      << "End time of the fill: " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( m_endTime ) ) << std::endl
      << "Injection scheme as given by LPC: " << m_injectionScheme << std::endl;
+     << "Dummy variable: " << m_dummy << std::endl;
   std::vector<unsigned short> bunchVector1 = this->bunchConfigurationForBeam1();
   std::vector<unsigned short> bunchVector2 = this->bunchConfigurationForBeam2();
   ss << "Bunches filled for Beam 1 (total " << bunchVector1.size() << "): ";

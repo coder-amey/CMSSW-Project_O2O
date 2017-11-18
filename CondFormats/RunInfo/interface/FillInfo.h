@@ -63,6 +63,8 @@ class FillInfo {
   
   std::string const & injectionScheme() const;
 
+//@A
+  std::string const & dummy() const;
   //returns a boolean, true if the injection scheme has a leading 25ns
   //TODO: parse the circulating bunch configuration, instead of the string.
   bool is25nsBunchSpacing() const;
@@ -128,8 +130,9 @@ class FillInfo {
 		    ,cond::Time_t const & endTime
 		    ,std::string const & scheme
 		    ,std::bitset<bunchSlots+1> const & bunchConf1 
-		    ,std::bitset<bunchSlots+1> const & bunchConf2 );
-  
+		    ,std::bitset<bunchSlots+1> const & bunchConf2
+  		    ,std::string const & dummy );
+
   //dumping values on output stream
   void print(std::stringstream & ss) const;
   
@@ -155,6 +158,10 @@ class FillInfo {
   //the size of the bitset must be incremented by one,
   //in order to avoid off-by-one
   std::bitset<bunchSlots+1> m_bunchConfiguration1, m_bunchConfiguration2;
+
+//@A
+  std::string m_dummy;
+
 
  COND_SERIALIZABLE;
 };
