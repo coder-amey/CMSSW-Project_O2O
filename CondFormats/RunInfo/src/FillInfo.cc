@@ -377,7 +377,7 @@ void FillInfo::print( std::stringstream & ss ) const {
      << "Creation time of the fill: " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( m_createTime ) ) << std::endl
      << "Begin time of Stable Beam flag: " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( m_beginTime ) ) << std::endl
      << "End time of the fill: " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( m_endTime ) ) << std::endl
-     << "Injection scheme as given by LPC: " << m_injectionScheme << std::endl;
+     << "Injection scheme as given by LPC: " << m_injectionScheme << std::endl
      << "Testing dummy variable: " << m_dummy << std::endl;
   std::vector<unsigned short> bunchVector1 = this->bunchConfigurationForBeam1();
   std::vector<unsigned short> bunchVector2 = this->bunchConfigurationForBeam2();

@@ -194,7 +194,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   std::cout <<"\n\nQuerying the OMDS for RUNTIME_TYPE data...\n\n"<<std::endl;
   coral::ICursor& fillDataCursor2 = fillDataQuery2->execute();
   //initialize loop variables
-  std::string Description = "";
+  std::string Description ( "None" );
   std::vector<std::string> QV;
 
 /*  CODE FOR DUMPING SCHEMA DESCRIPTION.
@@ -253,23 +253,6 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 
   //loop over the cursor where the result of the query were fetched
 	int i0 = 1, i1 = 1;   
-    std::cout <<"\n\nRetrieving RUNTIME_TYPE DESCRIPTION data...\n\n";
-    while( fillDataCursor2.next() ) {
-		/*if( m_debug ) {
-		  std::ostringstream qs;
-		  fillDataCursor2.currentRow().toOutputStream( qs );
-		  edm::LogInfo( m_name ) << qs.str() << "\nfrom " << m_name << "::getNewObjects";
-		}*/
-		coral::Attribute const & DescriptionAttribute = fillDataCursor2.currentRow()[ std::string( "DESCRIPTION" ) ];
-		if( DescriptionAttribute.isNull() ){
-		  Description = "";
-		} else {
-		  Description = DescriptionAttribute.data<std::string>();
-		  QV.push_back(Description);
-		}
-		std::cout <<"RUNTIME_TYPE records processed: "<< i0++ << "...\n";
-	}
-
     while( fillDataCursor.next() ) {
        std::cout <<"\n\n\nProcessing Record "<< i1++<< "...\n\n";
 	//std::cout <<"New row"<<std::endl;
@@ -389,6 +372,25 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 				<< "; from " << m_name << "::getNewObjects";
       continue;
     }
+
+//@A
+    if( fillDataCursor2.next() ) {
+		/*if( m_debug ) {
+		  std::ostringstream qs;
+		  fillDataCursor2.currentRow().toOutputStream( qs );
+		  edm::LogInfo( m_name ) << qs.str() << "\nfrom " << m_name << "::getNewObjects";
+		}*/
+		coral::Attribute const & DescriptionAttribute = fillDataCursor2.currentRow()[ std::string( "DESCRIPTION" ) ];
+		if( DescriptionAttribute.isNull() ){
+		  Description = std::string( "None" );
+		} else {
+		  Description = DescriptionAttribute.data<std::string>();
+		  QV.push_back(Description);
+		}
+		std::cout <<"\nProcessing RUNTIME_TYPE record "<< i0++ << "...\n\n";
+	}
+
+
     //run the second and third query against the schema hosting detailed DIP information
     coral::ISchema& beamCondSchema = session.coralSession().schema( m_dipSchema );
     //start the transaction against the DIP "deep" database backend schema
@@ -509,9 +511,9 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 			 , const_cast<cond::Time_t const &>( stableBeamStartTime )
 			 , const_cast<cond::Time_t const &>( beamDumpTime )
 			 , const_cast<std::string const &>( injectionScheme )
-			 , const_cast<std::bitset<FillInfo::bunchSlots+1> const &>( bunchConfiguration1 )
-			 , const_cast<std::bitset<FillInfo::bunchSlots+1> const &>( bunchConfiguration2 ) 
-			 , const_cast<std::string const &>( Description )  );
+			 , const_cast<std::string const &>( Description )
+		 	 , const_cast<std::bitset<FillInfo::bunchSlots+1> const &>( bunchConfiguration1 )
+			 , const_cast<std::bitset<FillInfo::bunchSlots+1> const &>( bunchConfiguration2 )  );
     //store this payload
     m_to_transfer.push_back( std::make_pair( (FillInfo*)fillInfo, stableBeamStartTime ) );
     edm::LogInfo( m_name ) << "The new payload to be inserted into tag " << tagInfo().name 
@@ -519,9 +521,10 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 			   << " ( " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( stableBeamStartTime ) )
 			   << " ) has values:\n" << *fillInfo
 			   << "from " << m_name << "::getNewObjects";
-    //add log information
+//@A    //add log information
     ss << " fill = " << currentFill
        << ";\tinjection scheme: " << injectionScheme
+       << ";\tdummy entry: " << Description
        << ";\tstart time: " 
        << boost::posix_time::to_iso_extended_string( stableBeamStartTimeStamp.time() )
        << ";\tend time: "
