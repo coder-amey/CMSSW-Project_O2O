@@ -1,415 +1,172 @@
-#include "CondFormats/RunInfo/interface/FillInfo.h"
-#include "CondFormats/Common/interface/TimeConversions.h"
-#include <algorithm>
-#include <iterator>
-#include <stdexcept>
+#include "CondFormats/Serialization/interface/Serializable.h"
 
-//helper function: returns the positions of the bits in the bitset that are set (i.e., have a value of 1).
-static std::vector<unsigned short> bitsetToVector( std::bitset<FillInfo::bunchSlots+1> const & bs ) {
-  std::vector<unsigned short> vec;
-  //reserve space only for the bits in the bitset that are set
-  vec.reserve( bs.count() );
-  for( size_t i = 0; i < bs.size(); ++i ) {
-    if( bs.test( i ) )
-      vec.push_back( (unsigned short)i );
-  }
-  return vec;
-}
+#include "CondFormats/Common/interface/Time.h"
+#include <bitset>
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <vector>
 
-//helper function: returns the enum for fill types in string type
-static std::string fillTypeToString( FillInfo::FillTypeId const & fillType ) {
-  std::string s_fillType( "UNKNOWN" );
-  switch( fillType ) {
-  case FillInfo::UNKNOWN :
-    s_fillType = std::string( "UNKNOWN" );
-    break;
-  case FillInfo::PROTONS :
-    s_fillType = std::string( "PROTONS" );
-    break;
-  case FillInfo::IONS :
-    s_fillType = std::string( "IONS" );
-    break;
-  case FillInfo::COSMICS :
-    s_fillType = std::string( "COSMICS" );
-    break;
-  case FillInfo::GAP :
-    s_fillType = std::string( "GAP" );
-    break;
-  default :
-    s_fillType = std::string( "UNKNOWN" );
-  }
-  return s_fillType;
-}
-
-//helper function: returns the enum for particle types in string type
-static std::string particleTypeToString( FillInfo::ParticleTypeId const & particleType ) {
-  std::string s_particleType( "NONE" );
-  switch( particleType ) {
-  case FillInfo::NONE :
-    s_particleType = std::string( "NONE" );
-    break;
-  case FillInfo::PROTON :
-    s_particleType = std::string( "PROTON" );
-    break;
-  case FillInfo::PB82 :
-    s_particleType = std::string( "PB82" );
-    break;
-  case FillInfo::AR18 :
-    s_particleType = std::string( "AR18" );
-    break;
-  case FillInfo::D :
-    s_particleType = std::string( "D" );
-    break;
-  case FillInfo::XE54 :
-    s_particleType = std::string( "XE54" );
-    break;
-  default :
-    s_particleType = std::string( "NONE" );
-  }
-  return s_particleType;
-}
-
-//@A
-FillInfo::FillInfo(): m_isData( false )
-		    , m_lhcFill( 0 )
-		    , m_bunches1( 0 )
-		    , m_bunches2( 0 )
-		    , m_collidingBunches( 0 )
-		    , m_targetBunches( 0 )
-		    , m_fillType( FillTypeId::UNKNOWN )
-		    , m_particles1( ParticleTypeId::NONE )
-		    , m_particles2( ParticleTypeId::NONE )
-		    , m_crossingAngle( 0. )
-		    , m_betastar( 0. )
-		    , m_intensity1( 0. )
-		    , m_intensity2( 0. )
-		    , m_energy( 0. )
-		    , m_createTime( 0 )
-		    , m_beginTime( 0 )
-		    , m_endTime( 0 )
-		    , m_injectionScheme( "None" )
-		    , m_dummy( "None" )
-{}
-
-FillInfo::FillInfo( unsigned short const & lhcFill, bool const & fromData ): m_isData( fromData )
-									   , m_lhcFill( lhcFill )
-									   , m_bunches1( 0 )
-									   , m_bunches2( 0 )
-									   , m_collidingBunches( 0 )
-									   , m_targetBunches( 0 )
-									   , m_fillType( FillTypeId::UNKNOWN )
-									   , m_particles1( ParticleTypeId::NONE )
-									   , m_particles2( ParticleTypeId::NONE )
-									   , m_crossingAngle( 0. )
-									   , m_betastar( 0. )
-									   , m_intensity1( 0. )
-									   , m_intensity2( 0. )
-									   , m_energy( 0. )
-									   , m_createTime( 0 )
-									   , m_beginTime( 0 )
-									   , m_endTime( 0 )
-									   , m_injectionScheme( "None" )
-									   , m_dummy( "None" )
-{}
-
-FillInfo::~FillInfo() {}
-
-//reset instance
-void FillInfo::setFill( unsigned short const & lhcFill, bool const & fromData ) {
-  m_isData = fromData;
-  m_lhcFill = lhcFill;
-  m_bunches1 = 0;
-  m_bunches2 = 0;
-  m_collidingBunches = 0;
-  m_targetBunches = 0;
-  m_fillType = FillTypeId::UNKNOWN;
-  m_particles1 = ParticleTypeId::NONE;
-  m_particles2 = ParticleTypeId::NONE;
-  m_crossingAngle = 0.;
-  m_betastar = 0.;
-  m_intensity1 = 0;
-  m_intensity2 = 0;
-  m_energy = 0.;
-  m_createTime = 0;
-  m_beginTime = 0;
-  m_endTime = 0;
-  m_injectionScheme = "None";
-  //@A
-  m_dummy = "None";
-  m_bunchConfiguration1.reset();
-  m_bunchConfiguration2.reset();
-}
-
-//getters
-unsigned short const FillInfo::fillNumber() const {
-  return m_lhcFill;
-}
-
-bool const FillInfo::isData() const {
-  return m_isData;
-}
-
-unsigned short const FillInfo::bunchesInBeam1() const {
-  return m_bunches1;
-}
-
-unsigned short const FillInfo::bunchesInBeam2() const {
-  return m_bunches2;
-}
-
-unsigned short const FillInfo::collidingBunches() const {
-  return m_collidingBunches;
-}
-
-unsigned short const FillInfo::targetBunches() const {
-  return m_targetBunches;
-}
-
-FillInfo::FillTypeId const FillInfo::fillType() const {
-  return m_fillType;
-}
-
-FillInfo::ParticleTypeId const FillInfo::particleTypeForBeam1() const {
-  return m_particles1;
-}
-
-FillInfo::ParticleTypeId const FillInfo::particleTypeForBeam2() const {
-  return m_particles2;
-}
-
-float const FillInfo::crossingAngle() const {
-  return m_crossingAngle;
-}
-
-float const FillInfo::betaStar() const {
-  return m_betastar;
-}
-
-float const FillInfo::intensityForBeam1() const {
-  return m_intensity1;
-}
-
-float const FillInfo::intensityForBeam2() const {
-  return m_intensity2;
-}
-
-float const FillInfo::energy() const {
-  return m_energy;
-}
-
-cond::Time_t const FillInfo::createTime() const {
-  return m_createTime;
-}
-
-cond::Time_t const FillInfo::beginTime() const {
-  return m_beginTime;
-}
-
-cond::Time_t const FillInfo::endTime() const {
-  return m_endTime;
-}
-
-std::string const & FillInfo::injectionScheme() const {
-  return m_injectionScheme;
-}
-
-//@A
-std::string const & FillInfo::dummy() const {
-  return m_dummy;
-}
-
-//returns a boolean, true if the injection scheme has a leading 25ns
-//TODO: parse the circulating bunch configuration, instead of the string.
-bool FillInfo::is25nsBunchSpacing() const {
-  const std::string prefix( "25ns" );
-  return std::equal( prefix.begin(), prefix.end(), m_injectionScheme.begin() );
-}
-
-//returns a boolean, true if the bunch slot number is in the circulating bunch configuration
-bool FillInfo::isBunchInBeam1( size_t const & bunch ) const {
-  if( bunch == 0 )
-    throw std::out_of_range( "0 not allowed" ); //CMS starts counting bunch crossing from 1!
-  return m_bunchConfiguration1.test( bunch );
-}
-
-bool FillInfo::isBunchInBeam2( size_t const & bunch ) const {
-  if( bunch == 0 )
-    throw std::out_of_range( "0 not allowed" ); //CMS starts counting bunch crossing from 1!
-  return m_bunchConfiguration2.test( bunch );
-}
-
-//member functions returning *by value* a vector with all filled bunch slots
-std::vector<unsigned short> FillInfo::bunchConfigurationForBeam1() const {
-  return bitsetToVector( m_bunchConfiguration1 );
-}
-
-std::vector<unsigned short> FillInfo::bunchConfigurationForBeam2() const {
-  return bitsetToVector( m_bunchConfiguration2 );
-}
-
-//setters
-void FillInfo::setBunchesInBeam1( unsigned short const & bunches ) {
-  m_bunches1 = bunches;
-}
-
-void FillInfo::setBunchesInBeam2( unsigned short const & bunches ) {
-  m_bunches2 = bunches;
-}
-
-void FillInfo::setCollidingBunches( unsigned short const & collidingBunches ) {
-  m_collidingBunches = collidingBunches;
-}
-
-void FillInfo::setTargetBunches( unsigned short const & targetBunches ) {
-  m_targetBunches = targetBunches;
-}
-
-void FillInfo::setFillType( FillInfo::FillTypeId const & fillType ) {
-  m_fillType = fillType;
-}
-
-void FillInfo::setParticleTypeForBeam1( FillInfo::ParticleTypeId const & particleType ) {
-  m_particles1 = particleType;
-}
-
-void FillInfo::setParticleTypeForBeam2( FillInfo::ParticleTypeId const & particleType ) {
-  m_particles2 = particleType;
-}
-
-void FillInfo::setCrossingAngle( float const & angle ) {
-  m_crossingAngle = angle;
-}
+class FillInfo {
+ public:
+  enum FillType { UNKNOWN = 0, PROTONS = 1, IONS = 2, COSMICS = 3, GAP = 4 };
+  enum ParticleType { NONE = 0, PROTON = 1, PB82 = 2, AR18 = 3, D = 4, XE54 = 5 };
+  typedef FillType FillTypeId;
+  typedef ParticleType ParticleTypeId;
+  FillInfo();
+  FillInfo( unsigned short const & lhcFill, bool const & fromData = true );
+  ~FillInfo();
   
-void FillInfo::setBetaStar( float const & betaStar ) {
-  m_betastar = betaStar;
-}
+  //constant static unsigned integer hosting the maximum number of LHC bunch slots
+  static size_t const bunchSlots = 3564;
+  
+  //constant static unsigned integer hosting the available number of LHC bunch slots
+  static size_t const availableBunchSlots = 2808;
+  
+  //reset instance
+  void setFill( unsigned short const & lhcFill, bool const & fromData = true );
+  
+  //getters
+  unsigned short const fillNumber() const;
+  
+  bool const isData() const;
+  
+  unsigned short const bunchesInBeam1() const;
+  
+  unsigned short const bunchesInBeam2() const;
+  
+  unsigned short const collidingBunches() const;
+  
+  unsigned short const targetBunches() const;
+  
+  FillTypeId const fillType() const;
+  
+  ParticleTypeId const particleTypeForBeam1() const;
+  
+  ParticleTypeId const particleTypeForBeam2() const;
+  
+  float const crossingAngle() const;
 
-void FillInfo::setIntensityForBeam1( float const & intensity ) {
-  m_intensity1 = intensity;
-}
+  float const betaStar() const;
+  
+  float const intensityForBeam1() const;
+  
+  float const intensityForBeam2() const;
+  
+  float const energy() const;
+  
+  cond::Time_t const createTime() const;
+  
+  cond::Time_t const beginTime() const;
+  
+  cond::Time_t const endTime() const;
+  
+  std::string const & injectionScheme() const;
+  
+  //A@
+  std::string const & dummy() const;
 
-void FillInfo::setIntensityForBeam2( float const & intensity ) {
-  m_intensity2 = intensity;
-}
+  //returns a boolean, true if the injection scheme has a leading 25ns
+  //TODO: parse the circulating bunch configuration, instead of the string.
+  bool is25nsBunchSpacing() const;
 
-void FillInfo::setEnergy( float const & energy ) {
-  m_energy = energy;
-}
+  //returns a boolean, true if the bunch slot number is in the circulating bunch configuration
+  bool isBunchInBeam1( size_t const & bunch ) const;
+  
+  bool isBunchInBeam2( size_t const & bunch ) const;
+  
+  //member functions returning *by value* a vector with all filled bunch slots
+  std::vector<unsigned short> bunchConfigurationForBeam1() const;
+  
+  std::vector<unsigned short> bunchConfigurationForBeam2() const;
+  
+  //setters
+  void setBunchesInBeam1( unsigned short const & bunches );
+  
+  void setBunchesInBeam2( unsigned short const & bunches );
+  
+  void setCollidingBunches( unsigned short const & collidingBunches );
+  
+  void setTargetBunches( unsigned short const & targetBunches );
+  
+  void setFillType( FillTypeId const & fillType );
+  
+  void setParticleTypeForBeam1( ParticleTypeId const & particleType );
+  
+  void setParticleTypeForBeam2( ParticleTypeId const & particleType );
+  
+  void setCrossingAngle( float const & angle );
+  
+  void setBetaStar( float const & betaStar );
+  
+  void setIntensityForBeam1( float const & intensity );
+  
+  void setIntensityForBeam2( float const & intensity );
+  
+  void setEnergy( float const & energy );
+  
+  void setCreationTime( cond::Time_t const & createTime );
+  
+  void setBeginTime( cond::Time_t const & beginTime );
+  
+  void setEndTime( cond::Time_t const & endTime );
+  
+  void setInjectionScheme( std::string const & injectionScheme );
+  
+  //A@
+  void setDummy( std::string const & dummy);
+  
+  //sets all values in one go
+  //@A
+  void setBeamInfo( unsigned short const & bunches1
+		    ,unsigned short const & bunches2
+		    ,unsigned short const & collidingBunches
+		    ,unsigned short const & targetBunches
+		    ,FillTypeId const & fillType
+		    ,ParticleTypeId const & particleType1
+		    ,ParticleTypeId const & particleType2
+		    ,float const & angle
+		    ,float const & beta
+		    ,float const & intensity1
+		    ,float const & intensity2
+		    ,float const & energy
+		    ,cond::Time_t const & createTime
+		    ,cond::Time_t const & beginTime
+		    ,cond::Time_t const & endTime
+		    ,std::string const & scheme
+		    ,std::string const & dummy
+		    ,std::bitset<bunchSlots+1> const & bunchConf1 
+		    ,std::bitset<bunchSlots+1> const & bunchConf2 );
+  
+  //dumping values on output stream
+  void print(std::stringstream & ss) const;
+  
+ protected:
+  std::bitset<bunchSlots+1> const & bunchBitsetForBeam1() const;
+  
+  std::bitset<bunchSlots+1> const & bunchBitsetForBeam2() const;
+  
+  void setBunchBitsetForBeam1( std::bitset<bunchSlots+1> const & bunchConfiguration );
+  
+  void setBunchBitsetForBeam2( std::bitset<bunchSlots+1> const & bunchConfiguration );
+  
+ private:
+  bool m_isData;
+  unsigned short m_lhcFill;
+  unsigned short m_bunches1, m_bunches2, m_collidingBunches, m_targetBunches;
+  FillTypeId m_fillType;
+  ParticleTypeId m_particles1, m_particles2;
+  float m_crossingAngle, m_betastar, m_intensity1, m_intensity2, m_energy;
+  cond::Time_t m_createTime, m_beginTime, m_endTime;
+  std::string m_injectionScheme;
+  //A@
+  std::string m_dummy;
+  //BEWARE: since CMS counts bunches starting from one,
+  //the size of the bitset must be incremented by one,
+  //in order to avoid off-by-one
+  std::bitset<bunchSlots+1> m_bunchConfiguration1, m_bunchConfiguration2;
 
-void FillInfo::setCreationTime( cond::Time_t const & createTime ) {
-  m_createTime = createTime;
-}
+ COND_SERIALIZABLE;
+};
 
-void FillInfo::setBeginTime( cond::Time_t const & beginTime ) {
-  m_beginTime = beginTime;
-}
-
-void FillInfo::setEndTime( cond::Time_t const & endTime ) {
-  m_endTime = endTime;
-}
-
-void FillInfo::setInjectionScheme( std::string const & injectionScheme ) {
-  m_injectionScheme = injectionScheme;
-}
-
-//@A
-void FillInfo::setDummy( std::string const & dummy) {
-  m_dummy = dummy;
-}
-
-//sets all values in one go
-//@A
-void FillInfo::setBeamInfo( unsigned short const & bunches1
-			    ,unsigned short const & bunches2
-			    ,unsigned short const & collidingBunches
-			    ,unsigned short const & targetBunches
-			    ,FillTypeId const & fillType
-			    ,ParticleTypeId const & particleType1
-			    ,ParticleTypeId const & particleType2
-			    ,float const & angle
-			    ,float const & beta
-			    ,float const & intensity1
-			    ,float const & intensity2
-			    ,float const & energy
-			    ,cond::Time_t const & createTime
-			    ,cond::Time_t const & beginTime
-			    ,cond::Time_t const & endTime
-			    ,std::string const & scheme
-			    ,std::string const & dummy
-			    ,std::bitset<bunchSlots+1> const & bunchConf1
-			    ,std::bitset<bunchSlots+1> const & bunchConf2 ) {
-  this->setBunchesInBeam1( bunches1 );
-  this->setBunchesInBeam2( bunches2 );
-  this->setCollidingBunches( collidingBunches );
-  this->setTargetBunches( targetBunches );
-  this->setFillType( fillType );
-  this->setParticleTypeForBeam1( particleType1 );
-  this->setParticleTypeForBeam2( particleType2 );
-  this->setCrossingAngle( angle );
-  this->setBetaStar( beta );
-  this->setIntensityForBeam1( intensity1 );
-  this->setIntensityForBeam2( intensity2 );
-  this->setEnergy( energy );
-  this->setCreationTime( createTime );
-  this->setBeginTime( beginTime );
-  this->setEndTime( endTime );
-  this->setInjectionScheme( scheme );
-  this->setDummy( dummy );
-  this->setBunchBitsetForBeam1( bunchConf1 );
-  this->setBunchBitsetForBeam2( bunchConf2 );
-}
-
-//@A
-void FillInfo::print( std::stringstream & ss ) const {
-  ss << "LHC fill: " << m_lhcFill << std::endl
-     << "Bunches in Beam 1: " << m_bunches1 << std::endl
-     << "Bunches in Beam 2: " << m_bunches2 << std::endl
-     << "Colliding bunches at IP5: " << m_collidingBunches << std::endl
-     << "Target bunches at IP5: " << m_targetBunches << std::endl
-     << "Fill type: " << fillTypeToString( m_fillType ) << std::endl
-     << "Particle type for Beam 1: " << particleTypeToString( m_particles1 ) << std::endl
-     << "Particle type for Beam 2: " << particleTypeToString( m_particles2 ) << std::endl
-     << "Crossing angle (urad): " << m_crossingAngle << std::endl
-     << "Beta star (cm): " << m_betastar << std::endl
-     << "Average Intensity for Beam 1 (number of charges): " << m_intensity1 << std::endl
-     << "Average Intensity for Beam 2 (number of charges): " << m_intensity2 << std::endl
-     << "Energy (GeV): " << m_energy << std::endl
-     << "Creation time of the fill: " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( m_createTime ) ) << std::endl
-     << "Begin time of Stable Beam flag: " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( m_beginTime ) ) << std::endl
-     << "End time of the fill: " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( m_endTime ) ) << std::endl
-     << "Injection scheme as given by LPC: " << m_injectionScheme << std::endl;
-     << "Testing dummy variable: " << m_dummy << std::endl;
-  std::vector<unsigned short> bunchVector1 = this->bunchConfigurationForBeam1();
-  std::vector<unsigned short> bunchVector2 = this->bunchConfigurationForBeam2();
-  ss << "Bunches filled for Beam 1 (total " << bunchVector1.size() << "): ";
-  std::copy( bunchVector1.begin(), bunchVector1.end(), std::ostream_iterator<unsigned short>( ss, ", " ) );
-  ss << std::endl;
-  ss << "Bunches filled for Beam 2 (total " << bunchVector2.size() << "): ";
-  std::copy( bunchVector2.begin(), bunchVector2.end(), std::ostream_iterator<unsigned short>( ss, ", " ) );
-  ss << std::endl;
-}
-
-//protected getters
-std::bitset<FillInfo::bunchSlots+1> const & FillInfo::bunchBitsetForBeam1() const {
-  return m_bunchConfiguration1;  
-}
-
-std::bitset<FillInfo::bunchSlots+1> const & FillInfo::bunchBitsetForBeam2() const {
-  return m_bunchConfiguration2;  
-}
-
-//protected setters
-void FillInfo::setBunchBitsetForBeam1( std::bitset<FillInfo::bunchSlots+1> const & bunchConfiguration ) {
-  m_bunchConfiguration1 = bunchConfiguration;
-}
-
-void FillInfo::setBunchBitsetForBeam2( std::bitset<FillInfo::bunchSlots+1> const & bunchConfiguration ) {
-  m_bunchConfiguration2 = bunchConfiguration;
-}
-
-std::ostream & operator<<( std::ostream & os, FillInfo fillInfo ) {
-  std::stringstream ss;
-  fillInfo.print( ss );
-  os << ss.str();
-  return os;
-}
+std::ostream & operator<<( std::ostream &, FillInfo fillInfo );
