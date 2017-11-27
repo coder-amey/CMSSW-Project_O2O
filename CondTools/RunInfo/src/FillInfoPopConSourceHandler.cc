@@ -172,9 +172,34 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   std::ostringstream ss;
 
 //@A
+//prepare the query for table 2:
+  std::unique_ptr<coral::IQuery> fillDataQuery2( runTimeLoggerSchema.newQuery() );
+  //FROM clause
+  fillDataQuery2->addToTableList( std::string( "RUNTIME_TYPE" ) );
+  //SELECT clause
+  fillDataQuery2->addToOutputList( std::string( "DESCRIPTION" ) );
+  //WHERE clause
+  //by imposing BEGINTIME IS NOT NULL, we remove fills which never went into stable beams,
+  //or the most recent one, just declared but not yet in stable beams
+  //std::string conditionStr( "BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
+  /*fillDataQuery2->setCondition( conditionStr2, fillDataBindVariables );
+  //ORDER BY clause
+  fillDataQuery2->addToOrderList( std::string( "LHCFILL" ) );
+  //define query output*/
+  coral::AttributeList fillDataOutput2;
+  fillDataOutput2.extend<std::string>( std::string( "DESCRIPTION" ) );
+  fillDataQuery2->defineOutput( fillDataOutput2 );
+  //execute the query
+  std::cout <<"\n\nQuerying the OMDS for RUNTIME_TYPE data...\n\n"<<std::endl;
+  coral::ICursor& fillDataCursor2 = fillDataQuery2->execute();
+  //initialize loop variables
+  std::string Description ( "None" );
+std::vector<std::string> QV;
+
+// CODE FOR DEBUGGING PURPOSES...
 
 /*  CODE FOR TESTING A NEW QUERY.*/
-  std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
+ std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
   //FROM clause
   Q->addToTableList( std::string( "RUNTIME_SUMMARY" ) );
   //SELECT clause
@@ -194,7 +219,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   std::cout <<"\n\nQuerying the OMDS for BField...\n\n"<<std::endl;
   coral::ICursor& C = Q->execute();
   //Read the output.
-  std::cout << "Reading BField values:\n";
+     std::cout << "Reading BField values:\n";
   while( C.next() ) {
     if( m_debug ) {
       std::ostringstream qs;
