@@ -426,13 +426,13 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
   //WHERE clause
   //by imposing BEGINTIME IS NOT NULL, we remove fills which never went into stable beams,
   //or the most recent one, just declared but not yet in stable beams
-  std::string BconditionStr = std::string( "DIPTIME = :stableBeamStartTimeStamp" );
+  std::string BconditionStr = std::string( "DIPTIME <= :stableBeamStartTimeStamp" );
   Q->setCondition( BconditionStr, bunchConfBindVariables );
   //ORDER BY clause
   //Q->addToOrderList( std::string( "LHCFILL" ) );
   //define query output*/
   coral::AttributeList O;
-  O.extend<std::string>( std::string( "B" ) );
+  O.extend<float>( std::string( "B" ) );
   Q->defineOutput( O );
   //execute the query
   std::cout <<"\n\nQuerying the OMDS for BField...\n\n"<<std::endl;
@@ -443,7 +443,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
     if( m_debug ) {
       std::ostringstream qs;
       C.currentRow().toOutputStream( qs );
-      cout << qs.str() << "\n";
+      std::cout << "BField = " << qs.str() << "\n";
     }
   }
 
