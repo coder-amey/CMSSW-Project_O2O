@@ -16,8 +16,8 @@ process.source = cms.Source("EmptyIOVSource",
     #lastValue = cms.uint64(5412267527264796672),
     #interval = cms.uint64( 3600 << 32 )
     firstValue = cms.uint64(6477060826480649336),
-    lastValue = cms.uint64(6477790949511632856),
-    interval = cms.uint64( 3600 << 32 )
+    lastValue = cms.uint64(6477486014744301449),
+    interval = cms.uint64((6477790949511632856 - 6477060826480649336)/8)
 )
 
 
