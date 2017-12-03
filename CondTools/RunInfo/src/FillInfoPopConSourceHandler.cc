@@ -420,21 +420,24 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 /*  CODE FOR TESTING A NEW QUERY.*/
  std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
   //FROM clause
-  Q->addToTableList( std::string( "DAILY_LUMINOSITY" ) );
+  Q->addToTableList( std::string( "DAILY_LUMINOSITY_77" ) );
   //SELECT clause
+  Q->addToOutputList( std::string( "LASTUPDATE" ) );
   Q->addToOutputList( std::string( "RECORDED" ) );
   Q->addToOutputList( std::string( "DELIVERED" ) );
   //WHERE clause
   //by imposing BEGINTIME IS NOT NULL, we remove fills which never went into stable beams,
   //or the most recent one, just declared but not yet in stable beams
-  bunchConfBindVariables.extend<coral::TimeStamp>( std::string( "beamDumpTimeStamp" ) );
-  bunchConfBindVariables[ std::string( "beamDumpTimeStamp" ) ].data<coral::TimeStamp>() = beamDumpTimeStamp;
-  std::string BconditionStr = std::string( "LASTUPDATE <= :beamDumpTimeStamp" );
-  Q->setCondition( BconditionStr, bunchConfBindVariables );
+  coral::AttributeList BV;
+  BV.extend<coral::TimeStamp>( std::string( "stableBeamStartTimeStamp" ) );
+  BV[ std::string( "stableBeamStartTimeStamp" ) ].data<coral::TimeStamp>() = stableBeamStartTimeStamp;
+  std::string LumiconditionStr = std::string( "LASTUPDATE >= :stableBeamStartTimeStamp" );
+  Q->setCondition( LumiconditionStr, BV );
   //ORDER BY clause
-  //Q->addToOrderList( std::string( "LHCFILL" ) );
+  Q->addToOrderList( std::string( "LASTUPDATE" ) );
   //define query output*/
   coral::AttributeList O;
+  O.extend<coral::TimeStamp>( std::string( "Time" ) );
   O.extend<double>( std::string( "RECORDED" ) );
   O.extend<double>( std::string( "DELIVERED" ) );
   Q->defineOutput( O );
