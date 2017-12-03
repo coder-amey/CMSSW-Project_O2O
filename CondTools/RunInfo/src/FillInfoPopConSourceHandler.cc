@@ -418,32 +418,36 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 
 //@A
 /*  CODE FOR TESTING A NEW QUERY.*/
- std::unique_ptr<coral::IQuery> Q( beamCondSchema.newQuery() );
+ std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
   //FROM clause
-  Q->addToTableList( std::string( "MAGNETIC_FIELD" ) );
+  Q->addToTableList( std::string( "DAILY_LUMINOSITY" ) );
   //SELECT clause
-  Q->addToOutputList( std::string( "VALUE" ) );
+  Q->addToOutputList( std::string( "RECORDED" ) );
+  Q->addToOutputList( std::string( "DELIVERED" ) );
   //WHERE clause
   //by imposing BEGINTIME IS NOT NULL, we remove fills which never went into stable beams,
   //or the most recent one, just declared but not yet in stable beams
-  std::string BconditionStr = std::string( "DIPTIME <= :stableBeamStartTimeStamp" );
+  bunchConfBindVariables.extend<coral::TimeStamp>( std::string( "beamDumpTimeStamp" ) );
+  bunchConfBindVariables[ std::string( "beamDumpTimeStamp" ) ].data<coral::TimeStamp>() = beamDumpTimeStamp;
+  std::string BconditionStr = std::string( "LASTUPDATE <= :beamDumpTimeStamp" );
   Q->setCondition( BconditionStr, bunchConfBindVariables );
   //ORDER BY clause
   //Q->addToOrderList( std::string( "LHCFILL" ) );
   //define query output*/
   coral::AttributeList O;
-  O.extend<float>( std::string( "B" ) );
+  O.extend<double>( std::string( "RECORDED" ) );
+  O.extend<double>( std::string( "DELIVERED" ) );
   Q->defineOutput( O );
   //execute the query
   std::cout <<"\n\nQuerying the OMDS for BField...\n\n"<<std::endl;
   coral::ICursor& C = Q->execute();
   //Read the output.
-     std::cout << "Reading BField values:\n";
+     std::cout << "Reading values:\n";
   while( C.next() ) {
     if( m_debug ) {
       std::ostringstream qs;
       C.currentRow().toOutputStream( qs );
-      std::cout << "BField = " << qs.str() << "\n";
+      std::cout << qs.str() << "\n";
     }
   }
 
