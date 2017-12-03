@@ -204,22 +204,26 @@ std::vector<std::string> QV;
   Q->addToTableList( std::string( "LUMI_SECTIONS" ) );
   //SELECT clause
   Q->addToOutputList( std::string( "LHCFILL" ) );
-  Q->addToOutputList( std::string( "RECORDED" ) );
-  Q->addToOutputList( std::string( "DELIVERED" ) );
+  Q->addToOutputList( std::string( "MAX(INSTLUMI)" ) );
+  Q->addToOutputList( std::string( "MAX(PILEUP)" ) );
+  Q->addToOutputList( std::string( "MAX(DELIVLUMISECTION)" ) );
   //WHERE clause
   coral::AttributeList BV;
-  std::string lumiConditionStr( "LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
+  std::string lumiConditionStr( "PILEUP IS NOT NULL AND LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
   Q->setCondition( lumiConditionStr, fillDataBindVariables );
   //ORDER BY clause
   Q->addToOrderList( std::string( "LHCFILL" ) );
-  //define query output
+  //GROUP BY clause
+  Q->groupBy( std::string( "LHCFILL" ) );
+ //define query output
   coral::AttributeList O;
-  O.extend<int>( std::string( "Fill" ) );
-  O.extend<double>( std::string( "RECORDED" ) );
-  O.extend<double>( std::string( "DELIVERED" ) );
+  O.extend<int>( std::string( "FILL" ) );
+  O.extend<float>( std::string( "PEAKINSTLUMI" ) );
+  O.extend<float>( std::string( "PEAKPILEUP" ) );
+  O.extend<float>( std::string( "DELIVERED" ) );
   Q->defineOutput( O );
   //execute the query
-  std::cout <<"\n\nQuerying the OMDS for BField...\n\n"<<std::endl;
+  std::cout <<"\n\nQuerying the OMDS for LUMI_SECTION data...\n\n"<<std::endl;
   coral::ICursor& C = Q->execute();
   //Read the output.
      std::cout << "Reading values:\n";
