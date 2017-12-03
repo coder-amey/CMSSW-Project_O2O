@@ -198,7 +198,40 @@ std::vector<std::string> QV;
 
 // CODE FOR DEBUGGING PURPOSES...
 
-/*  CODE FOR DUMPING SCHEMA DESCRIPTION.
+/*  CODE FOR TESTING A NEW QUERY.*/
+ std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
+  //FROM clause
+  Q->addToTableList( std::string( "LUMI_SECTIONS" ) );
+  //SELECT clause
+  Q->addToOutputList( std::string( "LHCFILL" ) );
+  Q->addToOutputList( std::string( "RECORDED" ) );
+  Q->addToOutputList( std::string( "DELIVERED" ) );
+  //WHERE clause
+  coral::AttributeList BV;
+  std::string lumiConditionStr( "LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
+  Q->setCondition( lumiConditionStr, fillDataBindVariables );
+  //ORDER BY clause
+  Q->addToOrderList( std::string( "LHCFILL" ) );
+  //define query output
+  coral::AttributeList O;
+  O.extend<int>( std::string( "Fill" ) );
+  O.extend<double>( std::string( "RECORDED" ) );
+  O.extend<double>( std::string( "DELIVERED" ) );
+  Q->defineOutput( O );
+  //execute the query
+  std::cout <<"\n\nQuerying the OMDS for BField...\n\n"<<std::endl;
+  coral::ICursor& C = Q->execute();
+  //Read the output.
+     std::cout << "Reading values:\n";
+  while( C.next() ) {
+    if( m_debug ) {
+      std::ostringstream qs;
+      C.currentRow().toOutputStream( qs );
+      std::cout << qs.str() << "\n";
+    }
+  }
+
+/*CODE FOR DUMPING SCHEMA DESCRIPTION.
 coral::ISchema& BCS = session.coralSession().schema( m_dipSchema );
 session.transaction().start( true );
 std::set<std::string> List = BCS.listTables();
@@ -250,7 +283,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 
 //Prevent unnecessary execution of code.
 //Note remove the while loop to populate the database.
-	//while( fillDataCursor.next() );
+	while( fillDataCursor.next() );
 
   //loop over the cursor where the result of the query were fetched
 	int i0 = 1, i1 = 1;   
@@ -417,8 +450,8 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
     std::bitset<FillInfo::bunchSlots+1> bunchConfiguration1( 0ULL );
 
 //@A
-/*  CODE FOR TESTING A NEW QUERY.*/
- std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
+/*  CODE FOR TESTING A NEW QUERY (FROM A PARTICULAR FILL).*/
+/* std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
   //FROM clause
   Q->addToTableList( std::string( "DAILY_LUMINOSITY_77" ) );
   //SELECT clause
@@ -435,7 +468,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
   Q->setCondition( LumiconditionStr, BV );
   //ORDER BY clause
   Q->addToOrderList( std::string( "LASTUPDATE" ) );
-  //define query output*/
+  //define query output
   coral::AttributeList O;
   O.extend<coral::TimeStamp>( std::string( "Time" ) );
   O.extend<double>( std::string( "RECORDED" ) );
@@ -453,7 +486,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
       std::cout << qs.str() << "\n";
     }
   }
-
+*/
 //@A Debugging...
 
     int i2 = 0;
