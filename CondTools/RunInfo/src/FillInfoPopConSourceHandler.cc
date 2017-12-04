@@ -287,7 +287,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 
 //Prevent unnecessary execution of code.
 //Note remove the while loop to populate the database.
-	while( fillDataCursor.next() );
+	//while( fillDataCursor.next() );
 
   //loop over the cursor where the result of the query were fetched
 	int i0 = 1, i1 = 1;   
@@ -457,7 +457,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 /*  CODE FOR TESTING A NEW QUERY (FROM A PARTICULAR FILL).*/
  std::unique_ptr<coral::IQuery> Q( beamCondSchema.newQuery() );
   //FROM clause
-  Q->addToTableList( std::string( "MAGNETIC_FIELD" ) );
+  Q->addToTableList( std::string( "MAGNETIC_FIELD_LV" ) );
   //SELECT clause
   Q->addToOutputList( std::string( "COUNT(*)" ) );
   /*Q->addToOutputList( std::string( "DIPTIME" ) );
