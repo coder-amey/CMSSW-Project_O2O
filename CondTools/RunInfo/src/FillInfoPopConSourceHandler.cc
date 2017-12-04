@@ -204,16 +204,18 @@ std::vector<std::string> QV;
   //FROM clause
   Q->addToTableList( std::string( "RUNTIME_SUMMARY" ), std::string( "RS\", TABLE( RS.RUNTIME ) \"R" ) );
   //SELECT clause
-  Q->addToOutputList( std::string( "COUNT(R.COLUMN_VALUE)" ), std::string( "RUNTIME" ) );
+  Q->addToOutputList( std::string( "RS.LHCFILL" ), std::string( "LHCFILL" ) );
+  Q->addToOutputList( std::string( "R.COLUMN_VALUE" ), std::string( "RUNTIME" ) );
   
  //WHERE CLAUSE
-  std::string lumiConditionStr( "RS.LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
+  std::string lumiConditionStr( "LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
   Q->setCondition( lumiConditionStr, fillDataBindVariables );
   //ORDER BY clause
   Q->addToOrderList( std::string( "LHCFILL" ) );
  //define query output
   coral::AttributeList O;
-  O.extend<int>( std::string( "Total Records" ) );
+  O.extend<int>( std::string( "LHCFILL" ) );
+  O.extend<int>( std::string( "RUNTIME" ) );
   Q->defineOutput( O );
   //execute the query
   std::cout <<"\n\nQuerying the OMDS for RUNTIME data...\n\n"<<std::endl;
