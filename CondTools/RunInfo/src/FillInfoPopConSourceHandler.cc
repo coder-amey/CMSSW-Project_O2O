@@ -287,7 +287,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 
 //Prevent unnecessary execution of code.
 //Note remove the while loop to populate the database.
-	while( fillDataCursor.next() );
+	//while( fillDataCursor.next() );
 
   //loop over the cursor where the result of the query were fetched
 	int i0 = 1, i1 = 1;   
@@ -454,29 +454,31 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
     std::bitset<FillInfo::bunchSlots+1> bunchConfiguration1( 0ULL );
 
 //@A
-/*  CODE FOR TESTING A NEW QUERY (FROM A PARTICULAR FILL).*/
- std::unique_ptr<coral::IQuery> Q( beamCondSchema.newQuery() );
-  //FROM clause
-  Q->addToTableList( std::string( "MAGNETIC_FIELD" ) );
-  //SELECT clause
-  Q->addToOutputList( std::string( "DIPTIME" ) );
-  Q->addToOutputList( std::string( "VALUE" ) );
-  //WHERE clause
-  //by imposing BEGINTIME IS NOT NULL, we remove fills which never went into stable beams,
-  //or the most recent one, just declared but not yet in stable beams
-  coral::AttributeList BV;
-  BV.extend<coral::TimeStamp>( std::string( "stableBeamStartTimeStamp" ) );
-  BV[ std::string( "stableBeamStartTimeStamp" ) ].data<coral::TimeStamp>() = stableBeamStartTimeStamp;
-  BV.extend<coral::TimeStamp>( std::string( "beamDumpTimeStamp" ) );
-  BV[ std::string( "beamDumpTimeStamp" ) ].data<coral::TimeStamp>() = beamDumpTime;
-  std::string lumiConditionStr( "VALUE IS NOT NULL AND DIPTIME BETWEEN :stableBeamStartTimeStamp AND :beamDumpTimeStamp" );
-  Q->setCondition( LumiconditionStr, BV );
-  //ORDER BY clause
-  Q->addToOrderList( std::string( "DIPTIME" ) );
-  //define query output
-  coral::AttributeList O;
-  O.extend<coral::TimeStamp>( std::string( "Time" ) );
-  O.extend<float>( std::string( "BFIELD" ) );
+///*  CODE FOR TESTING A NEW QUERY (FROM A PARTICULAR FILL).*/
+// std::unique_ptr<coral::IQuery> Q( beamCondSchema.newQuery() );
+//   //FROM clause
+//     Q->addToTableList( std::string( "MAGNETIC_FIELD" ) );
+//       //SELECT clause
+//         Q->addToOutputList( std::string( "COUNT(*)" ) );
+//           /*Q->addToOutputList( std::string( "DIPTIME" ) );
+//             Q->addToOutputList( std::string( "VALUE" ) );
+//               //WHERE clause
+//                 //by imposing BEGINTIME IS NOT NULL, we remove fills which never went into stable beams,
+//                   //or the most recent one, just declared but not yet in stable beams
+//                     coral::AttributeList BV;
+//                       BV.extend<coral::TimeStamp>( std::string( "stableBeamStartTimeStamp" ) );
+//                         BV[ std::string( "stableBeamStartTimeStamp" ) ].data<coral::TimeStamp>() = stableBeamStartTimeStamp;
+//                           BV.extend<coral::TimeStamp>( std::string( "beamDumpTimeStamp" ) );
+//                             BV[ std::string( "beamDumpTimeStamp" ) ].data<coral::TimeStamp>() = beamDumpTimeStamp;
+//                               std::string BConditionStr( "VALUE IS NOT NULL AND DIPTIME >= :stableBeamStartTimeStamp" );
+//                                 //Q->setCondition( BConditionStr, BV );
+//                                   //ORDER BY clause
+//                                     Q->addToOrderList( std::string( "DIPTIME" ) );
+//                                       //define query output
+//                                         */
+//                                           coral::AttributeList O;
+//                                             //O.extend<coral::TimeStamp>( std::string( "Time" ) );
+//                                               O.extend<int>( std::string( "Total" ) );
   Q->defineOutput( O );
   //execute the query
   std::cout <<"\n\nQuerying the OMDS for BField...\n\n"<<std::endl;
