@@ -199,7 +199,7 @@ std::vector<std::string> QV;
 // CODE FOR DEBUGGING PURPOSES...
 
 /*  CODE FOR TESTING A NEW QUERY.*/
- std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
+/* std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
   //FROM clause
   Q->addToTableList( std::string( "LUMI_SECTIONS" ) );
   //SELECT clause
@@ -234,7 +234,7 @@ std::vector<std::string> QV;
       std::cout << qs.str() << "\n";
     }
   }
-
+*/
 /*CODE FOR DUMPING SCHEMA DESCRIPTION.
 coral::ISchema& BCS = session.coralSession().schema( m_dipSchema );
 session.transaction().start( true );
@@ -455,28 +455,28 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 
 //@A
 /*  CODE FOR TESTING A NEW QUERY (FROM A PARTICULAR FILL).*/
-/* std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
+ std::unique_ptr<coral::IQuery> Q( beamCondSchema.newQuery() );
   //FROM clause
-  Q->addToTableList( std::string( "DAILY_LUMINOSITY_77" ) );
+  Q->addToTableList( std::string( "MAGNETIC_FIELD" ) );
   //SELECT clause
-  Q->addToOutputList( std::string( "LASTUPDATE" ) );
-  Q->addToOutputList( std::string( "RECORDED" ) );
-  Q->addToOutputList( std::string( "DELIVERED" ) );
+  Q->addToOutputList( std::string( "DIPTIME" ) );
+  Q->addToOutputList( std::string( "VALUE" ) );
   //WHERE clause
   //by imposing BEGINTIME IS NOT NULL, we remove fills which never went into stable beams,
   //or the most recent one, just declared but not yet in stable beams
   coral::AttributeList BV;
   BV.extend<coral::TimeStamp>( std::string( "stableBeamStartTimeStamp" ) );
   BV[ std::string( "stableBeamStartTimeStamp" ) ].data<coral::TimeStamp>() = stableBeamStartTimeStamp;
-  std::string LumiconditionStr = std::string( "LASTUPDATE >= :stableBeamStartTimeStamp" );
+  BV.extend<coral::TimeStamp>( std::string( "beamDumpTimeStamp" ) );
+  BV[ std::string( "beamDumpTimeStamp" ) ].data<coral::TimeStamp>() = beamDumpTime;
+  std::string lumiConditionStr( "VALUE IS NOT NULL AND DIPTIME BETWEEN :stableBeamStartTimeStamp AND :beamDumpTimeStamp" );
   Q->setCondition( LumiconditionStr, BV );
   //ORDER BY clause
-  Q->addToOrderList( std::string( "LASTUPDATE" ) );
+  Q->addToOrderList( std::string( "DIPTIME" ) );
   //define query output
   coral::AttributeList O;
   O.extend<coral::TimeStamp>( std::string( "Time" ) );
-  O.extend<double>( std::string( "RECORDED" ) );
-  O.extend<double>( std::string( "DELIVERED" ) );
+  O.extend<float>( std::string( "BFIELD" ) );
   Q->defineOutput( O );
   //execute the query
   std::cout <<"\n\nQuerying the OMDS for BField...\n\n"<<std::endl;
@@ -490,7 +490,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
       std::cout << qs.str() << "\n";
     }
   }
-*/
+  
 //@A Debugging...
 
     int i2 = 0;
