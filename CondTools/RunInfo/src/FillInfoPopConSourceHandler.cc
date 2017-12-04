@@ -199,6 +199,35 @@ std::vector<std::string> QV;
 // CODE FOR DEBUGGING PURPOSES...
 
 /*  CODE FOR TESTING A NEW QUERY.*/
+
+   std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
+  //FROM clause
+  Q->addToTableList( std::string( "RUNTIME_SUMMARY" ), std::string( "RS\", TABLE( RS.RUNTIME ) \"R" ) );
+  //SELECT clause
+  Q->addToOutputList( std::string( "COUNT(R.COLUMN_VALUE)" ), std::string( "RUNTIME" ) );
+  
+ //WHERE CLAUSE
+  std::string lumiConditionStr( "RS.LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
+  Q->setCondition( lumiConditionStr, fillDataBindVariables );
+  //ORDER BY clause
+  Q->addToOrderList( std::string( "LHCFILL" ) );
+ //define query output
+  coral::AttributeList O;
+  O.extend<int>( std::string( "Total Records" ) );
+  Q->defineOutput( O );
+  //execute the query
+  std::cout <<"\n\nQuerying the OMDS for RUNTIME data...\n\n"<<std::endl;
+  coral::ICursor& C = Q->execute();
+  //Read the output.
+     std::cout << "Reading values:\n";
+  while( C.next() ) {
+    if( m_debug ) {
+      std::ostringstream qs;
+      C.currentRow().toOutputStream( qs );
+      std::cout << qs.str() << "\n";
+    }
+  }
+  
 /* std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
   //FROM clause
   Q->addToTableList( std::string( "LUMI_SECTIONS" ) );
@@ -287,7 +316,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 
 //Prevent unnecessary execution of code.
 //Note remove the while loop to populate the database.
-	//while( fillDataCursor.next() );
+	while( fillDataCursor.next() );
 
   //loop over the cursor where the result of the query were fetched
 	int i0 = 1, i1 = 1;   
@@ -455,12 +484,13 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 
 //@A
 /*  CODE FOR TESTING A NEW QUERY (FROM A PARTICULAR FILL).*/
+/*
  std::unique_ptr<coral::IQuery> Q( beamCondSchema.newQuery() );
   //FROM clause
   Q->addToTableList( std::string( "MAGNETIC_FIELD_LV" ) );
   //SELECT clause
   Q->addToOutputList( std::string( "COUNT(*)" ) );
-  /*Q->addToOutputList( std::string( "DIPTIME" ) );
+  Q->addToOutputList( std::string( "DIPTIME" ) );
   Q->addToOutputList( std::string( "VALUE" ) );
   //WHERE clause
   //by imposing BEGINTIME IS NOT NULL, we remove fills which never went into stable beams,
@@ -475,7 +505,6 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
   //ORDER BY clause
   Q->addToOrderList( std::string( "DIPTIME" ) );
   //define query output
-  */
   coral::AttributeList O;
   //O.extend<coral::TimeStamp>( std::string( "Time" ) );
   O.extend<int>( std::string( "Total" ) );
@@ -492,7 +521,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
       std::cout << qs.str() << "\n";
     }
   }
-  
+  */
 //@A Debugging...
 
     int i2 = 0;
