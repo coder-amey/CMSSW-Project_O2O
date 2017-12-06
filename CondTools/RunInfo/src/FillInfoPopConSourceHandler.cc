@@ -199,7 +199,7 @@ std::vector<std::string> QV;
 // CODE FOR DEBUGGING PURPOSES...
 
 /*  CODE FOR TESTING A NEW QUERY.*/
- std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
+/* std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
   //FROM clause
   Q->addToTableList( std::string( "LUMI_SECTIONS" ) );
   //SELECT clause
@@ -234,7 +234,7 @@ std::vector<std::string> QV;
       std::cout << qs.str() << "\n";
     }
   }
-
+*/
 /*CODE FOR DUMPING SCHEMA DESCRIPTION.
 coral::ISchema& BCS = session.coralSession().schema( m_dipSchema );
 session.transaction().start( true );
@@ -287,7 +287,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 
 //Prevent unnecessary execution of code.
 //Note remove the while loop to populate the database.
-	while( fillDataCursor.next() );
+//	while( fillDataCursor.next() );
 
   //loop over the cursor where the result of the query were fetched
 	int i0 = 1, i1 = 1;   
