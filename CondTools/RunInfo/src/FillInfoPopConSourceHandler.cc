@@ -266,17 +266,41 @@ std::vector<std::string> QV;
     }
   }
 */
-/*CODE FOR DUMPING SCHEMA DESCRIPTION.
-*/
+
+//Initializing the CMS_BEAM_COND schema.
 
 coral::ISchema& BCS = session.coralSession().schema( m_dipSchema );
 session.transaction().start( true );
-//std::set<std::string> List = BCS.listTables();
 std::cout<<"\n\n\n--------------------------"<<std::endl;
-//std::cout << "Schema Description:\n";
-//std::cout << "Schema Name: " << BCS.schemaName() << std::endl;
 std::cout << "Description of CMS_LHC_LUMIPERBUNCH table:\n";
-/*std::set<std::string>::iterator I;
+ try{
+			coral::ITable& fillTable = BCS.tableHandle("CMS_LHC_LUMIPERBUNCH");
+			const coral::ITableDescription& description = fillTable.description();
+			int c = 3;
+			string Col[3] = {"LHCFILL", "DIPTIME", "LUMIBUNCHINST"};
+			for(int i = 0; i < c; i++)
+			{
+				const coral::IColumn& col = description.columnDescription(Col[i]);
+				std::cout << "\t" << col.name() << " (" << col.type() << ")" << std::endl;
+			}
+			int k = description.numberOfForeignKeys();
+			std::cout << "No. of Foreign keys:\t" << k << std::endl;
+			std::cout << std::endl;
+		}
+catch(std::exception E)
+{
+	std::cout << "Exception encountered!\n\n";
+}
+session.transaction().commit();
+std::cout<<"--------------------------\n\n\n"<<std::endl;
+
+
+/*CODE FOR DUMPING SCHEMA DESCRIPTION.
+*/
+/*std::set<std::string> List = BCS.listTables();
+std::cout << "Schema Description:\n";
+std::cout << "Schema Name: " << BCS.schemaName() << std::endl;
+std::set<std::string>::iterator I;
 for(I = List.begin(); I != List.end(); ++I)
     std::cout << '\t' << *I << std::endl;
 std::cout << std::endl; 
@@ -300,7 +324,7 @@ for(I = List.begin(); I != List.end(); ++I)
 		{
 				std::cout << "Exception encountered for table:  " << *I << "\n\n";
 		}
-}*/
+}
  try{
 			coral::ITable& fillTable = BCS.tableHandle("CMS_LHC_LUMIPERBUNCH");
 			const coral::ITableDescription& description = fillTable.description();
@@ -321,7 +345,7 @@ catch(std::exception E)
 }
 session.transaction().commit();
 std::cout<<"--------------------------\n\n\n"<<std::endl;
-
+*/
 //Prevent unnecessary execution of code.
 //Note remove the while loop to populate the database.
 	while( fillDataCursor.next() );
