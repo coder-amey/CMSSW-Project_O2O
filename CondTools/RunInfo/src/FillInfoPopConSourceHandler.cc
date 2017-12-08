@@ -328,7 +328,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 */
 //Prevent unnecessary execution of code.
 //Note remove the while loop to populate the database.
-	while( fillDataCursor.next() );
+	//while( fillDataCursor.next() );
 
   //loop over the cursor where the result of the query were fetched
 	int i0 = 1, i1 = 1;   
@@ -592,7 +592,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 		Q->addToOutputList( std::string( "VALUE.COLUMN_VALUE" ), std::string( "LUMI/BUNCH" ) );
 		Q->setCondition( conditionStr, bunchConfBindVariables );
 		Q->addToOrderList( std::string( "DIPTIME DESC" ) );
-		Q->limitReturnedRows( 500 );
+		Q->limitReturnedRows( FillInfo::availableBunchSlots );
 		//define query output
 		coral::AttributeList O;
 		O.extend<coral::TimeStamp>( std::string( "Time" ) );
@@ -602,7 +602,6 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 		std::cout <<"\n\nQuerying the OMDS for LUMI/BUNCH...\n\n"<<std::endl;
 		coral::ICursor& C = Q->execute();
 		//Read the output.
-		std::cout << "Reading values:\n";
 		while( C.next() ) {
 			if( m_debug ) {
 			std::ostringstream qs;
