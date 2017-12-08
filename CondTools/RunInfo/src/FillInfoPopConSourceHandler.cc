@@ -590,13 +590,14 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 		Q->addToTableList( std::string( "CMS_LHC_LUMIPERBUNCH" ), std::string( "LUMIPERBUNCH\", TABLE( LUMIPERBUNCH.LUMI_BUNCHINST ) \"VALUE" ) );
 		Q->addToOutputList( std::string( "LUMIPERBUNCH.DIPTIME" ), std::string( "DIPTIME" ) );
 		Q->addToOutputList( std::string( "VALUE.COLUMN_VALUE" ), std::string( "LUMI/BUNCH" ) );
+		//conditionStr = std::string( "VALUE.COLUMN_VALUE != 0 AND DIPTIME <= :stableBeamStartTimeStamp" );
 		Q->setCondition( conditionStr, bunchConfBindVariables );
 		Q->addToOrderList( std::string( "DIPTIME DESC" ) );
 		Q->limitReturnedRows( FillInfo::availableBunchSlots );
 		//define query output
 		coral::AttributeList O;
 		O.extend<coral::TimeStamp>( std::string( "Time" ) );
-		O.extend<int>( std::string( "Value" ) );
+		O.extend<float>( std::string( "Value" ) );
 		Q->defineOutput( O );
 		//execute the query
 		std::cout <<"\n\nQuerying the OMDS for LUMI/BUNCH...\n\n"<<std::endl;
