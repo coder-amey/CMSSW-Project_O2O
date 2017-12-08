@@ -207,29 +207,11 @@ session.transaction().start( true );
 std::cout<<"\n\n\n--------------------------"<<std::endl;
 std::cout << "Qurying CMS_LHC_LUMIPERBUNCH table:\n";
   std::unique_ptr<coral::IQuery> Q( BCS.newQuery() );
-  /*//FROM clause
-  Q->addToTableList( std::string( "RUNTIME_SUMMARY" ), std::string( "RS\", TABLE( RS.RUNTIME ) \"R" ) );
-  //SELECT clause
-  Q->addToOutputList( std::string( "RS.LHCFILL" ), std::string( "LHCFILL" ) );
-  Q->addToOutputList( std::string( "R.COLUMN_VALUE" ), std::string( "RUNTIME" ) );
-  
- //WHERE CLAUSE
-  std::string lumiConditionStr( "LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
-  Q->setCondition( lumiConditionStr, fillDataBindVariables );
-  //ORDER BY clause
-  Q->addToOrderList( std::string( "LHCFILL" ) );
- //define query output
-  coral::AttributeList O;
-  O.extend<int>( std::string( "LHCFILL" ) );
-  O.extend<int>( std::string( "RUNTIME" ) );
-  Q->defineOutput( O );
-*/
-
   //FROM clause
-  Q->addToTableList( std::string( "RUNTIME_SUMMARY" ), std::string( "RS\", TABLE( RS.RUNTIME ) \"R" ) );
+  Q->addToTableList( std::string( "CMS_LHC_LUMIPERBUNCH" ) );
   //SELECT clause
-  Q->addToOutputList( std::string( "RS.LHCFILL" ), std::string( "LHCFILL" ) );
-  Q->addToOutputList( std::string( "R.COLUMN_VALUE" ), std::string( "RUNTIME" ) );
+  Q->addToOutputList( std::string(  "LHCFILL" ) );
+  Q->addToOutputList( std::string( "DIPTIME" ) );
   
  //WHERE CLAUSE
   std::string lumiConditionStr( "LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
@@ -239,10 +221,10 @@ std::cout << "Qurying CMS_LHC_LUMIPERBUNCH table:\n";
  //define query output
   coral::AttributeList O;
   O.extend<int>( std::string( "LHCFILL" ) );
-  O.extend<int>( std::string( "RUNTIME" ) );
+  O.extend<coral::TimeStamp>( std::string( "DIPTIME" ) );
   Q->defineOutput( O );
   //execute the query
-  std::cout <<"\n\nQuerying the OMDS for RUNTIME data...\n\n"<<std::endl;
+  std::cout <<"\n\nQuerying the OMDS for lumiPerBX data...\n\n"<<std::endl;
   coral::ICursor& C = Q->execute();
   //Read the output.
      std::cout << "Reading values:\n";
@@ -252,7 +234,7 @@ std::cout << "Qurying CMS_LHC_LUMIPERBUNCH table:\n";
       C.currentRow().toOutputStream( qs );
       std::cout << qs.str() << "\n";
     }
-  }*/
+  }
   
 /* std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
   //FROM clause
@@ -290,29 +272,6 @@ std::cout << "Qurying CMS_LHC_LUMIPERBUNCH table:\n";
     }
   }
 */
-
- try{
-			coral::ITable& fillTable = BCS.tableHandle("CMS_LHC_LUMIPERBUNCH");
-			const coral::ITableDescription& description = fillTable.description();
-			int c = 3;
-			std::string Col[3] = {"LHCFILL", "DIPTIME", "LUMIBUNCHINST"};
-			for(int i = 0; i < c; i++)
-			{
-				std::cout << i << "\n";
-				const coral::IColumn& col = description.columnDescription(Col[i]);
-				std::cout << "\t" << col.name() << " (" << col.type() << ")" << std::endl;
-			}
-			int k = description.numberOfForeignKeys();
-			std::cout << "No. of Foreign keys:\t" << k << std::endl;
-			std::cout << std::endl;
-		}
-catch(std::exception E)
-{
-	std::cout << "Exception encountered!\n\n";
-}
-session.transaction().commit();
-std::cout<<"--------------------------\n\n\n"<<std::endl;
-
 
 /*CODE FOR DUMPING SCHEMA DESCRIPTION.
 */
