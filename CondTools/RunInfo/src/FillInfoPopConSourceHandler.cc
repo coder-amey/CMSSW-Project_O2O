@@ -208,22 +208,23 @@ session.transaction().start( true );
   //FROM clause
   Q->addToTableList( std::string( "CMS_LHC_FILLSUMMARY" ) );
   //SELECT clause
-  Q->addToOutputList( std::string( "LHCFILL" ) );
-  Q->addToOutputList( std::string( "PEAK_INST_LUMI");
+  Q->addToOutputList( std::string( "FILLNUMBER" ) );
+  /*Q->addToOutputList( std::string( "PEAK_INST_LUMI") );
   Q->addToOutputList( std::string( "DELIVERED_LUMI" ) );
   Q->addToOutputList( std::string( "RECORDED_LUMI" ) );
   //WHERE clause
   coral::AttributeList BV;
-  std::string lumiConditionStr( "PEAK_INST_LUMI IS NOT NULL AND LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
+  std::string lumiConditionStr( "PEAK_INST_LUMI IS NOT NULL AND FILLNUMBER BETWEEN :firstFillNumber AND :lastFillNumber" );
   Q->setCondition( lumiConditionStr, fillDataBindVariables );
   //ORDER BY clause
-  Q->addToOrderList( std::string( "LHCFILL" ) );
- //define query output
+  */
+  Q->addToOrderList( std::string( "FILLNUMBER" ) );
+  //define query output
   coral::AttributeList O;
   O.extend<int>( std::string( "FILL" ) );
-  O.extend<float>( std::string( "PEAKINSTLUMI" ) );
-  O.extend<float>( std::string( "DELIVERED" ) );
-  O.extend<float>( std::string( "RECORDED" ) );
+ // O.extend<float>( std::string( "PEAKINSTLUMI" ) );
+  //O.extend<float>( std::string( "DELIVERED" ) );
+ // O.extend<float>( std::string( "RECORDED" ) );
   Q->defineOutput( O );
   //execute the query
   std::cout <<"\n\nQuerying the OMDS for FILL_SUMMARY data...\n\n"<<std::endl;
@@ -240,7 +241,6 @@ session.transaction().start( true );
   
   session.transaction().commit();
   
-*/
 /*CODE FOR DUMPING SCHEMA DESCRIPTION.
 std::set<std::string> List = BCS.listTables();
 std::cout<<"\n\n\n--------------------------"<<std::endl;
