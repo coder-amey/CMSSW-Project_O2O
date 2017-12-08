@@ -201,7 +201,7 @@ std::vector<std::string> QV;
 /*  CODE FOR TESTING A NEW QUERY.
 */
 //Initializing the CMS_BEAM_COND schema.
-
+/*
 coral::ISchema& BCS = session.coralSession().schema( m_dipSchema );
 session.transaction().start( true );
 std::cout<<"\n\n\n--------------------------"<<std::endl;
@@ -235,6 +235,8 @@ std::cout << "Qurying CMS_LHC_LUMIPERBUNCH table:\n";
       std::cout << qs.str() << "\n";
     }
   }
+*/
+
   
 /* std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
   //FROM clause
@@ -580,9 +582,35 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 	bunchConfiguration2[ slot ] = true;
       }
     }
-      std::cout << "\n\n\nData parsed by Cursor2:  " << i3 << " units.\n\n"
+      std::cout << "\n\n\nData parsed by Cursor2:  " << i3 << " units.\n\n";
+      
+//@A
+    		//execute query for lumiPerBX
+		std::unique_ptr<coral::IQuery> Q(beamCondSchema.newQuery());
+		Q->addToTableList( std::string( "CMS_LHC_LUMIPERBUNCH" ), std::string( "LUMIPERBUNCH\", TABLE( LUMIPERBUNCH.LUMI_BUNCHINST ) \"VALUE" ) );
+		Q->addToOutputList( std::string( "LUMIPERBUNCH.DIPTIME" ), std::string( "DIPTIME" ) );
+		Q->addToOutputList( std::string( "VALUE.COLUMN_VALUE" ), std::string( "LUMI/BUNCH" ) );
+		Q->setCondition( conditionStr, bunchConfBindVariables );
+		Q->addToOrderList( std::string( "DIPTIME DESC" ) );
+		Q->limitReturnedRows( 500 );
+		//define query output
+		coral::AttributeList O;
+		O.extend<coral::TimeStamp>( std::string( "Time" ) );
+		O.extend<int>( std::string( "Value" ) );
+		Q->defineOutput( O );
+		//execute the query
+		std::cout <<"\n\nQuerying the OMDS for LUMI/BUNCH...\n\n"<<std::endl;
+		coral::ICursor& C = Q->execute();
+		//Read the output.
+		std::cout << "Reading values:\n";
+		while( C.next() ) {
+			if( m_debug ) {
+			std::ostringstream qs;
+			C.currentRow().toOutputStream( qs );
+			std::cout << qs.str() << "\n";
+			}
+		}
 
-;
     //commit the transaction against the DIP "deep" database backend schema
     session.transaction().commit();
     
