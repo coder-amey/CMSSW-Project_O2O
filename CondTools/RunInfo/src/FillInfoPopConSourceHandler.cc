@@ -214,7 +214,7 @@ session.transaction().start( true );
   Q->addToOutputList( std::string( "RECORDED_LUMI" ) );
   //WHERE clause
   coral::AttributeList BV;
-  std::string lumiConditionStr( "PEAK_INST_LUMI IS NOT NULL AND FILLNUMBER <= :firstFillNumber AND FILLNUMBER <= :lastFillNumber" );
+  std::string lumiConditionStr( "PEAK_INST_LUMI IS NOT NULL AND FILLNUMBER BETWEEN :firstFillNumber AND :lastFillNumber" );
   Q->setCondition( lumiConditionStr, fillDataBindVariables );
   //ORDER BY clause
   Q->addToOrderList( std::string( "FILLNUMBER" ) );
