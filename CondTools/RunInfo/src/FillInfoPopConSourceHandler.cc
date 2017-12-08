@@ -590,8 +590,13 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 		Q->addToTableList( std::string( "CMS_LHC_LUMIPERBUNCH" ), std::string( "LUMIPERBUNCH\", TABLE( LUMIPERBUNCH.LUMI_BUNCHINST ) \"VALUE" ) );
 		Q->addToOutputList( std::string( "LUMIPERBUNCH.DIPTIME" ), std::string( "DIPTIME" ) );
 		Q->addToOutputList( std::string( "VALUE.COLUMN_VALUE" ), std::string( "LUMI/BUNCH" ) );
-		//conditionStr = std::string( "VALUE.COLUMN_VALUE != 0 AND DIPTIME <= :stableBeamStartTimeStamp" );
-		Q->setCondition( conditionStr, bunchConfBindVariables );
+		coral::AttributeList lumiBindVariables;
+	        lumiBindVariables.extend<coral::TimeStamp>( std::string( "stableBeamStartTimeStamp" ) );
+    		lumiBindVariables[ std::string( "stableBeamStartTimeStamp" ) ].data<coral::TimeStamp>() = stableBeamStartTimeStamp;
+    		lumiBindVariables.extend<coral::TimeStamp>( std::string( "beamDumpTimeStamp" ) );
+    		lumiBindVariables[ std::string( "beamDumpTimeStamp" ) ].data<coral::TimeStamp>() = beamDumpTimeStamp;
+		conditionStr = std::string( "DIPTIME BETWEEN :stableBeamStartTimeStamp AND :beamDumpTimeStamp" );
+		Q->setCondition( conditionStr, lumiBindVariables );
 		Q->addToOrderList( std::string( "DIPTIME DESC" ) );
 		Q->limitReturnedRows( FillInfo::availableBunchSlots );
 		//define query output
@@ -602,14 +607,17 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 		//execute the query
 		std::cout <<"\n\nQuerying the OMDS for LUMI/BUNCH...\n\n"<<std::endl;
 		coral::ICursor& C = Q->execute();
+		int count = 0;
 		//Read the output.
 		while( C.next() ) {
 			if( m_debug ) {
 			std::ostringstream qs;
 			C.currentRow().toOutputStream( qs );
 			std::cout << qs.str() << "\n";
+			count++;
 			}
 		}
+		std::cout << "\n\n\nTotal records parsed: " << count << std::endl;
 
     //commit the transaction against the DIP "deep" database backend schema
     session.transaction().commit();
