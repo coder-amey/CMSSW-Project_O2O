@@ -199,8 +199,32 @@ std::vector<std::string> QV;
 // CODE FOR DEBUGGING PURPOSES...
 
 /*  CODE FOR TESTING A NEW QUERY.
+*/
+//Initializing the CMS_BEAM_COND schema.
 
-   std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
+coral::ISchema& BCS = session.coralSession().schema( m_dipSchema );
+session.transaction().start( true );
+std::cout<<"\n\n\n--------------------------"<<std::endl;
+std::cout << "Qurying CMS_LHC_LUMIPERBUNCH table:\n";
+  std::unique_ptr<coral::IQuery> Q( BCS.newQuery() );
+  /*//FROM clause
+  Q->addToTableList( std::string( "RUNTIME_SUMMARY" ), std::string( "RS\", TABLE( RS.RUNTIME ) \"R" ) );
+  //SELECT clause
+  Q->addToOutputList( std::string( "RS.LHCFILL" ), std::string( "LHCFILL" ) );
+  Q->addToOutputList( std::string( "R.COLUMN_VALUE" ), std::string( "RUNTIME" ) );
+  
+ //WHERE CLAUSE
+  std::string lumiConditionStr( "LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
+  Q->setCondition( lumiConditionStr, fillDataBindVariables );
+  //ORDER BY clause
+  Q->addToOrderList( std::string( "LHCFILL" ) );
+ //define query output
+  coral::AttributeList O;
+  O.extend<int>( std::string( "LHCFILL" ) );
+  O.extend<int>( std::string( "RUNTIME" ) );
+  Q->defineOutput( O );
+*/
+
   //FROM clause
   Q->addToTableList( std::string( "RUNTIME_SUMMARY" ), std::string( "RS\", TABLE( RS.RUNTIME ) \"R" ) );
   //SELECT clause
@@ -267,19 +291,14 @@ std::vector<std::string> QV;
   }
 */
 
-//Initializing the CMS_BEAM_COND schema.
-
-coral::ISchema& BCS = session.coralSession().schema( m_dipSchema );
-session.transaction().start( true );
-std::cout<<"\n\n\n--------------------------"<<std::endl;
-std::cout << "Description of CMS_LHC_LUMIPERBUNCH table:\n";
  try{
 			coral::ITable& fillTable = BCS.tableHandle("CMS_LHC_LUMIPERBUNCH");
 			const coral::ITableDescription& description = fillTable.description();
 			int c = 3;
-			string Col[3] = {"LHCFILL", "DIPTIME", "LUMIBUNCHINST"};
+			std::string Col[3] = {"LHCFILL", "DIPTIME", "LUMIBUNCHINST"};
 			for(int i = 0; i < c; i++)
 			{
+				std::cout << i << "\n";
 				const coral::IColumn& col = description.columnDescription(Col[i]);
 				std::cout << "\t" << col.name() << " (" << col.type() << ")" << std::endl;
 			}
