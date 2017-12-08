@@ -198,63 +198,35 @@ std::vector<std::string> QV;
 
 // CODE FOR DEBUGGING PURPOSES...
 
+//Initializing the CMS_BEAM_COND Schema
+coral::ISchema& BCS = session.coralSession().schema( m_dipSchema );
+session.transaction().start( true );
+
 /*  CODE FOR TESTING A NEW QUERY. */
 
-   std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
+   std::unique_ptr<coral::IQuery> Q( BCS.newQuery() );
   //FROM clause
-  Q->addToTableList( std::string( "RUNTIME_SUMMARY" ), std::string( "RS\", TABLE( RS.RUNTIME ) \"R" ) );
-  //SELECT clause
-  Q->addToOutputList( std::string( "RS.LHCFILL" ), std::string( "LHCFILL" ) );
-  Q->addToOutputList( std::string( "R.COLUMN_VALUE" ), std::string( "RUNTIME" ) );
-  
- //WHERE CLAUSE
-  std::string lumiConditionStr( "LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
-  Q->setCondition( lumiConditionStr, fillDataBindVariables );
-  //ORDER BY clause
-  Q->addToOrderList( std::string( "LHCFILL" ) );
- //define query output
-  coral::AttributeList O;
-  O.extend<int>( std::string( "LHCFILL" ) );
-  O.extend<int>( std::string( "RUNTIME" ) );
-  Q->defineOutput( O );
-  //execute the query
-  std::cout <<"\n\nQuerying the OMDS for RUNTIME data...\n\n"<<std::endl;
-  coral::ICursor& C = Q->execute();
-  //Read the output.
-     std::cout << "Reading values:\n";
-  while( C.next() ) {
-    if( m_debug ) {
-      std::ostringstream qs;
-      C.currentRow().toOutputStream( qs );
-      std::cout << qs.str() << "\n";
-    }
-  }
-  
-/* std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
-  //FROM clause
-  Q->addToTableList( std::string( "LUMI_SECTIONS" ) );
+  Q->addToTableList( std::string( "CMS_LHC_FILLSUMMARY" ) );
   //SELECT clause
   Q->addToOutputList( std::string( "LHCFILL" ) );
-  Q->addToOutputList( std::string( "MAX(INSTLUMI)" ) );
-  Q->addToOutputList( std::string( "MAX(PILEUP)" ) );
-  Q->addToOutputList( std::string( "MAX(DELIVLUMISECTION)" ) );
+  Q->addToOutputList( std::string( "PEAK_INST_LUMI");
+  Q->addToOutputList( std::string( "DELIVERED_LUMI" ) );
+  Q->addToOutputList( std::string( "RECORDED_LUMI" ) );
   //WHERE clause
   coral::AttributeList BV;
-  std::string lumiConditionStr( "PILEUP IS NOT NULL AND LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
+  std::string lumiConditionStr( "PEAK_INST_LUMI IS NOT NULL AND LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
   Q->setCondition( lumiConditionStr, fillDataBindVariables );
   //ORDER BY clause
   Q->addToOrderList( std::string( "LHCFILL" ) );
-  //GROUP BY clause
-  Q->groupBy( std::string( "LHCFILL" ) );
  //define query output
   coral::AttributeList O;
   O.extend<int>( std::string( "FILL" ) );
   O.extend<float>( std::string( "PEAKINSTLUMI" ) );
-  O.extend<float>( std::string( "PEAKPILEUP" ) );
   O.extend<float>( std::string( "DELIVERED" ) );
+  O.extend<float>( std::string( "RECORDED" ) );
   Q->defineOutput( O );
   //execute the query
-  std::cout <<"\n\nQuerying the OMDS for LUMI_SECTION data...\n\n"<<std::endl;
+  std::cout <<"\n\nQuerying the OMDS for FILL_SUMMARY data...\n\n"<<std::endl;
   coral::ICursor& C = Q->execute();
   //Read the output.
      std::cout << "Reading values:\n";
@@ -265,10 +237,11 @@ std::vector<std::string> QV;
       std::cout << qs.str() << "\n";
     }
   }
+  
+  session.transaction().commit();
+  
 */
 /*CODE FOR DUMPING SCHEMA DESCRIPTION.
-coral::ISchema& BCS = session.coralSession().schema( m_dipSchema );
-session.transaction().start( true );
 std::set<std::string> List = BCS.listTables();
 std::cout<<"\n\n\n--------------------------"<<std::endl;
 std::cout << "Schema Description:\n";
