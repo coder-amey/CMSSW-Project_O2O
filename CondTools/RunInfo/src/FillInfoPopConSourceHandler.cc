@@ -198,7 +198,7 @@ std::vector<std::string> QV;
 
 // CODE FOR DEBUGGING PURPOSES...
 
-/*  CODE FOR TESTING A NEW QUERY.*/
+/*  CODE FOR TESTING A NEW QUERY.
 
    std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
   //FROM clause
@@ -228,7 +228,7 @@ std::vector<std::string> QV;
       C.currentRow().toOutputStream( qs );
       std::cout << qs.str() << "\n";
     }
-  }
+  }*/
   
 /* std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
   //FROM clause
@@ -267,14 +267,16 @@ std::vector<std::string> QV;
   }
 */
 /*CODE FOR DUMPING SCHEMA DESCRIPTION.
+*/
+
 coral::ISchema& BCS = session.coralSession().schema( m_dipSchema );
 session.transaction().start( true );
-std::set<std::string> List = BCS.listTables();
+//std::set<std::string> List = BCS.listTables();
 std::cout<<"\n\n\n--------------------------"<<std::endl;
-std::cout << "Schema Description:\n";
-std::cout << "Schema Name: " << BCS.schemaName() << std::endl;
-std::cout << "All Tables:\n";
-std::set<std::string>::iterator I;
+//std::cout << "Schema Description:\n";
+//std::cout << "Schema Name: " << BCS.schemaName() << std::endl;
+std::cout << "Description of CMS_LHC_LUMIPERBUNCH table:\n";
+/*std::set<std::string>::iterator I;
 for(I = List.begin(); I != List.end(); ++I)
     std::cout << '\t' << *I << std::endl;
 std::cout << std::endl; 
@@ -298,23 +300,27 @@ for(I = List.begin(); I != List.end(); ++I)
 		{
 				std::cout << "Exception encountered for table:  " << *I << "\n\n";
 		}
-}
+}*/
  try{
-			coral::ITable& fillTable = runTimeLoggerSchema.tableHandle("RUNTIME_TYPE");
+			coral::ITable& fillTable = BCS.tableHandle("CMS_LHC_LUMIPERBUNCH");
 			const coral::ITableDescription& description = fillTable.description();
-			const coral::IColumn& col = description.columnDescription("INSTLUMI");
+			int c = description.numberOfColumns();
+			for(int i = 0; i < c; i++)
+			{
+				const coral::IColumn& col = description.columnDescription(i);
+				std::cout << "\t" << col.name() << " (" << col.type() << ")" << std::endl;
+			}
 			int k = description.numberOfForeignKeys();
-			std::cout << "Description for INSTLUMI:\nTable:\t" << description.name() << "\nNo. of Foreign keys:\t" << k << "\nColumn name:\t" << col.name() << " (" << col.type() << ")" << std::endl;
+			std::cout << "No. of Foreign keys:\t" << k << std::endl;
 			std::cout << std::endl;
 		}
 		
 catch(std::exception E)
 {
-	std::cout << "Exception encountered for table:  " << *I << "\n\n";
+	std::cout << "Exception encountered!\n\n";
 }
-session.transaction.commit();
+session.transaction().commit();
 std::cout<<"--------------------------\n\n\n"<<std::endl;
-*/
 
 //Prevent unnecessary execution of code.
 //Note remove the while loop to populate the database.
