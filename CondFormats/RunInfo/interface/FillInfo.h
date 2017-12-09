@@ -63,7 +63,9 @@ class FillInfo {
   
   std::string const & injectionScheme() const;
   
-  
+  //@A
+  std::vector<float> const & lumiPerBX() const;
+
   //returns a boolean, true if the injection scheme has a leading 25ns
   //TODO: parse the circulating bunch configuration, instead of the string.
   bool is25nsBunchSpacing() const;
@@ -77,9 +79,6 @@ class FillInfo {
   std::vector<unsigned short> bunchConfigurationForBeam1() const;
   
   std::vector<unsigned short> bunchConfigurationForBeam2() const;
-  
-  //@A
-  std::vector<unsigned short> lumiPerBX() const;
   
   //setters
   void setBunchesInBeam1( unsigned short const & bunches );
@@ -114,6 +113,8 @@ class FillInfo {
   
   void setInjectionScheme( std::string const & injectionScheme );
   
+  //@A
+  void setLumiPerBX( std::vector<float> const & lumiPerBX);
   
   //sets all values in one go
   //@A
@@ -133,9 +134,9 @@ class FillInfo {
 		    ,cond::Time_t const & beginTime
 		    ,cond::Time_t const & endTime
 		    ,std::string const & scheme
+		    ,std::vector<float> const & lumiPerBX
 		    ,std::bitset<bunchSlots+1> const & bunchConf1 
-		    ,std::bitset<bunchSlots+1> const & bunchConf2
-		    ,std::bitset<bunchSlots+1> const & lumiPerBX );
+		    ,std::bitset<bunchSlots+1> const & bunchConf2 );
   
   //dumping values on output stream
   void print(std::stringstream & ss) const;
@@ -144,16 +145,10 @@ class FillInfo {
   std::bitset<bunchSlots+1> const & bunchBitsetForBeam1() const;
   
   std::bitset<bunchSlots+1> const & bunchBitsetForBeam2() const;
-
-  //@A
-  std::bitset<bunchSlots+1> const & bitsetForLumiPerBX() const;
-
+  
   void setBunchBitsetForBeam1( std::bitset<bunchSlots+1> const & bunchConfiguration );
   
   void setBunchBitsetForBeam2( std::bitset<bunchSlots+1> const & bunchConfiguration );
-  
-  //@A
-  void setBitsetForLumiPerBX( std::bitset<bunchSlots+1> const & bunchConfiguration );
   
  private:
   bool m_isData;
@@ -164,11 +159,12 @@ class FillInfo {
   float m_crossingAngle, m_betastar, m_intensity1, m_intensity2, m_energy;
   cond::Time_t m_createTime, m_beginTime, m_endTime;
   std::string m_injectionScheme;
+  //@A
+  std::vector<float> lumiPerBX;
   //BEWARE: since CMS counts bunches starting from one,
   //the size of the bitset must be incremented by one,
   //in order to avoid off-by-one
-  //@A
-  std::bitset<bunchSlots+1> m_bunchConfiguration1, m_bunchConfiguration2, m_lumiPerBX;
+  std::bitset<bunchSlots+1> m_bunchConfiguration1, m_bunchConfiguration2;
 
  COND_SERIALIZABLE;
 };
