@@ -542,10 +542,10 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 	Q->addToOutputList( std::string( "LUMIPERBUNCH.DIPTIME" ), std::string( "DIPTIME" ) );
 	Q->addToOutputList( std::string( "VALUE.COLUMN_VALUE" ), std::string( "LUMI/BUNCH" ) );
 	coral::AttributeList lumiBindVariables;
-        lumiBindVariables.extend<coral::TimeStamp>( std::string( "stableBeamStartTimeStamp" ) );
-		lumiBindVariables[ std::string( "stableBeamStartTimeStamp" ) ].data<coral::TimeStamp>() = stableBeamStartTimeStamp;
-		lumiBindVariables.extend<coral::TimeStamp>( std::string( "beamDumpTimeStamp" ) );
-		lumiBindVariables[ std::string( "beamDumpTimeStamp" ) ].data<coral::TimeStamp>() = beamDumpTimeStamp;
+    lumiBindVariables.extend<coral::TimeStamp>( std::string( "stableBeamStartTimeStamp" ) );
+	lumiBindVariables[ std::string( "stableBeamStartTimeStamp" ) ].data<coral::TimeStamp>() = stableBeamStartTimeStamp;
+	lumiBindVariables.extend<coral::TimeStamp>( std::string( "beamDumpTimeStamp" ) );
+	lumiBindVariables[ std::string( "beamDumpTimeStamp" ) ].data<coral::TimeStamp>() = beamDumpTimeStamp;
 	conditionStr = std::string( "DIPTIME BETWEEN :stableBeamStartTimeStamp AND :beamDumpTimeStamp" );
 	Q->setCondition( conditionStr, lumiBindVariables );
 	Q->addToOrderList( std::string( "DIPTIME DESC" ) );
@@ -553,12 +553,12 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 	//define query output
 	coral::AttributeList O;
 	O.extend<coral::TimeStamp>( std::string( "TIME" ) );
-	O.extend<unsigned short>( std::string( "VALUE" ) );
+	O.extend<float>( std::string( "VALUE" ) );
 	Q->defineOutput( O );
 	//execute the query
 	std::cout <<"\n\nQuerying the OMDS for LUMI/BUNCH...\n\n"<<std::endl;
 	coral::ICursor& C = Q->execute();
-    std::bitset<FillInfo::bunchSlots+1> lumiPerBX( 0ULL );
+    std::vector<float> lumiPerBX( FillInfo::bunchSlots );
 	
 	while( C.next() ) {
      /*if( m_debug ) {
@@ -566,9 +566,8 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 	fillDataCursor.currentRow().toOutputStream( b2s );
 	edm::LogInfo( m_name ) << b2s.str() << "\nfrom " << m_name << "::getNewObjects";
       }*/
-      if( C.currentRow()[ std::string( "VALUE" ) ].data<unsigned short>() != 0 ) {
-	unsigned short slot = ( C.currentRow()[ std::string( "VALUE" ) ].data<unsigned short>() - 1 ) / 10 + 1;
-	lumiPerBX[ slot ] = true;
+      if( C.currentRow()[ std::string( "VALUE" ) ].data<float>() != 0 ) {
+			lumiPerBX.push_back( C.currentRow()[ std::string( "VALUE" ) ].data<float>() );
       }
     }
 
@@ -616,7 +615,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 			 , const_cast<std::string const &>( injectionScheme )
 		 	 , const_cast<std::bitset<FillInfo::bunchSlots+1> const &>( bunchConfiguration1 )
 			 , const_cast<std::bitset<FillInfo::bunchSlots+1> const &>( bunchConfiguration2 )
-			 , const_cast<std::bitset<FillInfo::bunchSlots+1> const &>( lumiPerBX )  );
+			 , const_cast<std::vector<float> const &>( lumiPerBX )  );
     //store this payload
     m_to_transfer.push_back( std::make_pair( (FillInfo*)fillInfo, stableBeamStartTime ) );
     edm::LogInfo( m_name ) << "The new payload to be inserted into tag " << tagInfo().name 
