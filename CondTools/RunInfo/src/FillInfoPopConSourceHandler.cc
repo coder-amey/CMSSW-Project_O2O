@@ -615,7 +615,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 			 , const_cast<cond::Time_t const &>( beamDumpTime )
 			 , const_cast<std::string const &>( injectionScheme )
 		 	 , const_cast<std::bitset<FillInfo::bunchSlots+1> const &>( bunchConfiguration1 )
-			 , const_cast<std::bitset<FillInfo::bunchSlots+1> const &>( bunchConfiguration2 )  );
+			 , const_cast<std::bitset<FillInfo::bunchSlots+1> const &>( bunchConfiguration2 )
 			 , const_cast<std::bitset<FillInfo::bunchSlots+1> const &>( lumiPerBX )  );
     //store this payload
     m_to_transfer.push_back( std::make_pair( (FillInfo*)fillInfo, stableBeamStartTime ) );

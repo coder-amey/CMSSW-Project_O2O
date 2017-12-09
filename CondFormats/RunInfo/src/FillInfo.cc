@@ -348,7 +348,7 @@ void FillInfo::setBeamInfo( unsigned short const & bunches1
   this->setInjectionScheme( scheme );
   this->setBunchBitsetForBeam1( bunchConf1 );
   this->setBunchBitsetForBeam2( bunchConf2 );
-  this->setBunchBitsetForLumiPerBX( lumiPerBX );
+  this->setBitsetForLumiPerBX( lumiPerBX );
 }
 
 //@A
