@@ -1,4 +1,0 @@
- ##################################################################### 
- # WARNING: the module CondCore.DBCommon.CondDBCommon is deprecated. # 
- # Please import CondCore.CondDB.CondDB_cfi                          # 
- ##################################################################### 
