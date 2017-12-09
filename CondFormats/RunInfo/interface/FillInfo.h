@@ -63,8 +63,8 @@ class FillInfo {
   
   std::string const & injectionScheme() const;
   
-  //A@
-  std::string const & dummy() const;
+  //@A
+  std::vector<float> const & lumiPerBX() const;
 
   //returns a boolean, true if the injection scheme has a leading 25ns
   //TODO: parse the circulating bunch configuration, instead of the string.
@@ -113,8 +113,8 @@ class FillInfo {
   
   void setInjectionScheme( std::string const & injectionScheme );
   
-  //A@
-  void setDummy( std::string const & dummy);
+  //@A
+  void setLumiPerBX( std::vector<float> const & lumiPerBX);
   
   //sets all values in one go
   //@A
@@ -134,7 +134,7 @@ class FillInfo {
 		    ,cond::Time_t const & beginTime
 		    ,cond::Time_t const & endTime
 		    ,std::string const & scheme
-		    ,std::string const & dummy
+		    ,std::vector<float> const & lumiPerBX
 		    ,std::bitset<bunchSlots+1> const & bunchConf1 
 		    ,std::bitset<bunchSlots+1> const & bunchConf2 );
   
@@ -159,8 +159,8 @@ class FillInfo {
   float m_crossingAngle, m_betastar, m_intensity1, m_intensity2, m_energy;
   cond::Time_t m_createTime, m_beginTime, m_endTime;
   std::string m_injectionScheme;
-  //A@
-  std::string m_dummy;
+  //@A
+  std::vector<float> m_lumiPerBX;
   //BEWARE: since CMS counts bunches starting from one,
   //the size of the bitset must be incremented by one,
   //in order to avoid off-by-one

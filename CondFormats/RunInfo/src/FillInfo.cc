@@ -2,6 +2,7 @@
 #include "CondFormats/Common/interface/TimeConversions.h"
 #include <algorithm>
 #include <iterator>
+#include <vector>
 #include <stdexcept>
 
 //helper function: returns the positions of the bits in the bitset that are set (i.e., have a value of 1).
@@ -88,9 +89,10 @@ FillInfo::FillInfo(): m_isData( false )
 		    , m_beginTime( 0 )
 		    , m_endTime( 0 )
 		    , m_injectionScheme( "None" )
-		    , m_dummy( "None" )
+		    , m_lumiPerBX( FillInfo::availableBunchSlots )
 {}
 
+//@A
 FillInfo::FillInfo( unsigned short const & lhcFill, bool const & fromData ): m_isData( fromData )
 									   , m_lhcFill( lhcFill )
 									   , m_bunches1( 0 )
@@ -109,7 +111,7 @@ FillInfo::FillInfo( unsigned short const & lhcFill, bool const & fromData ): m_i
 									   , m_beginTime( 0 )
 									   , m_endTime( 0 )
 									   , m_injectionScheme( "None" )
-									   , m_dummy( "None" )
+									   , m_lumiPerBX( FillInfo::availableBunchSlots )
 {}
 
 FillInfo::~FillInfo() {}
@@ -133,9 +135,8 @@ void FillInfo::setFill( unsigned short const & lhcFill, bool const & fromData ) 
   m_createTime = 0;
   m_beginTime = 0;
   m_endTime = 0;
+  m_lumiPerBX.clear();  
   m_injectionScheme = "None";
-  //@A
-  m_dummy = "None";
   m_bunchConfiguration1.reset();
   m_bunchConfiguration2.reset();
 }
@@ -214,8 +215,8 @@ std::string const & FillInfo::injectionScheme() const {
 }
 
 //@A
-std::string const & FillInfo::dummy() const {
-  return m_dummy;
+std::vector<float> const & FillInfo::lumiPerBX() const {
+  return m_lumiPerBX;
 }
 
 //returns a boolean, true if the injection scheme has a leading 25ns
@@ -313,8 +314,8 @@ void FillInfo::setInjectionScheme( std::string const & injectionScheme ) {
 }
 
 //@A
-void FillInfo::setDummy( std::string const & dummy) {
-  m_dummy = dummy;
+void FillInfo::setLumiPerBX( std::vector<float> const & lumiPerBX) {
+  m_lumiPerBX = lumiPerBX;
 }
 
 //sets all values in one go
@@ -335,7 +336,7 @@ void FillInfo::setBeamInfo( unsigned short const & bunches1
 			    ,cond::Time_t const & beginTime
 			    ,cond::Time_t const & endTime
 			    ,std::string const & scheme
-			    ,std::string const & dummy
+			    ,std::vector<float> const & lumiPerBX
 			    ,std::bitset<bunchSlots+1> const & bunchConf1
 			    ,std::bitset<bunchSlots+1> const & bunchConf2 ) {
   this->setBunchesInBeam1( bunches1 );
@@ -354,12 +355,11 @@ void FillInfo::setBeamInfo( unsigned short const & bunches1
   this->setBeginTime( beginTime );
   this->setEndTime( endTime );
   this->setInjectionScheme( scheme );
-  this->setDummy( dummy );
+  this->setLumiPerBX( lumiPerBX );
   this->setBunchBitsetForBeam1( bunchConf1 );
   this->setBunchBitsetForBeam2( bunchConf2 );
 }
 
-//@A
 void FillInfo::print( std::stringstream & ss ) const {
   ss << "LHC fill: " << m_lhcFill << std::endl
      << "Bunches in Beam 1: " << m_bunches1 << std::endl
@@ -377,8 +377,12 @@ void FillInfo::print( std::stringstream & ss ) const {
      << "Creation time of the fill: " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( m_createTime ) ) << std::endl
      << "Begin time of Stable Beam flag: " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( m_beginTime ) ) << std::endl
      << "End time of the fill: " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( m_endTime ) ) << std::endl
-     << "Injection scheme as given by LPC: " << m_injectionScheme << std::endl
-     << "Testing dummy variable: " << m_dummy << std::endl;
+     << "Injection scheme as given by LPC: " << m_injectionScheme << std::endl;
+  //@A
+  ss << "Luminosity per bunch  (total " << m_lumiPerBX.size() << "): ";
+  std::copy( m_lumiPerBX.begin(), m_lumiPerBX.end(), std::ostream_iterator<float>( ss, ", " ) );
+  ss << std::endl;
+  
   std::vector<unsigned short> bunchVector1 = this->bunchConfigurationForBeam1();
   std::vector<unsigned short> bunchVector2 = this->bunchConfigurationForBeam2();
   ss << "Bunches filled for Beam 1 (total " << bunchVector1.size() << "): ";

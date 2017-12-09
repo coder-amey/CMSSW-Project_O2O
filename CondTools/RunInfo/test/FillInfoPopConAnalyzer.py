@@ -33,7 +33,7 @@ process.Test1 = cms.EDAnalyzer("FillInfoPopConAnalyzer",
                                name = cms.untracked.string('FillInfo'), #payload name
                                Source = cms.PSet(fill = cms.untracked.uint32(6300),
                                    firstFill = cms.untracked.uint32(6300),
-                                   lastFill = cms.untracked.uint32(6305),
+                                   lastFill = cms.untracked.uint32(6300),
                                    connectionString = cms.untracked.string("oracle://cms_orcon_adg/CMS_RUNTIME_LOGGER"),
                                    DIPSchema = cms.untracked.string("CMS_BEAM_COND"),
                                    authenticationPath =  cms.untracked.string("/afs/cern.ch/user/a/anoolkar/private"),

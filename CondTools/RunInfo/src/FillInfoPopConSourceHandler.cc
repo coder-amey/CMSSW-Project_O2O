@@ -629,6 +629,12 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
     //prepare variables for next iteration
     previousFillNumber = currentFill;
     previousFillEndTime = beamDumpTime;
+
+//@A
+	std::cout << "\n\n\nInst Lumi/Bunch:\n";
+	for(auto I = lumiPerBX.begin(); I != lumiPerBX.end(); ++I)
+		std::cout << *I << "\n";
+	std::cout << "\n\n";
   }
 
   //commit the transaction against the fill logging schema
