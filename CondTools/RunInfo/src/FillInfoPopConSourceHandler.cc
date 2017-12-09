@@ -306,9 +306,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 	//while( fillDataCursor.next() );
 
   //loop over the cursor where the result of the query were fetched
-	int i0 = 1, i1 = 1;   
     while( fillDataCursor.next() ) {
-       std::cout <<"\n\n\nProcessing Record "<< i1++<< "...\n\n";
 	//std::cout <<"New row"<<std::endl;
     if( m_debug ) {
       std::ostringstream qs;
@@ -494,9 +492,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
   */
 //@A Debugging...
 
-    int i2 = 0;
     while( bunchConf1Cursor.next() ) {
-      i2++;
       /*if( m_debug ) {
 	std::ostringstream b1s;
 	fillDataCursor.currentRow().toOutputStream( b1s );
@@ -508,8 +504,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 	bunchConfiguration1[ slot ] = true;
       }
     }
-      std::cout << "\n\n\nData parsed by Cursor1:  " << i2 << " units.\n\n";
-    
+  
 
 //execute query for Beam 2
     std::unique_ptr<coral::IQuery> bunchConf2Query(beamCondSchema.newQuery());
@@ -558,7 +553,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 	//execute the query
 	std::cout <<"\n\nQuerying the OMDS for LUMI/BUNCH...\n\n"<<std::endl;
 	coral::ICursor& C = Q->execute();
-    std::vector<float> lumiPerBX( FillInfo::bunchSlots );
+	std::vector<float> lumiPerBX;
 	
 	while( C.next() ) {
      /*if( m_debug ) {
@@ -566,8 +561,8 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 	fillDataCursor.currentRow().toOutputStream( b2s );
 	edm::LogInfo( m_name ) << b2s.str() << "\nfrom " << m_name << "::getNewObjects";
       }*/
-      if( C.currentRow()[ std::string( "VALUE" ) ].data<float>() != 0 ) {
-			lumiPerBX.push_back( C.currentRow()[ std::string( "VALUE" ) ].data<float>() );
+      if( C.currentRow()[ std::string( "VALUE" ) ].data<float>() != 0.00 ) {
+	lumiPerBX.push_back(C.currentRow()[ std::string( "VALUE" ) ].data<float>());
       }
     }
 
@@ -623,7 +618,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 			   << " ( " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( stableBeamStartTime ) )
 			   << " ) has values:\n" << *fillInfo
 			   << "from " << m_name << "::getNewObjects";
-//@A    //add log information
+    //add log information
     ss << " fill = " << currentFill
        << ";\tinjection scheme: " << injectionScheme
        << ";\tstart time: " 
@@ -634,6 +629,12 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
     //prepare variables for next iteration
     previousFillNumber = currentFill;
     previousFillEndTime = beamDumpTime;
+
+//@A
+	std::cout << "\n\n\nInst Lumi/Bunch:\n";
+	for(auto I = lumiPerBX.begin(); I != lumiPerBX.end(); ++I)
+		std::cout << *I << "\n";
+	std::cout << "\n\n";
   }
 
   //commit the transaction against the fill logging schema

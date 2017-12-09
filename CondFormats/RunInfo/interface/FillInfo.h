@@ -160,7 +160,7 @@ class FillInfo {
   cond::Time_t m_createTime, m_beginTime, m_endTime;
   std::string m_injectionScheme;
   //@A
-  std::vector<float> lumiPerBX;
+  std::vector<float> m_lumiPerBX;
   //BEWARE: since CMS counts bunches starting from one,
   //the size of the bitset must be incremented by one,
   //in order to avoid off-by-one

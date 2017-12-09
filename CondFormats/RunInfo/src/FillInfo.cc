@@ -2,6 +2,7 @@
 #include "CondFormats/Common/interface/TimeConversions.h"
 #include <algorithm>
 #include <iterator>
+#include <vector>
 #include <stdexcept>
 
 //helper function: returns the positions of the bits in the bitset that are set (i.e., have a value of 1).
@@ -69,6 +70,7 @@ static std::string particleTypeToString( FillInfo::ParticleTypeId const & partic
   return s_particleType;
 }
 
+//@A
 FillInfo::FillInfo(): m_isData( false )
 		    , m_lhcFill( 0 )
 		    , m_bunches1( 0 )
@@ -87,8 +89,10 @@ FillInfo::FillInfo(): m_isData( false )
 		    , m_beginTime( 0 )
 		    , m_endTime( 0 )
 		    , m_injectionScheme( "None" )
+		    , m_lumiPerBX( FillInfo::availableBunchSlots )
 {}
 
+//@A
 FillInfo::FillInfo( unsigned short const & lhcFill, bool const & fromData ): m_isData( fromData )
 									   , m_lhcFill( lhcFill )
 									   , m_bunches1( 0 )
@@ -107,6 +111,7 @@ FillInfo::FillInfo( unsigned short const & lhcFill, bool const & fromData ): m_i
 									   , m_beginTime( 0 )
 									   , m_endTime( 0 )
 									   , m_injectionScheme( "None" )
+									   , m_lumiPerBX( FillInfo::availableBunchSlots )
 {}
 
 FillInfo::~FillInfo() {}
@@ -130,9 +135,8 @@ void FillInfo::setFill( unsigned short const & lhcFill, bool const & fromData ) 
   m_createTime = 0;
   m_beginTime = 0;
   m_endTime = 0;
+  m_lumiPerBX.clear();  
   m_injectionScheme = "None";
-  //@A
-  m_lumiPerBX.clear();
   m_bunchConfiguration1.reset();
   m_bunchConfiguration2.reset();
 }
@@ -375,8 +379,8 @@ void FillInfo::print( std::stringstream & ss ) const {
      << "End time of the fill: " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( m_endTime ) ) << std::endl
      << "Injection scheme as given by LPC: " << m_injectionScheme << std::endl;
   //@A
-  ss << "Luminosity per bunch  (total " << lumiPerBX.size() << "): ";
-  std::copy( lumiPerBX.begin(), lumiPerBX.end(), std::ostream_iterator<float>( ss, ", " ) );
+  ss << "Luminosity per bunch  (total " << m_lumiPerBX.size() << "): ";
+  std::copy( m_lumiPerBX.begin(), m_lumiPerBX.end(), std::ostream_iterator<float>( ss, ", " ) );
   ss << std::endl;
   
   std::vector<unsigned short> bunchVector1 = this->bunchConfigurationForBeam1();
