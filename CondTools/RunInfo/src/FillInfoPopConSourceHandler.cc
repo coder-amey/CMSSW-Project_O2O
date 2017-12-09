@@ -553,7 +553,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 	//define query output
 	coral::AttributeList O;
 	O.extend<coral::TimeStamp>( std::string( "TIME" ) );
-	O.extend<float>( std::string( "VALUE" ) );
+	O.extend<unsigned short>( std::string( "VALUE" ) );
 	Q->defineOutput( O );
 	//execute the query
 	std::cout <<"\n\nQuerying the OMDS for LUMI/BUNCH...\n\n"<<std::endl;
