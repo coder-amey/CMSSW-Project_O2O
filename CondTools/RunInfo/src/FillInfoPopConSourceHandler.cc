@@ -544,7 +544,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 	conditionStr = std::string( "DIPTIME BETWEEN :stableBeamStartTimeStamp AND :beamDumpTimeStamp" );
 	Q->setCondition( conditionStr, lumiBindVariables );
 	Q->addToOrderList( std::string( "DIPTIME DESC" ) );
-	Q->limitReturnedRows( FillInfo::availableBunchSlots );
+	Q->limitReturnedRows(3564); //Maximum number of bunches.
 	//define query output
 	coral::AttributeList O;
 	O.extend<coral::TimeStamp>( std::string( "TIME" ) );
