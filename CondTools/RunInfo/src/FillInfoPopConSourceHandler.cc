@@ -101,25 +101,28 @@ void FillInfoPopConSourceHandler::getNewObjects() {
  //prepare the query for table 1:
   std::unique_ptr<coral::IQuery> fillDataQuery( runTimeLoggerSchema.newQuery() );
   //FROM clause
-  fillDataQuery->addToTableList( std::string( "RUNTIME_SUMMARY" ) );
+  fillDataQuery->addToTableList( std::string( "RUNTIME_SUMMARY" ), std::string( "RS" ) );
+  fillDataQuery->addToTableList( std::string( "LUMI_SECTIONS" ), , std::string( "LS" ) );
   //SELECT clause
-  fillDataQuery->addToOutputList( std::string( "LHCFILL" ) );
-  fillDataQuery->addToOutputList( std::string( "NBUNCHESBEAM1" ) );
-  fillDataQuery->addToOutputList( std::string( "NBUNCHESBEAM2" ) );
-  fillDataQuery->addToOutputList( std::string( "NCOLLIDINGBUNCHES" ) );
-  fillDataQuery->addToOutputList( std::string( "NTARGETBUNCHES" ) );
-  fillDataQuery->addToOutputList( std::string( "RUNTIME_TYPE_ID" ) );
-  fillDataQuery->addToOutputList( std::string( "PARTY1" ) );
-  fillDataQuery->addToOutputList( std::string( "PARTY2" ) );
-  fillDataQuery->addToOutputList( std::string( "CROSSINGANGLE" ) );
-  fillDataQuery->addToOutputList( std::string( "BETASTAR" ) );
-  fillDataQuery->addToOutputList( std::string( "INTENSITYBEAM1" ) );
-  fillDataQuery->addToOutputList( std::string( "INTENSITYBEAM2" ) );
-  fillDataQuery->addToOutputList( std::string( "ENERGY" ) );
-  fillDataQuery->addToOutputList( std::string( "CREATETIME" ) );
-  fillDataQuery->addToOutputList( std::string( "BEGINTIME" ) );
-  fillDataQuery->addToOutputList( std::string( "ENDTIME" ) );
-  fillDataQuery->addToOutputList( std::string( "INJECTIONSCHEME" ) );
+  fillDataQuery->addToOutputList( std::string( "RS.LHCFILL" ), std::string( "LHCFILL" ) );
+  fillDataQuery->addToOutputList( std::string( "RS.NBUNCHESBEAM1" ), std::string( "NBUNCHESBEAM1" ) );
+  fillDataQuery->addToOutputList( std::string( "RS.NBUNCHESBEAM2" ), std::string( "NBUNCHESBEAM2" ) );
+  fillDataQuery->addToOutputList( std::string( "RS.NCOLLIDINGBUNCHES" ), std::string( "NCOLLIDINGBUNCHES" ) );
+  fillDataQuery->addToOutputList( std::string( "RS.NTARGETBUNCHES" ), std::string( "NTARGETBUNCHES" ) );
+  fillDataQuery->addToOutputList( std::string( "RS.RUNTIME_TYPE_ID" ), std::string( "RUNTIME_TYPE_ID" ) );
+  fillDataQuery->addToOutputList( std::string( "RS.PARTY1" ), std::string( "PARTY1" ) );
+  fillDataQuery->addToOutputList( std::string( "RS.PARTY2" ), std::string( "PARTY2" ) );
+  fillDataQuery->addToOutputList( std::string( "RS.CROSSINGANGLE" ), std::string( "CROSSINGANGLE" ) );
+  fillDataQuery->addToOutputList( std::string( "RS.BETASTAR" ), std::string( "BETASTAR" ) );
+  fillDataQuery->addToOutputList( std::string( "RS.INTENSITYBEAM1" ), std::string( "INTENSITYBEAM1" ) );
+  fillDataQuery->addToOutputList( std::string( "RS.INTENSITYBEAM2" ), std::string( "INTENSITYBEAM2" ) );
+  fillDataQuery->addToOutputList( std::string( "RS.ENERGY" ), std::string( "ENERGY" ) );
+  fillDataQuery->addToOutputList( std::string( "MAX(LS.DELIVLUMI" ), std::string( "DELIVLUMI" ) );
+  fillDataQuery->addToOutputList( std::string( "MAX(LS.LIVELUMI" ), std::string( "LIVELUMI" ) );
+  fillDataQuery->addToOutputList( std::string( "RS.CREATETIME" ), std::string( "CREATETIME" ) );
+  fillDataQuery->addToOutputList( std::string( "RS.BEGINTIME" ), std::string( "BEGINTIME" ) );
+  fillDataQuery->addToOutputList( std::string( "RS.ENDTIME" ), std::string( "ENDTIME" ) );
+  fillDataQuery->addToOutputList( std::string( "RS.INJECTIONSCHEME" ), std::string( "INJECTIONSCHEME" ) );
   //WHERE clause
   coral::AttributeList fillDataBindVariables;
   fillDataBindVariables.extend( std::string( "firstFillNumber" ), typeid( unsigned short ) );
@@ -128,7 +131,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   fillDataBindVariables[ std::string( "lastFillNumber" ) ].data<unsigned short>() = m_lastFill; 
   //by imposing BEGINTIME IS NOT NULL, we remove fills which never went into stable beams,
   //or the most recent one, just declared but not yet in stable beams
-  std::string conditionStr( "BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
+  std::string conditionStr( "BEGINTIME IS NOT NULL AND LS.LHCFILL = RS.LHCFILL AND RS.LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
   fillDataQuery->setCondition( conditionStr, fillDataBindVariables );
   //ORDER BY clause
   fillDataQuery->addToOrderList( std::string( "LHCFILL" ) );
@@ -147,6 +150,8 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   fillDataOutput.extend<float>( std::string( "INTENSITYBEAM1" ) );
   fillDataOutput.extend<float>( std::string( "INTENSITYBEAM2" ) );
   fillDataOutput.extend<float>( std::string( "ENERGY" ) );
+  fillDataOutput.extend<float>( std::string( "DELIVLUMI" ) );
+  fillDataOutput.extend<float>( std::string( "LIVELUMI" ) );
   fillDataOutput.extend<coral::TimeStamp>( std::string( "CREATETIME" ) );
   fillDataOutput.extend<coral::TimeStamp>( std::string( "BEGINTIME" ) );
   fillDataOutput.extend<coral::TimeStamp>( std::string( "ENDTIME" ) );
@@ -165,11 +170,15 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   unsigned short bunches1 = 0, bunches2 = 0, collidingBunches = 0, targetBunches = 0;
   FillInfo::FillTypeId fillType = FillInfo::UNKNOWN;
   FillInfo::ParticleTypeId particleType1 = FillInfo::NONE, particleType2 = FillInfo::NONE;
-  float crossingAngle = 0., betastar = 0., intensityBeam1 = 0., intensityBeam2 = 0., energy = 0.;
+  float crossingAngle = 0., betastar = 0., intensityBeam1 = 0., intensityBeam2 = 0., energy = 0., delivLumi = 0., liveLumi = 0.;
   coral::TimeStamp stableBeamStartTimeStamp, beamDumpTimeStamp;
   cond::Time_t creationTime = 0ULL, stableBeamStartTime = 0ULL, beamDumpTime = 0ULL;
   std::string injectionScheme( "None" );
   std::ostringstream ss;
+
+//Vectors for temporary storage.
+
+std::vector<float> ll, dl;
 
 // CODE FOR DEBUGGING PURPOSES...
 
@@ -382,6 +391,21 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
     } else {
       energy = energyAttribute.data<float>();
     }
+    coral::Attribute const & delivLumiAttribute = fillDataCursor.currentRow()[ std::string( "DELIVLUMI" ) ];
+    if( delivLumiAttribute.isNull() ){
+      delivLumi = 0.;
+    } else {
+      delivLumi = energyAttribute.data<float>();
+      dl.push_back(liveLumi);
+    }
+    coral::Attribute const & liveLumiAttribute = fillDataCursor.currentRow()[ std::string( "LIVELUMI" ) ];
+    if( liveLumiAttribute.isNull() ){
+      liveLumi = 0.;
+    } else {
+      liveLumi = energyAttribute.data<float>();
+      ll.push_back(liveLumi);
+    }
+    
     //CREATETIME IS NOT NULL
     creationTime = cond::time::from_boost( fillDataCursor.currentRow()[ std::string( "CREATETIME" ) ].data<coral::TimeStamp>().time() );
     //BEGINTIME is imposed to be NOT NULL in the WHERE clause
@@ -630,6 +654,12 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
     previousFillNumber = currentFill;
     previousFillEndTime = beamDumpTime;
     }
+
+//@A
+	std::cout << "\n\n------------------\n\n";
+	std::cout << "DELIVLUMI" << \t "LIVELUMI\n";
+	for(std::pair<std::vector<float>::iterator, std::vector<float>::iterator> I(dl.begin(), ll.begin()); ((I.first != dl.end()) && (I.second != ll.end())); ++I.first, ++I.second)
+		std::cout << *I.first << "\t" << *I.second << std::endl;
 
   //commit the transaction against the fill logging schema
   session.transaction().commit();
