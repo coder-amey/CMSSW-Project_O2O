@@ -85,6 +85,8 @@ FillInfo::FillInfo(): m_isData( false )
 		    , m_intensity1( 0. )
 		    , m_intensity2( 0. )
 		    , m_energy( 0. )
+		    , m_delivLumi( 0. )
+		    , m_recLumi( 0. )
 		    , m_createTime( 0 )
 		    , m_beginTime( 0 )
 		    , m_endTime( 0 )
@@ -107,6 +109,8 @@ FillInfo::FillInfo( unsigned short const & lhcFill, bool const & fromData ): m_i
 									   , m_intensity1( 0. )
 									   , m_intensity2( 0. )
 									   , m_energy( 0. )
+									   , m_delivLumi( 0. )
+									   , m_recLumi( 0. )
 									   , m_createTime( 0 )
 									   , m_beginTime( 0 )
 									   , m_endTime( 0 )
@@ -132,6 +136,8 @@ void FillInfo::setFill( unsigned short const & lhcFill, bool const & fromData ) 
   m_intensity1 = 0;
   m_intensity2 = 0;
   m_energy = 0.;
+  m_delivLumi = 0.;
+  m_recLumi = 0.;
   m_createTime = 0;
   m_beginTime = 0;
   m_endTime = 0;
@@ -196,6 +202,15 @@ float const FillInfo::intensityForBeam2() const {
 
 float const FillInfo::energy() const {
   return m_energy;
+}
+
+//@A
+float const FillInfo::delivLumi() const {
+  return m_delivLumi;
+}
+
+float const FillInfo::recLumi() const {
+  return m_recLumi;
 }
 
 cond::Time_t const FillInfo::createTime() const {
@@ -297,6 +312,15 @@ void FillInfo::setEnergy( float const & energy ) {
   m_energy = energy;
 }
 
+//@A
+void FillInfo::setDelivLumi( float const & delivLumi ) {
+  m_delivLumi = delivLumi;
+}
+
+void FillInfo::setRecLumi( float const & recLumi ) {
+  m_recLumi = recLumi;
+}
+
 void FillInfo::setCreationTime( cond::Time_t const & createTime ) {
   m_createTime = createTime;
 }
@@ -332,6 +356,8 @@ void FillInfo::setBeamInfo( unsigned short const & bunches1
 			    ,float const & intensity1
 			    ,float const & intensity2
 			    ,float const & energy
+			    ,float const & delivLumi
+			    ,float const & recLumi
 			    ,cond::Time_t const & createTime
 			    ,cond::Time_t const & beginTime
 			    ,cond::Time_t const & endTime
@@ -351,6 +377,8 @@ void FillInfo::setBeamInfo( unsigned short const & bunches1
   this->setIntensityForBeam1( intensity1 );
   this->setIntensityForBeam2( intensity2 );
   this->setEnergy( energy );
+  this->setDelivLumi( delivLumi );
+  this->setRecLumi( recLumi );
   this->setCreationTime( createTime );
   this->setBeginTime( beginTime );
   this->setEndTime( endTime );
@@ -374,6 +402,8 @@ void FillInfo::print( std::stringstream & ss ) const {
      << "Average Intensity for Beam 1 (number of charges): " << m_intensity1 << std::endl
      << "Average Intensity for Beam 2 (number of charges): " << m_intensity2 << std::endl
      << "Energy (GeV): " << m_energy << std::endl
+     << "Delivered Luminosity (max): " << m_delivLumi << std::endl
+     << "Recorded Luminosity (max): " << m_recLumi << std::endl
      << "Creation time of the fill: " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( m_createTime ) ) << std::endl
      << "Begin time of Stable Beam flag: " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( m_beginTime ) ) << std::endl
      << "End time of the fill: " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( m_endTime ) ) << std::endl
