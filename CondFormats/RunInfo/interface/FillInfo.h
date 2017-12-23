@@ -55,6 +55,11 @@ class FillInfo {
   
   float const energy() const;
   
+  //@A
+  float const delivLumi() const;
+  
+  float const recLumi() const;
+  
   cond::Time_t const createTime() const;
   
   cond::Time_t const beginTime() const;
@@ -105,6 +110,11 @@ class FillInfo {
   
   void setEnergy( float const & energy );
   
+  //@A
+  void setDelivLumi( float const & delivLumi );
+
+  void setRecLumi( float const & recLumi );
+
   void setCreationTime( cond::Time_t const & createTime );
   
   void setBeginTime( cond::Time_t const & beginTime );
@@ -130,6 +140,8 @@ class FillInfo {
 		    ,float const & intensity1
 		    ,float const & intensity2
 		    ,float const & energy
+		    ,float const & delivLumi
+		    ,float const & recLumi
 		    ,cond::Time_t const & createTime
 		    ,cond::Time_t const & beginTime
 		    ,cond::Time_t const & endTime
@@ -156,7 +168,7 @@ class FillInfo {
   unsigned short m_bunches1, m_bunches2, m_collidingBunches, m_targetBunches;
   FillTypeId m_fillType;
   ParticleTypeId m_particles1, m_particles2;
-  float m_crossingAngle, m_betastar, m_intensity1, m_intensity2, m_energy;
+  float m_crossingAngle, m_betastar, m_intensity1, m_intensity2, m_energy, m_delivLumi, m_recLumi;
   cond::Time_t m_createTime, m_beginTime, m_endTime;
   std::string m_injectionScheme;
   //@A
