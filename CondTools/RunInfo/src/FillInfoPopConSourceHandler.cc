@@ -177,43 +177,25 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   //FROM clause
   fillDataQuery2->addToTableList( std::string( "LUMI_SECTIONS" ) );
   //SELECT clause
-  fillDataQuery2->addToOutputList( std::string( "LHCFILL" ) );
   fillDataQuery2->addToOutputList( std::string( "MAX(DELIVLUMI)" ) );
   fillDataQuery2->addToOutputList( std::string( "MAX(LIVELUMI)" ) );
   //WHERE clause
   //by imposing BEGINTIME IS NOT NULL, we remove fills which never went into stable beams,
   //or the most recent one, just declared but not yet in stable beams
-  std::string conditionStr2( "DELIVLUMI IS NOT NULL AND LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
+  conditionStr( "DELIVLUMI IS NOT NULL AND LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
   fillDataQuery2->setCondition( conditionStr2, fillDataBindVariables );
-  fillDataQuery2->groupBy( std::string( "LHCFILL" ) );
   //ORDER BY clause
   fillDataQuery2->addToOrderList( std::string( "LHCFILL" ) );
   //define query output*/
   coral::AttributeList fillDataOutput2;
-  fillDataOutput2.extend<int>( std::string( "LHCFILL" ) );
-  fillDataOutput2.extend<float>( std::string( "DELIVEREDLUMI" ) );
-  fillDataOutput2.extend<float>( std::string( "RECORDEDLUMI" ) );
+  fillDataOutput2.extend<std::string>( std::string( "DELIVEREDLUMI" ) );
+  fillDataOutput2.extend<std::string>( std::string( "RECORDEDLUMI" ) );
   fillDataQuery2->defineOutput( fillDataOutput2 );
   //execute the query
   std::cout <<"\n\nQuerying the OMDS for LUMI data...\n\n"<<std::endl;
   coral::ICursor& fillDataCursor2 = fillDataQuery2->execute();
-
-// Test the query.
-  //Read the output.
-     std::cout << "Reading values:\n";
-  while( fillDataCursor2.next() ) {
-    if( m_debug ) {
-      std::ostringstream qs;
-      fillDataCursor2.currentRow().toOutputStream( qs );
-      std::cout << qs.str() << "\n";
-    }
-  }
-
   //initialize loop variables
-/*
   float delivLumi = 0., recLumi = 0.;
-  std::vector<float> dl, rl;
-*/
 
 // CODE FOR DEBUGGING PURPOSES...
 
@@ -426,6 +408,27 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
     } else {
       energy = energyAttribute.data<float>();
     }
+    
+    //@A
+    if( fillDataCursor2.next())
+    {
+    	coral::Attribute const & delivLumiAttribute = fillDataCursor.currentRow()[ std::string( "DELIVEREDLUMI" ) ];
+		if( delivLumiAttribute.isNull() ){
+		  delivLumi = 0.;
+		}
+		else {
+		  delivLumi = delivLumiAttribute.data<float>() / 1000.;
+		}
+		
+		coral::Attribute const & recLumiAttribute = fillDataCursor.currentRow()[ std::string( "RECORDEDLUMI" ) ];
+		if( recLumiAttribute.isNull() ){
+		  recLumi = 0.;
+		}
+		else {
+		  recLumi = recLumiAttribute.data<float>() / 1000.;
+		}
+	}
+    
     //CREATETIME IS NOT NULL
     creationTime = cond::time::from_boost( fillDataCursor.currentRow()[ std::string( "CREATETIME" ) ].data<coral::TimeStamp>().time() );
     //BEGINTIME is imposed to be NOT NULL in the WHERE clause
@@ -648,6 +651,8 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 			 , const_cast<float const &>( intensityBeam1 )
 			 , const_cast<float const &>( intensityBeam2 ) 
 			 , const_cast<float const &>( energy ) 
+			 , const_cast<float const &>( delivLumi )
+			 , const_cast<float const &>( recLumi )  
 			 , const_cast<cond::Time_t const &>( creationTime )
 			 , const_cast<cond::Time_t const &>( stableBeamStartTime )
 			 , const_cast<cond::Time_t const &>( beamDumpTime )
