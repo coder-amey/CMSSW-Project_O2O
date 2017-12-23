@@ -182,14 +182,15 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   //WHERE clause
   //by imposing BEGINTIME IS NOT NULL, we remove fills which never went into stable beams,
   //or the most recent one, just declared but not yet in stable beams
-  conditionStr( "DELIVLUMI IS NOT NULL AND LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
-  fillDataQuery2->setCondition( conditionStr2, fillDataBindVariables );
+  conditionStr = "DELIVLUMI IS NOT NULL AND LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber";
+  fillDataQuery2->setCondition( conditionStr, fillDataBindVariables );
   //ORDER BY clause
   fillDataQuery2->addToOrderList( std::string( "LHCFILL" ) );
+  fillDataQuery2->groupBy( std::string( "LHCFILL" ) );
   //define query output*/
   coral::AttributeList fillDataOutput2;
-  fillDataOutput2.extend<std::string>( std::string( "DELIVEREDLUMI" ) );
-  fillDataOutput2.extend<std::string>( std::string( "RECORDEDLUMI" ) );
+  fillDataOutput2.extend<float>( std::string( "DELIVEREDLUMI" ) );
+  fillDataOutput2.extend<float>( std::string( "RECORDEDLUMI" ) );
   fillDataQuery2->defineOutput( fillDataOutput2 );
   //execute the query
   std::cout <<"\n\nQuerying the OMDS for LUMI data...\n\n"<<std::endl;
@@ -412,7 +413,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
     //@A
     if( fillDataCursor2.next())
     {
-    	coral::Attribute const & delivLumiAttribute = fillDataCursor.currentRow()[ std::string( "DELIVEREDLUMI" ) ];
+    	coral::Attribute const & delivLumiAttribute = fillDataCursor2.currentRow()[ std::string( "DELIVEREDLUMI" ) ];
 		if( delivLumiAttribute.isNull() ){
 		  delivLumi = 0.;
 		}
@@ -420,7 +421,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 		  delivLumi = delivLumiAttribute.data<float>() / 1000.;
 		}
 		
-		coral::Attribute const & recLumiAttribute = fillDataCursor.currentRow()[ std::string( "RECORDEDLUMI" ) ];
+		coral::Attribute const & recLumiAttribute = fillDataCursor2.currentRow()[ std::string( "RECORDEDLUMI" ) ];
 		if( recLumiAttribute.isNull() ){
 		  recLumi = 0.;
 		}
