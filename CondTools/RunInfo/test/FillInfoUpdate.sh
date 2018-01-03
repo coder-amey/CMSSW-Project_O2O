@@ -17,13 +17,13 @@
 #-------------------------------------
 # Setup CMSSW area and log files
 #-------------------------------------
-RELEASE=CMSSW_8_0_20
-RELEASE_DIR=/afs/cern.ch/work/r/rverma/private/o2o/
-DIR=/afs/cern.ch/work/r/rverma/private/o2o/CMSSW_8_0_20/src/CondTools/RunInfo/test
+RELEASE=CMSSW_9_2_6
+RELEASE_DIR=/afs/cern.ch/work/a/anoolkar/private/
+DIR=/afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test
 LOGFILE=${DIR}/FillInfoTriggerO2O.log
 DATEFILE=${DIR}/FillInfoTriggerO2ODate.log
 DATE=`date --utc`
-OUTFILE="/afs/cern.ch/work/r/rverma/private/o2o/CMSSW_8_0_20/src/CondTools/RunInfo/test/o2oUpdate_$$.txt"
+OUTFILE="/afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/o2oUpdate_$$.txt"
 pushd $RELEASE_DIR/$RELEASE/src/
 #@R#export SCRAM_ARCH=slc6_amd64_gcc493
 source /cvmfs/cms.cern.ch/cmsset_default.sh
@@ -113,5 +113,4 @@ fi
 log DONE
 
 
-exit 0 
-
+exit 0
