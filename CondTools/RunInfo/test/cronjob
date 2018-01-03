@@ -1,0 +1,2 @@
+*/1 * * * * lxplus049 /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoUpdate.sh > /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/cron_log.txt
+
