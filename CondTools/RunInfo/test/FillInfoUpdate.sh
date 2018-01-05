@@ -94,7 +94,7 @@ set | tee -a $LOGFILE
 
 #- sdg: These cfg were in $RELEASE_DIR/$RELEASE/src/CondTools/Ecal/python
 #       but we keep them in this area in order to avoid issues with the release.
-submit cmsRun FillInfoPopConAnalyzer.py       
+submit cmsRun /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py       
 
 
 # END OF CHANGES
