@@ -18,8 +18,8 @@
 # Setup CMSSW area and log files
 #-------------------------------------
 RELEASE=CMSSW_9_2_6
-RELEASE_DIR=/afs/cern.ch/user/a/anoolkar/private/
-DIR=/afs/cern.ch/user/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/log
+RELEASE_DIR=/afs/cern.ch/work/a/anoolkar/private/
+DIR=/afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/log
 LOGFILE=${DIR}/FillInfoTriggerO2O.log
 DATEFILE=${DIR}/FillInfoTriggerO2ODate.log
 DATE=`date --utc`
