@@ -95,11 +95,9 @@ set | tee -a $LOGFILE
 #- sdg: These cfg were in $RELEASE_DIR/$RELEASE/src/CondTools/Ecal/python
 #       but we keep them in this area in order to avoid issues with the release.
 t1=$(awk 'NR == 35 {print $4}' /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py)
-t2=$(expr "$t1" + 1)
+t2=$(expr "$t1" + 3)
 sed -i '35s/'"$t1"'/'"$t2"'/' /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py
-t1=$(awk 'NR == 36 {print $4}' /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py)
-t2=$(expr "$t1" + 1)
-sed -i '36s/'"$t1"'/'"$t2"'/' /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py
+t2=$(expr "$t1" + 666666 -i '36s/'"$t1"'/'"$t2"'/' /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py
 submit cmsRun /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py       
 
 
