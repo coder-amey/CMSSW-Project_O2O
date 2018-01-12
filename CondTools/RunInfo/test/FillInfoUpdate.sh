@@ -22,8 +22,9 @@ RELEASE_DIR=/afs/cern.ch/work/a/anoolkar/private/
 DIR=/afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/log
 LOGFILE=${DIR}/FillInfoTriggerO2O.log
 DATEFILE=${DIR}/FillInfoTriggerO2ODate.log
-DATE=`date +"%m-%d-%Y-%T" --utc`
-OUTFILE="/afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/log/fill_'"$DATE"'.log"
+DATE=`date --utc`
+D=`date +"%m-%d-%Y-%T" --utc`
+OUTFILE="/afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/log/fill_"$D".log"
 pushd $RELEASE_DIR/$RELEASE/src/
 #@R#export SCRAM_ARCH=slc6_amd64_gcc493
 source /cvmfs/cms.cern.ch/cmsset_default.sh
@@ -97,9 +98,11 @@ set | tee -a $LOGFILE
 t1=$(awk 'NR == 35 {print $4}' /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py)
 t2=$(expr "$t1" + 3)
 sed -i '35s/'"$t1"'/'"$t2"'/' /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py
-t2=$(expr "$t1" + 666666 -i '36s/'"$t1"'/'"$t2"'/' /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py
-submit cmsRun /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py       
+t1=$(awk 'NR == 36 {print $4}' /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py)
+t2=$(expr "$t1" + 3)
+sed -i '36s/'"$t1"'/'"$t2"'/' /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py
 
+submit cmsRun /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py       
 
 # END OF CHANGES
 log "-----------------------------------------------------------------------"
