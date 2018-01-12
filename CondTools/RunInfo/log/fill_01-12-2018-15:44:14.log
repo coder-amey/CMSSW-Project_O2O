@@ -1,0 +1,117 @@
+[Fri Jan 12 16:44:15 CET 2018] : cmsRun /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py 
+ ##################################################################### 
+ # WARNING: the module CondCore.DBCommon.CondDBCommon is deprecated. # 
+ # Please import CondCore.CondDB.CondDB_cfi                          # 
+ ##################################################################### 
+CORAL/Services/ConnectionService Info Loading default plugin for coral::IAuthenticationService: COND/Services/RelationalAuthenticationService
+CORAL/Services/ConnectionService Info The connection pool automatic cleanup thread is currently explicitly disabled
+CORAL/Services/ConnectionService Info Loading default plugin for coral::IRelationalService: CORAL/Services/RelationalService
+PluginManager Info PluginManager creating CORAL/Services/RelationalService component
+PluginManager Info PluginManager needs to load CORAL/Services/RelationalService component
+PluginManager Info PluginManager loaded RelationalService library
+PluginManager Info PluginManager loaded CORAL/Services/RelationalService factory from RelationalService library
+CORAL/Services/RelationalService Info Found plugin for RDBMS technology "coral" with native implementation
+CORAL/Services/RelationalService Info Found plugin for RDBMS technology "frontier" with native implementation
+CORAL/Services/RelationalService Info Found plugin for RDBMS technology "mysql" with native implementation
+CORAL/Services/RelationalService Info Found plugin for RDBMS technology "oracle" with native implementation
+CORAL/Services/RelationalService Info Found plugin for RDBMS technology "sqlite" with native implementation
+CORAL/Services/RelationalService Info Default implementation for RDBMS technology "coral" is native
+CORAL/Services/RelationalService Info Default implementation for RDBMS technology "frontier" is native
+CORAL/Services/RelationalService Info Default implementation for RDBMS technology "mysql" is native
+CORAL/Services/RelationalService Info Default implementation for RDBMS technology "oracle" is native
+CORAL/Services/RelationalService Info Default implementation for RDBMS technology "sqlite" is native
+PluginManager Info PluginManager creating CORAL/RelationalPlugins/sqlite component
+PluginManager Info PluginManager needs to load CORAL/RelationalPlugins/sqlite component
+PluginManager Info PluginManager loaded SQLiteAccess library
+PluginManager Info PluginManager loaded CORAL/RelationalPlugins/sqlite factory from SQLiteAccess library
+CORAL/Services/ConnectionService Debug No valid connection for string "sqlite_file:test_output.db" found in the pool. Creating a new connection.
+CORAL/Services/ConnectionService Debug Trying to get a new update session on "sqlite_file:test_output.db"
+CORAL/Services/ConnectionService Debug Connection parameters are: Retry-Period=10sec, Retry-Timeout=60sec, Connection-Timeout=300sec.
+CORAL/Services/ConnectionService Info New connection to service "test_output.db" with connectionID=729f658e-f7af-11e7-816c-02163e018444 has been connected
+CORAL/Services/ConnectionService Info New user session with sessionID=729f6ba6-f7af-11e7-816c-02163e018444 started on connectionID=729f658e-f7af-11e7-816c-02163e018444 to service "test_output.db" for user "" in update mode
+CORAL/Services/ConnectionService Debug A new connection to service "test_output.db" has been added in the active list. Id=729f658e-f7af-11e7-816c-02163e018444
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@ctor 12-Jan-2018 16:44:17 CET  pre-events
+This is PopCon (Populator of Condition) v5.0.
+Please report any problem and feature request through the JIRA project CMSCONDDB.
+
+%MSG
+Begin processing the 1st record. Run 1, Event 1, LumiSection 1 at 12-Jan-2018 16:44:17.292 CET
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 12-Jan-2018 16:44:17 CET  PostGlobalEndRun
+payload name FillInfo
+%MSG
+CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare BEGIN
+CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT name FROM sqlite_master WHERE type='table' UNION ALL SELECT name FROM sqlite_temp_master WHERE type='table' ORDER BY 1
+CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare CREATE TABLE "TAG" ( "NAME" TEXT ,"TIME_TYPE" TEXT  NOT NULL,"OBJECT_TYPE" TEXT  NOT NULL,"SYNCHRONIZATION" TEXT  NOT NULL,"END_OF_VALIDITY" ULONGLONG  NOT NULL,"DESCRIPTION" TEXT  NOT NULL,"LAST_VALIDATED_TIME" ULONGLONG  NOT NULL,"INSERTION_TIME" TIMESTAMP  NOT NULL,"MODIFICATION_TIME" TIMESTAMP  NOT NULL, PRIMARY KEY("NAME") )
+CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare CREATE TABLE IF NOT EXISTS coral_sqlite_fk(id TEXT NOT NULL, name TEXT, tablename TEXT NOT NULL) ; 
+CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare CREATE TABLE "PAYLOAD" ( "HASH" TEXT ,"OBJECT_TYPE" TEXT  NOT NULL,"DATA" BLOB  NOT NULL,"STREAMER_INFO" BLOB  NOT NULL,"VERSION" TEXT  NOT NULL,"INSERTION_TIME" TIMESTAMP  NOT NULL, PRIMARY KEY("HASH") )
+CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare CREATE TABLE IF NOT EXISTS coral_sqlite_fk(id TEXT NOT NULL, name TEXT, tablename TEXT NOT NULL) ; 
+CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare CREATE TABLE "IOV" ( "TAG_NAME" TEXT  NOT NULL,"SINCE" ULONGLONG  NOT NULL,"PAYLOAD_HASH" TEXT  NOT NULL,"INSERTION_TIME" TIMESTAMP  NOT NULL, PRIMARY KEY("TAG_NAME","SINCE","INSERTION_TIME"), FOREIGN KEY("TAG_NAME") REFERENCES TAG("NAME"), FOREIGN KEY("PAYLOAD_HASH") REFERENCES PAYLOAD("HASH") )
+CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare CREATE TABLE IF NOT EXISTS coral_sqlite_fk(id TEXT NOT NULL, name TEXT, tablename TEXT NOT NULL) ; 
+CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare CREATE TABLE "TAG_LOG" ( "TAG_NAME" TEXT  NOT NULL,"EVENT_TIME" TIMESTAMP  NOT NULL,"USER_NAME" TEXT  NOT NULL,"HOST_NAME" TEXT  NOT NULL,"COMMAND" TEXT  NOT NULL,"ACTION" TEXT  NOT NULL,"USER_TEXT" TEXT  NOT NULL, PRIMARY KEY("TAG_NAME","EVENT_TIME","ACTION"), FOREIGN KEY("TAG_NAME") REFERENCES TAG("NAME") )
+CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare CREATE TABLE IF NOT EXISTS coral_sqlite_fk(id TEXT NOT NULL, name TEXT, tablename TEXT NOT NULL) ; 
+CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare CREATE TABLE "GLOBAL_TAG" ( "NAME" TEXT ,"VALIDITY" ULONGLONG  NOT NULL,"DESCRIPTION" TEXT  NOT NULL,"RELEASE" TEXT  NOT NULL,"SNAPSHOT_TIME" TIMESTAMP  NOT NULL,"INSERTION_TIME" TIMESTAMP  NOT NULL, PRIMARY KEY("NAME") )
+CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare CREATE TABLE IF NOT EXISTS coral_sqlite_fk(id TEXT NOT NULL, name TEXT, tablename TEXT NOT NULL) ; 
+CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare CREATE TABLE "GLOBAL_TAG_MAP" ( "GLOBAL_TAG_NAME" TEXT  NOT NULL,"RECORD" TEXT  NOT NULL,"LABEL" TEXT  NOT NULL,"TAG_NAME" TEXT  NOT NULL, PRIMARY KEY("GLOBAL_TAG_NAME","RECORD","LABEL") )
+CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare CREATE TABLE IF NOT EXISTS coral_sqlite_fk(id TEXT NOT NULL, name TEXT, tablename TEXT NOT NULL) ; 
+CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare PRAGMA table_info("TAG")
+CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
+CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
+CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
+CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 12-Jan-2018 16:44:17 CET  PostGlobalEndRun
+destination DB: sqlite_file:test_output.db, target DB: sqlite_file:test_output.db
+TAG: fillinfo_test; First writer to this new tag.
+%MSG
+%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  12-Jan-2018 16:44:17 CET PostGlobalEndRun
+New tag fillinfo_test; from FillInfoPopConSourceHandler::getNewObjects
+%MSG
+CORAL/Services/ConnectionService Info Disable connection sharing
+CORAL/Services/ConnectionService Info Loading default plugin for coral::IAuthenticationService: COND/Services/RelationalAuthenticationService
+PluginManager Info PluginManager creating CORAL/RelationalPlugins/oracle component
+PluginManager Info PluginManager needs to load CORAL/RelationalPlugins/oracle component
+PluginManager Info PluginManager loaded OracleAccess library
+PluginManager Info PluginManager loaded CORAL/RelationalPlugins/oracle factory from OracleAccess library
+cond::RelationalAuthenticationService::credentials Debug Connecting to the credential repository in "oracle://cms_orcon_adg/CMS_CDB_KEYS" with principal "FILLINFO_O2O_TEST".
+CORAL/RelationalPlugins/oracle Info Disable plan baseline use by ALTER SESSION SET OPTIMIZER_USE_SQL_PLAN_BASELINES=FALSE
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "ALTER SESSION SET OPTIMIZER_USE_SQL_PLAN_BASELINES=FALSE"
+CORAL/RelationalPlugins/oracle Info CORAL_ORA_SKIP_TRANS_READONLY is not set: this session will use OCI serializable read-only transactions
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT P_ID, CRED0, CRED1, CRED2 FROM CMS_CDB_KEYS."COND_AUTHENTICATION" "COND_AUTHENTICATION" WHERE P_NAME = :P_NAME"
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT AUTHO.C_ROLE, AUTHO.C_SCHEMA, AUTHO.CRED3, CREDS.CONN_LABEL, CREDS.CRED4, CREDS.CRED5, CREDS.CRED6 FROM CMS_CDB_KEYS."COND_AUTHORIZATION" "AUTHO", CMS_CDB_KEYS."COND_CREDENTIAL" "CREDS" WHERE AUTHO.C_ID=CREDS.CONN_ID AND AUTHO.P_ID = :P_ID"
+CORAL/Services/ConnectionService Debug No valid connection for string "oracle://cms_orcon_adg/CMS_RUNTIME_LOGGER" found in the pool. Creating a new connection.
+CORAL/Services/ConnectionService Debug Trying to get a new read-only session on "oracle://cms_orcon_adg/CMS_RUNTIME_LOGGER"
+CORAL/Services/ConnectionService Debug Connection parameters are: Retry-Period=10sec, Retry-Timeout=60sec, Connection-Timeout=300sec.
+CORAL/Services/ConnectionService Info New connection to service "cms_orcon_adg" with connectionID=72c35f66-f7af-11e7-816c-02163e018444 has been connected
+CORAL/RelationalPlugins/oracle Info Disable plan baseline use by ALTER SESSION SET OPTIMIZER_USE_SQL_PLAN_BASELINES=FALSE
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "ALTER SESSION SET OPTIMIZER_USE_SQL_PLAN_BASELINES=FALSE"
+CORAL/RelationalPlugins/oracle Info CORAL_ORA_SKIP_TRANS_READONLY is not set: this session will use OCI serializable read-only transactions
+CORAL/Services/ConnectionService Info New user session with sessionID=72c663f0-f7af-11e7-816c-02163e018444 started on connectionID=72c35f66-f7af-11e7-816c-02163e018444 to service "cms_orcon_adg" for user "CMS_COND_GENERAL_R" in read-only mode
+CORAL/Services/ConnectionService Debug A new connection to service "cms_orcon_adg" has been added in the active list. Id=72c35f66-f7af-11e7-816c-02163e018444
+
+
+Querying the OMDS for RUNTIME_SUMMARY data...
+
+
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT LHCFILL, NBUNCHESBEAM1, NBUNCHESBEAM2, NCOLLIDINGBUNCHES, NTARGETBUNCHES, RUNTIME_TYPE_ID, PARTY1, PARTY2, CROSSINGANGLE, BETASTAR, INTENSITYBEAM1, INTENSITYBEAM2, ENERGY, CREATETIME, BEGINTIME, ENDTIME, INJECTIONSCHEME FROM CMS_RUNTIME_LOGGER."RUNTIME_SUMMARY" "RUNTIME_SUMMARY" WHERE BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :"firstFillNumber" AND :"lastFillNumber" ORDER BY LHCFILL"
+
+
+Querying the OMDS for LUMI data...
+
+
+CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT MAX(DELIVLUMI), MAX(LIVELUMI) FROM CMS_RUNTIME_LOGGER."LUMI_SECTIONS" "LUMI_SECTIONS" WHERE DELIVLUMI IS NOT NULL AND LHCFILL BETWEEN :"firstFillNumber" AND :"lastFillNumber" GROUP BY LHCFILL ORDER BY LHCFILL"
+CORAL/Services/ConnectionService Info User session with sessionID=72c663f0-f7af-11e7-816c-02163e018444 will be ended on connectionID=72c35f66-f7af-11e7-816c-02163e018444
+CORAL/Services/ConnectionService Debug Connection id=72c35f66-f7af-11e7-816c-02163e018444 to service "cms_orcon_adg" has 0 session(s) opened.
+CORAL/Services/ConnectionService Debug The active connection id=72c35f66-f7af-11e7-816c-02163e018444 to service "cms_orcon_adg" has been removed from the active list.
+CORAL/Services/ConnectionService Debug The valid active connection id=72c35f66-f7af-11e7-816c-02163e018444 to service "cms_orcon_adg" has been moved to the idle list.
+%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  12-Jan-2018 16:44:17 CET PostGlobalEndRun
+Transferring 0 payload(s); from FillInfoPopConSourceHandler::getNewObjects
+%MSG
+CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare COMMIT
+CORAL/Services/ConnectionService Info User session with sessionID=729f6ba6-f7af-11e7-816c-02163e018444 will be ended on connectionID=729f658e-f7af-11e7-816c-02163e018444
+CORAL/Services/ConnectionService Debug Connection id=729f658e-f7af-11e7-816c-02163e018444 to service "test_output.db" has 0 session(s) opened.
+CORAL/Services/ConnectionService Debug The active connection id=729f658e-f7af-11e7-816c-02163e018444 to service "test_output.db" has been removed from the active list.
+CORAL/Services/ConnectionService Debug The valid active connection id=729f658e-f7af-11e7-816c-02163e018444 to service "test_output.db" has been moved to the idle list.
+CORAL/Services/ConnectionService Info Deleting the ConnectionPool
+CORAL/Services/ConnectionService Info Connection to service "test_output.db" with connectionID=729f658e-f7af-11e7-816c-02163e018444 will be disconnected
+CORAL/Services/ConnectionService Info Connection to service "cms_orcon_adg" with connectionID=72c35f66-f7af-11e7-816c-02163e018444 will be disconnected
+[Fri Jan 12 16:44:17 CET 2018] : ----------------------------------------------------------------------- 
+[Fri Jan 12 16:44:17 CET 2018] : DONE 

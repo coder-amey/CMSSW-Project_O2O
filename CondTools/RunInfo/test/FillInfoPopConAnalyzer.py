@@ -30,16 +30,16 @@ process.PoolDBOutputService = cms.Service("PoolDBOutputService",
 process.Test1 = cms.EDAnalyzer("FillInfoPopConAnalyzer",
                                SinceAppendMode = cms.bool(True),
                                record = cms.string('FillInfoRcd'),
-                               name = cms.untracked.string('FillInfo'), #payload name
+                               name = cms.untracked.string('FillInfo'),
                                Source = cms.PSet(fill = cms.untracked.uint32(6300),
-                                   firstFill = cms.untracked.uint32(6300),
-                                   lastFill = cms.untracked.uint32(6310),
+                                   firstFill = cms.untracked.uint32( 4265 ),
+                                   lastFill = cms.untracked.uint32( 4267 ),
                                    connectionString = cms.untracked.string("oracle://cms_orcon_adg/CMS_RUNTIME_LOGGER"),
                                    DIPSchema = cms.untracked.string("CMS_BEAM_COND"),
                                    authenticationPath =  cms.untracked.string("/afs/cern.ch/user/a/anoolkar/private"),
                                    debug=cms.untracked.bool(True)
                                                  ),
-                              # loggingOn = cms.untracked.bool(True),
+				# Spaces within the brackets allow awk to parse the value.
                                loggingOn = cms.untracked.bool(True),
                                IsDestDbCheckedInQueryLog = cms.untracked.bool(False)
                                )
