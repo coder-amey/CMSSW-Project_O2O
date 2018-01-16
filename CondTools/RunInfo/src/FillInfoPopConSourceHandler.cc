@@ -13,7 +13,6 @@
 #include "RelationalAccess/IIndex.h"
 #include "RelationalAccess/IPrimaryKey.h"
 #include "RelationalAccess/IForeignKey.h"
-
 #include "CoralBase/AttributeList.h"
 #include "CoralBase/Attribute.h"
 #include "CoralBase/AttributeSpecification.h"
@@ -121,7 +120,6 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   fillDataQuery->addToOutputList( std::string( "ENDTIME" ) );
   fillDataQuery->addToOutputList( std::string( "INJECTIONSCHEME" ) );
   //WHERE clause
-  coral::AttributeList fillDataBindVariables;
   fillDataBindVariables.extend( std::string( "firstFillNumber" ), typeid( unsigned short ) );
   fillDataBindVariables[ std::string( "firstFillNumber" ) ].data<unsigned short>() = m_firstFill;
   fillDataBindVariables.extend( std::string( "lastFillNumber" ), typeid( unsigned short ) );
@@ -275,7 +273,6 @@ void FillInfoPopConSourceHandler::getNewObjects() {
       energy = energyAttribute.data<float>();
     }
     
-    //@A
     if( fillDataCursor2.next())
     {
     	coral::Attribute const & delivLumiAttribute = fillDataCursor2.currentRow()[ std::string( "DELIVEREDLUMI" ) ];
@@ -402,37 +399,37 @@ void FillInfoPopConSourceHandler::getNewObjects() {
     }
       
 	//execute query for lumiPerBX
-	std::unique_ptr<coral::IQuery> Q(beamCondSchema.newQuery());
-	Q->addToTableList( std::string( "CMS_LHC_LUMIPERBUNCH" ), std::string( "LUMIPERBUNCH\", TABLE( LUMIPERBUNCH.LUMI_BUNCHINST ) \"VALUE" ) );
-	Q->addToOutputList( std::string( "LUMIPERBUNCH.DIPTIME" ), std::string( "DIPTIME" ) );
-	Q->addToOutputList( std::string( "VALUE.COLUMN_VALUE" ), std::string( "LUMI/BUNCH" ) );
-	coral::AttributeList lumiBindVariables;
-    	lumiBindVariables.extend<coral::TimeStamp>( std::string( "stableBeamStartTimeStamp" ) );
-	lumiBindVariables[ std::string( "stableBeamStartTimeStamp" ) ].data<coral::TimeStamp>() = stableBeamStartTimeStamp;
-	lumiBindVariables.extend<coral::TimeStamp>( std::string( "beamDumpTimeStamp" ) );
-	lumiBindVariables[ std::string( "beamDumpTimeStamp" ) ].data<coral::TimeStamp>() = beamDumpTimeStamp;
+    std::unique_ptr<coral::IQuery> lumiDataQuery(beamCondSchema.newQuery());
+	lumiDataQuery->addToTableList( std::string( "CMS_LHC_LUMIPERBUNCH" ), std::string( "LUMIPERBUNCH\", TABLE( LUMIPERBUNCH.LUMI_BUNCHINST ) \"VALUE" ) );
+	lumiDataQuery->addToOutputList( std::string( "LUMIPERBUNCH.DIPTIME" ), std::string( "DIPTIME" ) );
+	lumiDataQuery->addToOutputList( std::string( "VALUE.COLUMN_VALUE" ), std::string( "LUMI/BUNCH" ) );
+	coral::AttributeList lumiDataBindVariables;
+    lumiDataBindVariables.extend<coral::TimeStamp>( std::string( "stableBeamStartTimeStamp" ) );
+	lumiDataBindVariables[ std::string( "stableBeamStartTimeStamp" ) ].data<coral::TimeStamp>() = stableBeamStartTimeStamp;
+	lumiDataBindVariables.extend<coral::TimeStamp>( std::string( "beamDumpTimeStamp" ) );
+	lumiDataBindVariables[ std::string( "beamDumpTimeStamp" ) ].data<coral::TimeStamp>() = beamDumpTimeStamp;
 	conditionStr = std::string( "DIPTIME BETWEEN :stableBeamStartTimeStamp AND :beamDumpTimeStamp" );
-	Q->setCondition( conditionStr, lumiBindVariables );
-	Q->addToOrderList( std::string( "DIPTIME DESC" ) );
-	Q->limitReturnedRows(3564); //Maximum number of bunches.
+	lumiDataQuery->setCondition( conditionStr, lumiDataBindVariables );
+	lumiDataQuery->addToOrderList( std::string( "DIPTIME DESC" ) );
+	lumiDataQuery->limitReturnedRows(3564); //Maximum number of bunches.
 	//define query output
-	coral::AttributeList O;
-	O.extend<coral::TimeStamp>( std::string( "TIME" ) );
-	O.extend<float>( std::string( "VALUE" ) );
-	Q->defineOutput( O );
+	coral::AttributeList lumiDataOutput;
+	lumiDataOutput.extend<coral::TimeStamp>( std::string( "TIME" ) );
+	lumiDataOutput.extend<float>( std::string( "VALUE" ) );
+	lumiDataQuery->defineOutput( lumiDataOutput );
 	//execute the query
 	std::cout <<"\n\nQuerying the OMDS for LUMI/BUNCH...\n\n"<<std::endl;
-	coral::ICursor& C = Q->execute();
+	coral::ICursor& lumiDataCursor = lumiDataQuery->execute();
 	std::vector<float> lumiPerBX;
 	
-	while( C.next() ) {
+	while( lumiDataCursor.next() ) {
      /*if( m_debug ) {
-	std::ostringstream b2s;
-	fillDataCursor.currentRow().toOutputStream( b2s );
-	edm::LogInfo( m_name ) << b2s.str() << "\nfrom " << m_name << "::getNewObjects";
+	std::ostringstream lpBX;
+	C.currentRow().toOutputStream( lpBX );
+	edm::LogInfo( m_name ) << lpBX.str() << "\nfrom " << m_name << "::getNewObjects";
       }*/
-      if( C.currentRow()[ std::string( "VALUE" ) ].data<float>() != 0.00 ) {
-	lumiPerBX.push_back(C.currentRow()[ std::string( "VALUE" ) ].data<float>());
+      if( lumiDataCursor.currentRow()[ std::string( "VALUE" ) ].data<float>() != 0.00 ) {
+	lumiData.push_back(C.currentRow()[ std::string( "VALUE" ) ].data<float>());
       }
     }
 
