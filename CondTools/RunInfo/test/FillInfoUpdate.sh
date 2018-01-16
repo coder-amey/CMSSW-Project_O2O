@@ -1,4 +1,3 @@
-
 # Basic setup at lxplus using acron
 # Ref: http://information-technology.web.cern.ch/services/fe/afs/howto/authenticate-processes
 # (a) kinit
@@ -42,11 +41,6 @@ pushd $RELEASE_DIR/$RELEASE/src/
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 eval `scramv1 runtime -sh` 
 
-#echo "*** Checking the environment for the job ***" | tee -a $LOGFILE
-#set | tee -a $LOGFILE
-#echo "*** Checking the environment for the job ***" | tee -a $LOGFILE
-#set | tee -a $LOGFILE
-
 #-------------------------------------
 # Define various functions
 #-------------------------------------
@@ -58,28 +52,6 @@ function submit() {
     log $@
      $@ | tee -a -a $OUTFILE
 }
-
-
-#@R#JCPORT=9999
-#@R#while getopts ":t:r:p:k" options; do
-#@R#   case $options in
-#@R#       t ) TPG_KEY=$OPTARG;;
-#@R#       r ) RUN_NUMBER=$OPTARG;;
-#@R#       p ) JCPORT=$OPTARG;;
-#@R#       k ) KILLSWITCH=1;;
-#@R#   esac
-#@R#done
-
-#@R#log "-----------------------------------------------------------------------"
-#@R#log "${DIR}/updateO2O.sh"
-#@R#log "PID $$"
-#@R#log "HOSTNAME $HOSTNAME"
-#@R#log "JCPORT $JCPORT"
-#@R#log "TPG_KEY $TPG_KEY"
-#@R#log "RUN_NUMBER $RUN_NUMBER"
-#@R#log "date `date`"
-#@R#log "-----------------------------------------------------------------------"
-
 
 #######     ------  popcon  beginning   --------  #######################
 
@@ -95,8 +67,6 @@ echo "timestamp for the log (last log)" $TMSLOGDATE "corresponding to date" | te
 echo $LOGDATE | tee -a $LOGFILE
 rm -f $DATEFILE
 echo $DATE > $DATEFILE
-
-
 
 pushd $DIR
 
