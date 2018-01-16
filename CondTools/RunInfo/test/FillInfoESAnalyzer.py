@@ -13,12 +13,8 @@ process.maxEvents = cms.untracked.PSet(
 
 process.source = cms.Source("EmptyIOVSource",
     timetype = cms.string('timestamp'),
-    #firstValue = cms.uint64(5412240172618088448),
-    #lastValue = cms.uint64(5412267527264796672),
-    #interval = cms.uint64( 3600 << 32 )
     firstValue = cms.uint64(6477060826480649336),
     lastValue = cms.uint64(6477166992906114161),
-    #interval = cms.uint64((6477790949511632856 - 6477060826480649336)/8)
     interval = cms.uint64(106166425464825)
 )
 

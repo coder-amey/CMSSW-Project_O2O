@@ -70,7 +70,6 @@ static std::string particleTypeToString( FillInfo::ParticleTypeId const & partic
   return s_particleType;
 }
 
-//@A
 FillInfo::FillInfo(): m_isData( false )
 		    , m_lhcFill( 0 )
 		    , m_bunches1( 0 )
@@ -94,7 +93,6 @@ FillInfo::FillInfo(): m_isData( false )
 		    , m_lumiPerBX( FillInfo::availableBunchSlots )
 {}
 
-//@A
 FillInfo::FillInfo( unsigned short const & lhcFill, bool const & fromData ): m_isData( fromData )
 									   , m_lhcFill( lhcFill )
 									   , m_bunches1( 0 )
@@ -204,7 +202,6 @@ float const FillInfo::energy() const {
   return m_energy;
 }
 
-//@A
 float const FillInfo::delivLumi() const {
   return m_delivLumi;
 }
@@ -229,7 +226,6 @@ std::string const & FillInfo::injectionScheme() const {
   return m_injectionScheme;
 }
 
-//@A
 std::vector<float> const & FillInfo::lumiPerBX() const {
   return m_lumiPerBX;
 }
@@ -312,7 +308,6 @@ void FillInfo::setEnergy( float const & energy ) {
   m_energy = energy;
 }
 
-//@A
 void FillInfo::setDelivLumi( float const & delivLumi ) {
   m_delivLumi = delivLumi;
 }
@@ -337,13 +332,11 @@ void FillInfo::setInjectionScheme( std::string const & injectionScheme ) {
   m_injectionScheme = injectionScheme;
 }
 
-//@A
 void FillInfo::setLumiPerBX( std::vector<float> const & lumiPerBX) {
   m_lumiPerBX = lumiPerBX;
 }
 
 //sets all values in one go
-//@A
 void FillInfo::setBeamInfo( unsigned short const & bunches1
 			    ,unsigned short const & bunches2
 			    ,unsigned short const & collidingBunches
@@ -408,7 +401,6 @@ void FillInfo::print( std::stringstream & ss ) const {
      << "Begin time of Stable Beam flag: " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( m_beginTime ) ) << std::endl
      << "End time of the fill: " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( m_endTime ) ) << std::endl
      << "Injection scheme as given by LPC: " << m_injectionScheme << std::endl;
-  //@A
   ss << "Luminosity per bunch  (total " << m_lumiPerBX.size() << "): ";
   std::copy( m_lumiPerBX.begin(), m_lumiPerBX.end(), std::ostream_iterator<float>( ss, ", " ) );
   ss << std::endl;

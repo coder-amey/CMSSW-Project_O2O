@@ -11,7 +11,7 @@ process.MessageLogger = cms.Service("MessageLogger",
                                     )
 
 process.source = cms.Source("EmptyIOVSource",
-                            lastValue = cms.uint64(1), # event range = firstValue to lastValue
+                            lastValue = cms.uint64(1),
                             timetype = cms.string('runnumber'),
                             firstValue = cms.uint64(1),
                             interval = cms.uint64(1)
@@ -39,7 +39,6 @@ process.Test1 = cms.EDAnalyzer("FillInfoPopConAnalyzer",
                                    authenticationPath =  cms.untracked.string("/afs/cern.ch/user/a/anoolkar/private"),
                                    debug=cms.untracked.bool(True)
                                                  ),
-				# Spaces within the brackets allow awk to parse the value.
                                loggingOn = cms.untracked.bool(True),
                                IsDestDbCheckedInQueryLog = cms.untracked.bool(False)
                                )

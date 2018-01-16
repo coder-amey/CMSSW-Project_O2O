@@ -171,7 +171,6 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   std::string injectionScheme( "None" );
   std::ostringstream ss;
   
-  //@A
 //prepare the query for table 2:
   std::unique_ptr<coral::IQuery> fillDataQuery2( runTimeLoggerSchema.newQuery() );
   //FROM clause
@@ -198,142 +197,8 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   //initialize loop variables
   float delivLumi = 0., recLumi = 0.;
 
-// CODE FOR DEBUGGING PURPOSES...
-
-/*  CODE FOR TESTING A NEW QUERY.
-*/
-//Initializing the CMS_BEAM_COND schema.
-/*
-coral::ISchema& BCS = session.coralSession().schema( m_dipSchema );
-session.transaction().start( true );
-std::cout<<"\n\n\n--------------------------"<<std::endl;
-std::cout << "Qurying CMS_LHC_LUMIPERBUNCH table:\n";
-  std::unique_ptr<coral::IQuery> Q( BCS.newQuery() );
-  //FROM clause
-  Q->addToTableList( std::string( "CMS_LHC_LUMIPERBUNCH" ) );
-  //SELECT clause
-  Q->addToOutputList( std::string(  "LHCFILL" ) );
-  Q->addToOutputList( std::string( "DIPTIME" ) );
-  
- //WHERE CLAUSE
-  std::string lumiConditionStr( "LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
-  Q->setCondition( lumiConditionStr, fillDataBindVariables );
-  //ORDER BY clause
-  Q->addToOrderList( std::string( "LHCFILL" ) );
- //define query output
-  coral::AttributeList O;
-  O.extend<int>( std::string( "LHCFILL" ) );
-  O.extend<coral::TimeStamp>( std::string( "DIPTIME" ) );
-  Q->defineOutput( O );
-  //execute the query
-  std::cout <<"\n\nQuerying the OMDS for lumiPerBX data...\n\n"<<std::endl;
-  coral::ICursor& C = Q->execute();
-  //Read the output.
-     std::cout << "Reading values:\n";
-  while( C.next() ) {
-    if( m_debug ) {
-      std::ostringstream qs;
-      C.currentRow().toOutputStream( qs );
-      std::cout << qs.str() << "\n";
-    }
-  }
-*/
-
-  
-/* std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
-  //FROM clause
-  Q->addToTableList( std::string( "LUMI_SECTIONS" ) );
-  //SELECT clause
-  Q->addToOutputList( std::string( "LHCFILL" ) );
-  Q->addToOutputList( std::string( "MAX(INSTLUMI)" ) );
-  Q->addToOutputList( std::string( "MAX(PILEUP)" ) );
-  Q->addToOutputList( std::string( "MAX(DELIVLUMISECTION)" ) );
-  //WHERE clause
-  coral::AttributeList BV;
-  std::string lumiConditionStr( "PILEUP IS NOT NULL AND LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
-  Q->setCondition( lumiConditionStr, fillDataBindVariables );
-  //ORDER BY clause
-  Q->addToOrderList( std::string( "LHCFILL" ) );
-  //GROUP BY clause
-  Q->groupBy( std::string( "LHCFILL" ) );
- //define query output
-  coral::AttributeList O;
-  O.extend<int>( std::string( "FILL" ) );
-  O.extend<float>( std::string( "PEAKINSTLUMI" ) );
-  O.extend<float>( std::string( "PEAKPILEUP" ) );
-  O.extend<float>( std::string( "DELIVERED" ) );
-  Q->defineOutput( O );
-  //execute the query
-  std::cout <<"\n\nQuerying the OMDS for LUMI_SECTION data...\n\n"<<std::endl;
-  coral::ICursor& C = Q->execute();
-  //Read the output.
-     std::cout << "Reading values:\n";
-  while( C.next() ) {
-    if( m_debug ) {
-      std::ostringstream qs;
-      C.currentRow().toOutputStream( qs );
-      std::cout << qs.str() << "\n";
-    }
-  }
-*/
-
-/*CODE FOR DUMPING SCHEMA DESCRIPTION.
-*/
-/*std::set<std::string> List = BCS.listTables();
-std::cout << "Schema Description:\n";
-std::cout << "Schema Name: " << BCS.schemaName() << std::endl;
-std::set<std::string>::iterator I;
-for(I = List.begin(); I != List.end(); ++I)
-    std::cout << '\t' << *I << std::endl;
-std::cout << std::endl; 
-std::cout << "\nDetailed Table Description:\nTable Name:\t\tNo. of Columns:\n(Column Details follow.)" << std::endl;
-for(I = List.begin(); I != List.end(); ++I)
-{
-    try{
-			coral::ITable& fillTable = BCS.tableHandle(*I);
-			const coral::ITableDescription& description = fillTable.description();
-			int c = description.numberOfColumns();
-			std::cout << "\n" << description.name() << "\t\t" << c << std::endl;
-			for(int i = 0; i < c; i++)
-			{
-				const coral::IColumn& col = description.columnDescription(i);
-				std::cout << "\t" << col.name() << " (" << col.type() << ")" << std::endl;
-			}
-			std::cout << std::endl;
-		}
-		
-		catch(std::exception E)
-		{
-				std::cout << "Exception encountered for table:  " << *I << "\n\n";
-		}
-}
- try{
-			coral::ITable& fillTable = BCS.tableHandle("CMS_LHC_LUMIPERBUNCH");
-			const coral::ITableDescription& description = fillTable.description();
-			int c = description.numberOfColumns();
-			for(int i = 0; i < c; i++)
-			{
-				const coral::IColumn& col = description.columnDescription(i);
-				std::cout << "\t" << col.name() << " (" << col.type() << ")" << std::endl;
-			}
-			int k = description.numberOfForeignKeys();
-			std::cout << "No. of Foreign keys:\t" << k << std::endl;
-			std::cout << std::endl;
-		}
-		
-catch(std::exception E)
-{
-	std::cout << "Exception encountered!\n\n";
-}
-session.transaction().commit();
-std::cout<<"--------------------------\n\n\n"<<std::endl;
-*/
-//Prevent unnecessary execution of code.
-//Note remove the while loop to populate the database.
-	//while( fillDataCursor.next() );
-
   //loop over the cursor where the result of the query were fetched
-    while( fillDataCursor.next() ) {
+  while( fillDataCursor.next() ) {
 	//std::cout <<"New row"<<std::endl;
     if( m_debug ) {
       std::ostringstream qs;
@@ -498,48 +363,6 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
     coral::ICursor& bunchConf1Cursor = bunchConf1Query->execute();
     std::bitset<FillInfo::bunchSlots+1> bunchConfiguration1( 0ULL );
 
-//@A
-/*  CODE FOR TESTING A NEW QUERY (FROM A PARTICULAR FILL).*/
-/*
- std::unique_ptr<coral::IQuery> Q( beamCondSchema.newQuery() );
-  //FROM clause
-  Q->addToTableList( std::string( "MAGNETIC_FIELD_LV" ) );
-  //SELECT clause
-  Q->addToOutputList( std::string( "COUNT(*)" ) );
-  Q->addToOutputList( std::string( "DIPTIME" ) );
-  Q->addToOutputList( std::string( "VALUE" ) );
-  //WHERE clause
-  //by imposing BEGINTIME IS NOT NULL, we remove fills which never went into stable beams,
-  //or the most recent one, just declared but not yet in stable beams
-  coral::AttributeList BV;
-  BV.extend<coral::TimeStamp>( std::string( "stableBeamStartTimeStamp" ) );
-  BV[ std::string( "stableBeamStartTimeStamp" ) ].data<coral::TimeStamp>() = stableBeamStartTimeStamp;
-  BV.extend<coral::TimeStamp>( std::string( "beamDumpTimeStamp" ) );
-  BV[ std::string( "beamDumpTimeStamp" ) ].data<coral::TimeStamp>() = beamDumpTimeStamp;
-  std::string BConditionStr( "VALUE IS NOT NULL AND DIPTIME >= :stableBeamStartTimeStamp" );
-  //Q->setCondition( BConditionStr, BV );
-  //ORDER BY clause
-  Q->addToOrderList( std::string( "DIPTIME" ) );
-  //define query output
-  coral::AttributeList O;
-  //O.extend<coral::TimeStamp>( std::string( "Time" ) );
-  O.extend<int>( std::string( "Total" ) );
-  Q->defineOutput( O );
-  //execute the query
-  std::cout <<"\n\nQuerying the OMDS for BField...\n\n"<<std::endl;
-  coral::ICursor& C = Q->execute();
-  //Read the output.
-     std::cout << "Reading values:\n";
-  while( C.next() ) {
-    if( m_debug ) {
-      std::ostringstream qs;
-      C.currentRow().toOutputStream( qs );
-      std::cout << qs.str() << "\n";
-    }
-  }
-  */
-//@A Debugging...
-
     while( bunchConf1Cursor.next() ) {
       /*if( m_debug ) {
 	std::ostringstream b1s;
@@ -578,14 +401,13 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
       }
     }
       
-//@A
 	//execute query for lumiPerBX
 	std::unique_ptr<coral::IQuery> Q(beamCondSchema.newQuery());
 	Q->addToTableList( std::string( "CMS_LHC_LUMIPERBUNCH" ), std::string( "LUMIPERBUNCH\", TABLE( LUMIPERBUNCH.LUMI_BUNCHINST ) \"VALUE" ) );
 	Q->addToOutputList( std::string( "LUMIPERBUNCH.DIPTIME" ), std::string( "DIPTIME" ) );
 	Q->addToOutputList( std::string( "VALUE.COLUMN_VALUE" ), std::string( "LUMI/BUNCH" ) );
 	coral::AttributeList lumiBindVariables;
-    lumiBindVariables.extend<coral::TimeStamp>( std::string( "stableBeamStartTimeStamp" ) );
+    	lumiBindVariables.extend<coral::TimeStamp>( std::string( "stableBeamStartTimeStamp" ) );
 	lumiBindVariables[ std::string( "stableBeamStartTimeStamp" ) ].data<coral::TimeStamp>() = stableBeamStartTimeStamp;
 	lumiBindVariables.extend<coral::TimeStamp>( std::string( "beamDumpTimeStamp" ) );
 	lumiBindVariables[ std::string( "beamDumpTimeStamp" ) ].data<coral::TimeStamp>() = beamDumpTimeStamp;

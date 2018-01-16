@@ -1,5 +1,4 @@
 #include "CondFormats/Serialization/interface/Serializable.h"
-
 #include "CondFormats/Common/interface/Time.h"
 #include <bitset>
 #include <iostream>
@@ -55,7 +54,6 @@ class FillInfo {
   
   float const energy() const;
   
-  //@A
   float const delivLumi() const;
   
   float const recLumi() const;
@@ -68,7 +66,6 @@ class FillInfo {
   
   std::string const & injectionScheme() const;
   
-  //@A
   std::vector<float> const & lumiPerBX() const;
 
   //returns a boolean, true if the injection scheme has a leading 25ns
@@ -110,7 +107,6 @@ class FillInfo {
   
   void setEnergy( float const & energy );
   
-  //@A
   void setDelivLumi( float const & delivLumi );
 
   void setRecLumi( float const & recLumi );
@@ -123,11 +119,9 @@ class FillInfo {
   
   void setInjectionScheme( std::string const & injectionScheme );
   
-  //@A
   void setLumiPerBX( std::vector<float> const & lumiPerBX);
   
   //sets all values in one go
-  //@A
   void setBeamInfo( unsigned short const & bunches1
 		    ,unsigned short const & bunches2
 		    ,unsigned short const & collidingBunches
@@ -171,7 +165,6 @@ class FillInfo {
   float m_crossingAngle, m_betastar, m_intensity1, m_intensity2, m_energy, m_delivLumi, m_recLumi;
   cond::Time_t m_createTime, m_beginTime, m_endTime;
   std::string m_injectionScheme;
-  //@A
   std::vector<float> m_lumiPerBX;
   //BEWARE: since CMS counts bunches starting from one,
   //the size of the bitset must be incremented by one,
