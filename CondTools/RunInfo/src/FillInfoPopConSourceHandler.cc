@@ -120,6 +120,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   fillDataQuery->addToOutputList( std::string( "ENDTIME" ) );
   fillDataQuery->addToOutputList( std::string( "INJECTIONSCHEME" ) );
   //WHERE clause
+  coral::AttributeList fillDataBindVariables;
   fillDataBindVariables.extend( std::string( "firstFillNumber" ), typeid( unsigned short ) );
   fillDataBindVariables[ std::string( "firstFillNumber" ) ].data<unsigned short>() = m_firstFill;
   fillDataBindVariables.extend( std::string( "lastFillNumber" ), typeid( unsigned short ) );
@@ -429,7 +430,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 	edm::LogInfo( m_name ) << lpBX.str() << "\nfrom " << m_name << "::getNewObjects";
       }*/
       if( lumiDataCursor.currentRow()[ std::string( "VALUE" ) ].data<float>() != 0.00 ) {
-	lumiData.push_back(C.currentRow()[ std::string( "VALUE" ) ].data<float>());
+	lumiPerBX.push_back(lumiDataCursor.currentRow()[ std::string( "VALUE" ) ].data<float>());
       }
     }
 
