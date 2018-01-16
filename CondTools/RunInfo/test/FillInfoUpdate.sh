@@ -18,24 +18,13 @@
 #-------------------------------------
 RELEASE=CMSSW_9_2_6
 RELEASE_DIR=/afs/cern.ch/work/a/anoolkar/private/
-<<<<<<< HEAD
-DIR=/afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test
-LOGFILE=${DIR}/FillInfoTriggerO2O.log
-DATEFILE=${DIR}/FillInfoTriggerO2ODate.log
-DATE=`date --utc`
-OUTFILE="/afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/o2oUpdate_$$.txt"
-=======
 DIR=/afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/log
 LOGFILE=${DIR}/FillInfoTriggerO2O.log
 DATEFILE=${DIR}/FillInfoTriggerO2ODate.log
 DATE=`date --utc`
-<<<<<<< HEAD
 OUTFILE="/afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/log/o2oUpdate_$$.txt"
->>>>>>> new_entry_peakLumi
-=======
 D=`date +"%m-%d-%Y-%T" --utc`
 OUTFILE="/afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/log/fill_"$D".log"
->>>>>>> new_entry_peakLumi
 pushd $RELEASE_DIR/$RELEASE/src/
 #@R#export SCRAM_ARCH=slc6_amd64_gcc493
 source /cvmfs/cms.cern.ch/cmsset_default.sh
@@ -77,20 +66,12 @@ set | tee -a $LOGFILE
 
 #- sdg: These cfg were in $RELEASE_DIR/$RELEASE/src/CondTools/Ecal/python
 #       but we keep them in this area in order to avoid issues with the release.
-<<<<<<< HEAD
-<<<<<<< HEAD
-submit cmsRun FillInfoPopConAnalyzer.py       
-=======
-submit cmsRun /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py       
->>>>>>> new_entry_peakLumi
-=======
 t1=$(awk 'NR == 35 {print $4}' /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py)
 t2=$(expr "$t1" + 3)
 sed -i '35s/'"$t1"'/'"$t2"'/' /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py
 t1=$(awk 'NR == 36 {print $4}' /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py)
 t2=$(expr "$t1" + 3)
 sed -i '36s/'"$t1"'/'"$t2"'/' /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py
->>>>>>> new_entry_peakLumi
 
 submit cmsRun /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py       
 
@@ -106,12 +87,5 @@ log $KILLCMD
 $KILLCMD > /dev/null
 
 fi
-
 log DONE
-
-
-exit 0 
-<<<<<<< HEAD
-=======
-
->>>>>>> new_entry_peakLumi
+exit 0
