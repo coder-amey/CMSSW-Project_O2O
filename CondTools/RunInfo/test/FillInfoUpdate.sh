@@ -18,7 +18,8 @@
 #-------------------------------------
 RELEASE=CMSSW_9_2_6
 RELEASE_DIR=/afs/cern.ch/work/a/anoolkar/private/
-DIR=$PWD/log
+P=$PWD
+DIR=${P}/log
 LOGFILE=${DIR}/FillInfoTriggerO2O.log
 DATEFILE=${DIR}/FillInfoTriggerO2ODate.log
 DATE=`date --utc`
@@ -28,18 +29,18 @@ D=`date +"%m-%d-%Y-%T" --utc`
 # Fetch fill number from previous run.
 #-------------------------------------
 interval=3
-firstfill=$(awk 'NR == 35 {print $4}' $PWD/FillInfoPopConAnalyzer.py)
-lastfill=$(awk 'NR == 36 {print $4}' $PWD/FillInfoPopConAnalyzer.py)
+firstfill=$(awk 'NR == 35 {print $4}' ${P}/FillInfoPopConAnalyzer.py)
+lastfill=$(awk 'NR == 36 {print $4}' ${P}/FillInfoPopConAnalyzer.py)
 sed -i '35s/'"$firstfill"'/'"$lastfill" + 1'/' $PWD/FillInfoPopConAnalyzer.py
-sed -i '36s/'"$lastfill"'/'"$lastfill" + "$interval"'/' $PWD/FillInfoPopConAnalyzer.py
+sed -i '36s/'"$lastfill"'/'"$lastfill" + "$interval"'/' ${P}/FillInfoPopConAnalyzer.py
 firstfill=$(expr "$lastfill" + 1)
-lastfill=$(expr "$lastfill" + interval)
+lastfill=$(expr "$lastfill" + "$interval")
 
 
 #-------------------------------------
 # Setup CMSSW log files
 #-------------------------------------
-OUTFILE="$PWD/testlog/fill_"$D"_"$firstfill"-"$lastfill".log"
+OUTFILE="${P}/test/log/fill_"$D"_"$firstfill"-"$lastfill".log"
 pushd $RELEASE_DIR/$RELEASE/src/
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 eval `scramv1 runtime -sh` 
@@ -81,7 +82,7 @@ set | tee -a $LOGFILE
 #- sdg: These cfg were in $RELEASE_DIR/$RELEASE/src/CondTools/Ecal/python
 #       but we keep them in this area in order to avoid issues with the release.
 
-submit cmsRun $PWD/FillInfoPopConAnalyzer.py       
+submit cmsRun ${P}/FillInfoPopConAnalyzer.py       
 
 # END OF CHANGES
 log "-----------------------------------------------------------------------"
