@@ -31,16 +31,15 @@ D=`date +"%m-%d-%Y-%T" --utc`
 interval=3
 firstfill=$(awk 'NR == 35 {print $4}' ${P}/FillInfoPopConAnalyzer.py)
 lastfill=$(awk 'NR == 36 {print $4}' ${P}/FillInfoPopConAnalyzer.py)
-sed -i '35s/'"$firstfill"'/'"$lastfill" + 1'/' $PWD/FillInfoPopConAnalyzer.py
-sed -i '36s/'"$lastfill"'/'"$lastfill" + "$interval"'/' ${P}/FillInfoPopConAnalyzer.py
-firstfill=$(expr "$lastfill" + 1)
-lastfill=$(expr "$lastfill" + "$interval")
-
+sed -i '35s/'"$firstfill"'/'`expr $lastfill + 1`'/' $PWD/FillInfoPopConAnalyzer.py
+sed -i '36s/'"$lastfill"'/'`expr $lastfill + $interval`'/' ${P}/FillInfoPopConAnalyzer.py
+let "firstfill=lastfill+1"
+let "lastfill=lastfill+interval"
 
 #-------------------------------------
 # Setup CMSSW log files
 #-------------------------------------
-OUTFILE="${P}/test/log/fill_"$D"_"$firstfill"-"$lastfill".log"
+OUTFILE="${P}/log/fill_"$D"_"$firstfill"-"$lastfill".log"
 pushd $RELEASE_DIR/$RELEASE/src/
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 eval `scramv1 runtime -sh` 

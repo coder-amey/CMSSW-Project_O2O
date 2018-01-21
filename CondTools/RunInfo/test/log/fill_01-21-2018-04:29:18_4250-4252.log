@@ -1,4 +1,4 @@
-[Fri Jan 12 16:44:15 CET 2018] : cmsRun /afs/cern.ch/work/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py 
+[Sun Jan 21 05:29:19 CET 2018] : cmsRun /afs/cern.ch/user/a/anoolkar/private/CMSSW_9_2_6/src/CondTools/RunInfo/test/FillInfoPopConAnalyzer.py 
  ##################################################################### 
  # WARNING: the module CondCore.DBCommon.CondDBCommon is deprecated. # 
  # Please import CondCore.CondDB.CondDB_cfi                          # 
@@ -27,16 +27,16 @@ PluginManager Info PluginManager loaded CORAL/RelationalPlugins/sqlite factory f
 CORAL/Services/ConnectionService Debug No valid connection for string "sqlite_file:test_output.db" found in the pool. Creating a new connection.
 CORAL/Services/ConnectionService Debug Trying to get a new update session on "sqlite_file:test_output.db"
 CORAL/Services/ConnectionService Debug Connection parameters are: Retry-Period=10sec, Retry-Timeout=60sec, Connection-Timeout=300sec.
-CORAL/Services/ConnectionService Info New connection to service "test_output.db" with connectionID=729f658e-f7af-11e7-816c-02163e018444 has been connected
-CORAL/Services/ConnectionService Info New user session with sessionID=729f6ba6-f7af-11e7-816c-02163e018444 started on connectionID=729f658e-f7af-11e7-816c-02163e018444 to service "test_output.db" for user "" in update mode
-CORAL/Services/ConnectionService Debug A new connection to service "test_output.db" has been added in the active list. Id=729f658e-f7af-11e7-816c-02163e018444
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@ctor 12-Jan-2018 16:44:17 CET  pre-events
+CORAL/Services/ConnectionService Info New connection to service "test_output.db" with connectionID=a677a578-fe63-11e7-bb60-fa163e011b0f has been connected
+CORAL/Services/ConnectionService Info New user session with sessionID=a677ac08-fe63-11e7-bb60-fa163e011b0f started on connectionID=a677a578-fe63-11e7-bb60-fa163e011b0f to service "test_output.db" for user "" in update mode
+CORAL/Services/ConnectionService Debug A new connection to service "test_output.db" has been added in the active list. Id=a677a578-fe63-11e7-bb60-fa163e011b0f
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@ctor 21-Jan-2018 05:29:20 CET  pre-events
 This is PopCon (Populator of Condition) v5.0.
 Please report any problem and feature request through the JIRA project CMSCONDDB.
 
 %MSG
-Begin processing the 1st record. Run 1, Event 1, LumiSection 1 at 12-Jan-2018 16:44:17.292 CET
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 12-Jan-2018 16:44:17 CET  PostGlobalEndRun
+Begin processing the 1st record. Run 1, Event 1, LumiSection 1 at 21-Jan-2018 05:29:20.656 CET
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 21-Jan-2018 05:29:20 CET  PostGlobalEndRun
 payload name FillInfo
 %MSG
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare BEGIN
@@ -58,11 +58,11 @@ CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare SELECT "TAG"."NAME" FROM "TAG" WHERE "TAG"."NAME" = :NAME_0 
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::bind variables NAME_0(string) fillinfo_test 
-%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 12-Jan-2018 16:44:17 CET  PostGlobalEndRun
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 21-Jan-2018 05:29:20 CET  PostGlobalEndRun
 destination DB: sqlite_file:test_output.db, target DB: sqlite_file:test_output.db
 TAG: fillinfo_test; First writer to this new tag.
 %MSG
-%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  12-Jan-2018 16:44:17 CET PostGlobalEndRun
+%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  21-Jan-2018 05:29:20 CET PostGlobalEndRun
 New tag fillinfo_test; from FillInfoPopConSourceHandler::getNewObjects
 %MSG
 CORAL/Services/ConnectionService Info Disable connection sharing
@@ -80,12 +80,12 @@ CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT AUTHO.C_ROLE, 
 CORAL/Services/ConnectionService Debug No valid connection for string "oracle://cms_orcon_adg/CMS_RUNTIME_LOGGER" found in the pool. Creating a new connection.
 CORAL/Services/ConnectionService Debug Trying to get a new read-only session on "oracle://cms_orcon_adg/CMS_RUNTIME_LOGGER"
 CORAL/Services/ConnectionService Debug Connection parameters are: Retry-Period=10sec, Retry-Timeout=60sec, Connection-Timeout=300sec.
-CORAL/Services/ConnectionService Info New connection to service "cms_orcon_adg" with connectionID=72c35f66-f7af-11e7-816c-02163e018444 has been connected
+CORAL/Services/ConnectionService Info New connection to service "cms_orcon_adg" with connectionID=a697ff94-fe63-11e7-bb60-fa163e011b0f has been connected
 CORAL/RelationalPlugins/oracle Info Disable plan baseline use by ALTER SESSION SET OPTIMIZER_USE_SQL_PLAN_BASELINES=FALSE
 CORAL/RelationalPlugins/oracle Debug Prepared statement : "ALTER SESSION SET OPTIMIZER_USE_SQL_PLAN_BASELINES=FALSE"
 CORAL/RelationalPlugins/oracle Info CORAL_ORA_SKIP_TRANS_READONLY is not set: this session will use OCI serializable read-only transactions
-CORAL/Services/ConnectionService Info New user session with sessionID=72c663f0-f7af-11e7-816c-02163e018444 started on connectionID=72c35f66-f7af-11e7-816c-02163e018444 to service "cms_orcon_adg" for user "CMS_COND_GENERAL_R" in read-only mode
-CORAL/Services/ConnectionService Debug A new connection to service "cms_orcon_adg" has been added in the active list. Id=72c35f66-f7af-11e7-816c-02163e018444
+CORAL/Services/ConnectionService Info New user session with sessionID=a69af3de-fe63-11e7-bb60-fa163e011b0f started on connectionID=a697ff94-fe63-11e7-bb60-fa163e011b0f to service "cms_orcon_adg" for user "CMS_COND_GENERAL_R" in read-only mode
+CORAL/Services/ConnectionService Debug A new connection to service "cms_orcon_adg" has been added in the active list. Id=a697ff94-fe63-11e7-bb60-fa163e011b0f
 
 
 Querying the OMDS for RUNTIME_SUMMARY data...
@@ -98,20 +98,20 @@ Querying the OMDS for LUMI data...
 
 
 CORAL/RelationalPlugins/oracle Debug Prepared statement : "SELECT MAX(DELIVLUMI), MAX(LIVELUMI) FROM CMS_RUNTIME_LOGGER."LUMI_SECTIONS" "LUMI_SECTIONS" WHERE DELIVLUMI IS NOT NULL AND LHCFILL BETWEEN :"firstFillNumber" AND :"lastFillNumber" GROUP BY LHCFILL ORDER BY LHCFILL"
-CORAL/Services/ConnectionService Info User session with sessionID=72c663f0-f7af-11e7-816c-02163e018444 will be ended on connectionID=72c35f66-f7af-11e7-816c-02163e018444
-CORAL/Services/ConnectionService Debug Connection id=72c35f66-f7af-11e7-816c-02163e018444 to service "cms_orcon_adg" has 0 session(s) opened.
-CORAL/Services/ConnectionService Debug The active connection id=72c35f66-f7af-11e7-816c-02163e018444 to service "cms_orcon_adg" has been removed from the active list.
-CORAL/Services/ConnectionService Debug The valid active connection id=72c35f66-f7af-11e7-816c-02163e018444 to service "cms_orcon_adg" has been moved to the idle list.
-%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  12-Jan-2018 16:44:17 CET PostGlobalEndRun
+CORAL/Services/ConnectionService Info User session with sessionID=a69af3de-fe63-11e7-bb60-fa163e011b0f will be ended on connectionID=a697ff94-fe63-11e7-bb60-fa163e011b0f
+CORAL/Services/ConnectionService Debug Connection id=a697ff94-fe63-11e7-bb60-fa163e011b0f to service "cms_orcon_adg" has 0 session(s) opened.
+CORAL/Services/ConnectionService Debug The active connection id=a697ff94-fe63-11e7-bb60-fa163e011b0f to service "cms_orcon_adg" has been removed from the active list.
+CORAL/Services/ConnectionService Debug The valid active connection id=a697ff94-fe63-11e7-bb60-fa163e011b0f to service "cms_orcon_adg" has been moved to the idle list.
+%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  21-Jan-2018 05:29:20 CET PostGlobalEndRun
 Transferring 0 payload(s); from FillInfoPopConSourceHandler::getNewObjects
 %MSG
 CORAL/RelationalPlugins/sqlite Debug SQLiteStatement::prepare COMMIT
-CORAL/Services/ConnectionService Info User session with sessionID=729f6ba6-f7af-11e7-816c-02163e018444 will be ended on connectionID=729f658e-f7af-11e7-816c-02163e018444
-CORAL/Services/ConnectionService Debug Connection id=729f658e-f7af-11e7-816c-02163e018444 to service "test_output.db" has 0 session(s) opened.
-CORAL/Services/ConnectionService Debug The active connection id=729f658e-f7af-11e7-816c-02163e018444 to service "test_output.db" has been removed from the active list.
-CORAL/Services/ConnectionService Debug The valid active connection id=729f658e-f7af-11e7-816c-02163e018444 to service "test_output.db" has been moved to the idle list.
+CORAL/Services/ConnectionService Info User session with sessionID=a677ac08-fe63-11e7-bb60-fa163e011b0f will be ended on connectionID=a677a578-fe63-11e7-bb60-fa163e011b0f
+CORAL/Services/ConnectionService Debug Connection id=a677a578-fe63-11e7-bb60-fa163e011b0f to service "test_output.db" has 0 session(s) opened.
+CORAL/Services/ConnectionService Debug The active connection id=a677a578-fe63-11e7-bb60-fa163e011b0f to service "test_output.db" has been removed from the active list.
+CORAL/Services/ConnectionService Debug The valid active connection id=a677a578-fe63-11e7-bb60-fa163e011b0f to service "test_output.db" has been moved to the idle list.
 CORAL/Services/ConnectionService Info Deleting the ConnectionPool
-CORAL/Services/ConnectionService Info Connection to service "test_output.db" with connectionID=729f658e-f7af-11e7-816c-02163e018444 will be disconnected
-CORAL/Services/ConnectionService Info Connection to service "cms_orcon_adg" with connectionID=72c35f66-f7af-11e7-816c-02163e018444 will be disconnected
-[Fri Jan 12 16:44:17 CET 2018] : ----------------------------------------------------------------------- 
-[Fri Jan 12 16:44:17 CET 2018] : DONE 
+CORAL/Services/ConnectionService Info Connection to service "test_output.db" with connectionID=a677a578-fe63-11e7-bb60-fa163e011b0f will be disconnected
+CORAL/Services/ConnectionService Info Connection to service "cms_orcon_adg" with connectionID=a697ff94-fe63-11e7-bb60-fa163e011b0f will be disconnected
+[Sun Jan 21 05:29:21 CET 2018] : ----------------------------------------------------------------------- 
+[Sun Jan 21 05:29:21 CET 2018] : DONE 
