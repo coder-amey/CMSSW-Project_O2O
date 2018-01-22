@@ -75,6 +75,6 @@ pushd $TEST_DIR
 #-------------------------------------
 # Run FillInfoPopConAnalyzer.py 
 #-------------------------------------
-#submit cmsRun FillInfoPopConAnalyzer.py       
+submit cmsRun FillInfoPopConAnalyzer.py       
 log DONE
 exit 0
