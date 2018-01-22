@@ -29,14 +29,12 @@ D=`date +"%m-%d-%Y-%T" --utc`
 # Fetch fill number from previous run.
 #-------------------------------------
 interval=3
-firstfill=$(grep -n firstFill FillInfoPopConAnalyzer.py | cut -d: -f1)
-firstfill=$(awk 'NR == '"$firstfill"' {print $4}' ${TEST_DIR}/FillInfoPopConAnalyzer.py)
-lastfill=$(grep -n lastFill FillInfoPopConAnalyzer.py | cut -d: -f1)
-lastfill=$(awk 'NR == '"$lastfill"' {print $4}' ${TEST_DIR}/FillInfoPopConAnalyzer.py)
-sed -i '35s/'"$firstfill"'/'`expr $lastfill + 1`'/' ${TEST_DIR}/FillInfoPopConAnalyzer.py
-sed -i '36s/'"$lastfill"'/'`expr $lastfill + $interval`'/' ${TEST_DIR}/FillInfoPopConAnalyzer.py
-let "firstfill=lastfill+1"
-let "lastfill=lastfill+interval"
+loc_1=$(grep -n firstFill FillInfoPopConAnalyzer.py | cut -d: -f1)
+firstfill=$(awk 'NR == '"$loc_1"' {print $4}' ${TEST_DIR}/FillInfoPopConAnalyzer.py)
+loc_2=$(grep -n lastFill FillInfoPopConAnalyzer.py | cut -d: -f1)
+lastfill=$(awk 'NR == '"$loc_2"' {print $4}' ${TEST_DIR}/FillInfoPopConAnalyzer.py)
+sed -i ''"$loc_1"'s/'"$firstfill"'/'`expr $lastfill + 1`'/' ${TEST_DIR}/FillInfoPopConAnalyzer.py
+sed -i ''"$loc_2"'s/'"$lastfill"'/'`expr $lastfill + $interval`'/' ${TEST_DIR}/FillInfoPopConAnalyzer.py
 
 #-------------------------------------
 # Setup CMSSW log files
