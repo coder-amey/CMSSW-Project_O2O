@@ -7,7 +7,6 @@
 # */1 * * * * lxplus049 $PATH/FillInfoUpdate.sh > $PATH/cron_log.txt
 # Ref: https://raw.githubusercontent.com/cms-sw/cmssw/09c3fce6626f70fd04223e7dacebf0b485f73f54/RecoVertex/BeamSpotProducer/scripts/READMEMegascript.txt
 
-
 #####################################
 # SHELL SCRIPT TO BE RUN BY ACRON
 # Ref: https://github.com/cms-sw/cmssw/blob/09c3fce6626f70fd04223e7dacebf0b485f73f54/CondTools/Ecal/python/updateO2O.sh
