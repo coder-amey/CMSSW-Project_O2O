@@ -18,10 +18,10 @@
 #-------------------------------------
 RELEASE=CMSSW_9_2_6
 RELEASE_DIR=/afs/cern.ch/work/a/anoolkar/private/
-P=$PWD
-DIR=${P}/log
-LOGFILE=${DIR}/FillInfoTriggerO2O.log
-DATEFILE=${DIR}/FillInfoTriggerO2ODate.log
+TEST_DIR=$PWD
+LOG_DIR=${TEST_DIR}/log
+LOGFILE=${LOG_DIR}/FillInfoTriggerO2O.log
+DATEFILE=${LOG_DIR}/FillInfoTriggerO2ODate.log
 DATE=`date --utc`
 D=`date +"%m-%d-%Y-%T" --utc`
 
@@ -30,18 +30,18 @@ D=`date +"%m-%d-%Y-%T" --utc`
 #-------------------------------------
 interval=3
 firstfill=$(grep -n firstFill FillInfoPopConAnalyzer.py | cut -d: -f1)
-firstfill=$(awk 'NR == '"$firstfill"' {print $4}' ${P}/FillInfoPopConAnalyzer.py)
+firstfill=$(awk 'NR == '"$firstfill"' {print $4}' ${TEST_DIR}/FillInfoPopConAnalyzer.py)
 lastfill=$(grep -n lastFill FillInfoPopConAnalyzer.py | cut -d: -f1)
-lastfill=$(awk 'NR == '"$lastfill"' {print $4}' ${P}/FillInfoPopConAnalyzer.py)
-sed -i '35s/'"$firstfill"'/'`expr $lastfill + 1`'/' $PWD/FillInfoPopConAnalyzer.py
-sed -i '36s/'"$lastfill"'/'`expr $lastfill + $interval`'/' ${P}/FillInfoPopConAnalyzer.py
+lastfill=$(awk 'NR == '"$lastfill"' {print $4}' ${TEST_DIR}/FillInfoPopConAnalyzer.py)
+sed -i '35s/'"$firstfill"'/'`expr $lastfill + 1`'/' ${TEST_DIR}/FillInfoPopConAnalyzer.py
+sed -i '36s/'"$lastfill"'/'`expr $lastfill + $interval`'/' ${TEST_DIR}/FillInfoPopConAnalyzer.py
 let "firstfill=lastfill+1"
 let "lastfill=lastfill+interval"
 
 #-------------------------------------
 # Setup CMSSW log files
 #-------------------------------------
-OUTFILE="${P}/log/fill_"$D"_"$firstfill"-"$lastfill".log"
+OUTFILE="${TEST_DIR}/log/fill_"$D"_"$firstfill"-"$lastfill".log"
 pushd $RELEASE_DIR/$RELEASE/src/
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 eval `scramv1 runtime -sh` 
@@ -73,7 +73,7 @@ echo $LOGDATE | tee -a $LOGFILE
 rm -f $DATEFILE
 echo $DATE > $DATEFILE
 
-pushd $DIR
+pushd $LOG_DIR
 
 echo  "We are in: $PWD" | tee -a $LOGFILE
 
@@ -83,7 +83,7 @@ set | tee -a $LOGFILE
 #- sdg: These cfg were in $RELEASE_DIR/$RELEASE/src/CondTools/Ecal/python
 #       but we keep them in this area in order to avoid issues with the release.
 
-submit cmsRun ${P}/FillInfoPopConAnalyzer.py       
+submit cmsRun ${TEST_DIR}/FillInfoPopConAnalyzer.py       
 
 # END OF CHANGES
 log "-----------------------------------------------------------------------"
