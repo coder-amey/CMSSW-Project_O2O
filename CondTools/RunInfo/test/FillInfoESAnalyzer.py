@@ -3,10 +3,10 @@ import FWCore.ParameterSet.Config as cms
 process = cms.Process("Test")
 process.load("CondCore.DBCommon.CondDBCommon_cfi")
 
-#process.CondDBCommon.connect = 'sqlite_file:test_output.db'
-#process.CondDBCommon.DBParameters.authenticationPath = '.'
-process.CondDBCommon.connect = 'oracle://cms_orcoff_prep/CMS_CONDITIONS'
-process.CondDBCommon.DBParameters.authenticationPath =  '/afs/cern.ch/user/a/anoolkar/private'
+process.CondDBCommon.connect = 'sqlite_file:test_output.db'
+process.CondDBCommon.DBParameters.authenticationPath = '.'
+#process.CondDBCommon.connect = 'oracle://cms_orcoff_prep/CMS_CONDITIONS'
+#process.CondDBCommon.DBParameters.authenticationPath =  '/afs/cern.ch/user/a/anoolkar/private'
 
 
 process.maxEvents = cms.untracked.PSet(
