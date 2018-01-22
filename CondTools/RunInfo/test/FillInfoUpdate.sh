@@ -58,34 +58,23 @@ function submit() {
      $@ | tee -a -a $OUTFILE
 }
 
-#######     ------  popcon  beginning   --------  #######################
-
-echo " " | tee -a $LOGFILE
+#-------------------------------------
+# Get previous triggering date
+#-------------------------------------
 echo "--------: FillInfo O2O was triggered at :-------- " | tee -a $LOGFILE
 echo "$DATE" | tee -a $LOGFILE
-
-#######     ----     getting the previous cron date ############### 
-#######     parsing the last line from PopCon DATE log file###### 
 LOGDATE=`cat $DATEFILE | awk 'NR ==1 {print $0}'`
 TMSLOGDATE=`date --utc -d "$LOGDATE" +%s`
 echo "timestamp for the log (last log)" $TMSLOGDATE "corresponding to date" | tee -a $LOGFILE
 echo $LOGDATE | tee -a $LOGFILE
 rm -f $DATEFILE
 echo $DATE > $DATEFILE
+pushd $TEST_DIR
 
-pushd $LOG_DIR
 
-echo  "We are in: $PWD" | tee -a $LOGFILE
-
-echo "*** Checking the CMSSW environment for the job ***" | tee -a $LOGFILE
-set | tee -a $LOGFILE
-
-#- sdg: These cfg were in $RELEASE_DIR/$RELEASE/src/CondTools/Ecal/python
-#       but we keep them in this area in order to avoid issues with the release.
-
-submit cmsRun ${TEST_DIR}/FillInfoPopConAnalyzer.py       
-
-# END OF CHANGES
-log "-----------------------------------------------------------------------"
+#-------------------------------------
+# Run FillInfoPopConAnalyzer.py 
+#-------------------------------------
+#submit cmsRun FillInfoPopConAnalyzer.py       
 log DONE
 exit 0
