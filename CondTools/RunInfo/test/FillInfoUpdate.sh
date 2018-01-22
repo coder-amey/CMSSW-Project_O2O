@@ -19,11 +19,12 @@
 RELEASE=CMSSW_9_2_6
 RELEASE_DIR=/afs/cern.ch/work/a/anoolkar/private/
 TEST_DIR=$PWD
+mkdir -p $TEST_DIR/log
 LOG_DIR=${TEST_DIR}/log
 LOGFILE=${LOG_DIR}/FillInfoTriggerO2O.log
 DATEFILE=${LOG_DIR}/FillInfoTriggerO2ODate.log
 DATE=`date --utc`
-D=`date +"%m-%d-%Y-%T" --utc`
+LOG_DATE=`date +"%Y%m%d_%H%M%S" --utc`
 
 #-------------------------------------
 # Fetch fill number from previous run.
@@ -35,11 +36,13 @@ loc_2=$(grep -n lastFill FillInfoPopConAnalyzer.py | cut -d: -f1)
 lastfill=$(awk 'NR == '"$loc_2"' {print $4}' ${TEST_DIR}/FillInfoPopConAnalyzer.py)
 sed -i ''"$loc_1"'s/'"$firstfill"'/'`expr $lastfill + 1`'/' ${TEST_DIR}/FillInfoPopConAnalyzer.py
 sed -i ''"$loc_2"'s/'"$lastfill"'/'`expr $lastfill + $interval`'/' ${TEST_DIR}/FillInfoPopConAnalyzer.py
+let "firstfill=lastfill+1"
+let "lastfill=lastfill+interval"
 
 #-------------------------------------
 # Setup CMSSW log files
 #-------------------------------------
-OUTFILE="${TEST_DIR}/log/fill_"$D"_"$firstfill"-"$lastfill".log"
+OUTFILE="${TEST_DIR}/log/fill_"$LOG_DATE"_"$firstfill"-"$lastfill".log"
 pushd $RELEASE_DIR/$RELEASE/src/
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 eval `scramv1 runtime -sh` 
