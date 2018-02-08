@@ -92,7 +92,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   connection.setAuthenticationPath( m_authpath );
   connection.configure();
   //create a sessiom
-  cond::persistency::Session session = connection.createSession( m_connectionString, true  );
+  cond::persistency::Session session = connection.createSession( m_connectionString );
   //run the first query against the schema logging fill information
   coral::ISchema& runTimeLoggerSchema = session.nominalSchema();
   //start the transaction against the fill logging schema
