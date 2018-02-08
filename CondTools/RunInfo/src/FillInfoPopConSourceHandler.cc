@@ -93,6 +93,37 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   connection.configure();
   //create a sessiom
   cond::persistency::Session session = connection.createSession( m_connectionString );
+  
+//@A
+//  CODE FOR TESTING A NEW QUERY.
+//Initializing the CMS_CTP_CTPPS_COND schema.
+/**/
+coral::ISchema& CTPPS = session.coralSession().schema( cms.untracked.string("CMS_CTP_CTPPS_COND") );
+session.transaction().start( true );
+
+//CODE FOR DUMPING SCHEMA DESCRIPTION.
+
+std::cout << "Schema Description:\n";
+std::cout << "Schema Name: " << CTPPS.schemaName() << std::endl;
+ try
+{
+	coral::ITable& fillTable = CTPPS.tableHandle("CTPPS_LHC_MACHINE_PARAMS");
+	const coral::ITableDescription& description = fillTable.description();
+	int c = description.numberOfColumns();
+	for(int i = 0; i < c; i++)
+	{
+		const coral::IColumn& col = description.columnDescription(i);
+		std::cout << "\t" << col.name() << " (" << col.type() << ")" << std::endl;
+	}
+	std::cout << std::endl;
+}
+catch(std::exception E)
+{
+	std::cout << "Exception encountered!\n\n";
+}
+session.transaction().commit();
+std::cout<<"--------------------------\n\n\n"<<std::endl;
+
   //run the first query against the schema logging fill information
   coral::ISchema& runTimeLoggerSchema = session.nominalSchema();
   //start the transaction against the fill logging schema
@@ -195,6 +226,11 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   coral::ICursor& fillDataCursor2 = fillDataQuery2->execute();
   //initialize loop variables
   float delivLumi = 0., recLumi = 0.;
+
+//@A
+//Prevent unnecessary execution of code.
+//Note remove the while loop to populate the database.
+while( fillDataCursor.next() );
 
   //loop over the cursor where the result of the query were fetched
   while( fillDataCursor.next() ) {
