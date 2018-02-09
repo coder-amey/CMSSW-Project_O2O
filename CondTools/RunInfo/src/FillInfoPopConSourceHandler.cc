@@ -100,29 +100,44 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 /**/
 coral::ISchema& CTPPS = session.coralSession().schema( cms.untracked.string("CMS_CTP_CTPPS_COND") );
 session.transaction().start( true );
-
-//CODE FOR DUMPING SCHEMA DESCRIPTION.
-
-std::cout << "Schema Description:\n";
-std::cout << "Schema Name: " << CTPPS.schemaName() << std::endl;
- try
-{
-	coral::ITable& fillTable = CTPPS.tableHandle("CTPPS_LHC_MACHINE_PARAMS");
-	const coral::ITableDescription& description = fillTable.description();
-	int c = description.numberOfColumns();
-	for(int i = 0; i < c; i++)
-	{
-		const coral::IColumn& col = description.columnDescription(i);
-		std::cout << "\t" << col.name() << " (" << col.type() << ")" << std::endl;
-	}
-	std::cout << std::endl;
-}
-catch(std::exception E)
-{
-	std::cout << "Exception encountered!\n\n";
-}
-session.transaction().commit();
-std::cout<<"--------------------------\n\n\n"<<std::endl;
+  std::cout<<"\n\n\n--------------------------"<<std::endl;
+  std::cout << "Querying CTPPS_LHC_MACHINE_PARAMS:\n";
+  std::unique_ptr<coral::IQuery> fillDataQuery3-( CTPPS.newQuery() );
+  //FROM clause
+  fillDataQuery3->addToTableList( std::string( "CMS_LHC_LUMIPERBUNCH" ) );
+  //SELECT clause
+  fillDataQuery3->addToOutputList( std::string( "FILL_NUMBER" ) );
+  fillDataQuery3->addToOutputList( std::string( "LHC_STATE" ) );
+  fillDataQuery3->addToOutputList( std::string( "LHC_COMMENT" ) );
+  fillDataQuery3->addToOutputList( std::string( "CTPPS_STATUS" ) );
+  fillDataQuery3->addToOutputList( std::string( "LUMI_SECTION" ) );
+  fillDataQuery3->addToOutputList( std::string( "DIP_UPDATE_TIME" ) );
+  //WHERE CLAUSE
+  std::string CTPPSConditionStr( "FILL_NUMBER BETWEEN :firstFillNumber AND :lastFillNumber" );
+  fillDataQuery3->setCondition( CTPPSConditionStr, fillDataBindVariables );
+  //ORDER BY clause
+  fillDataQuery3->addToOrderList( std::string( "FILL_NUMBER" ) );
+  //define query output
+  coral::AttributeList fillDataOutput3;
+  fillDataOutput3.extend<long long>( std::string( "FILL_NUMBER" ) );
+  fillDataOutput3.extend<std::string>( std::string( "LHC_STATE" ) );
+  fillDataOutput3.extend<std::string>( std::string( "LHC_COMMENT" ) );
+  fillDataOutput3.extend<std::string>( std::string( "CTPPS_STATUS" ) );
+  fillDataOutput3.extend<long>( std::string( "LUMI_SECTION" ) );
+  fillDataOutput3.extend<coral::TimeStamp>( std::string( "DIP_UPDATE_TIME" ) );
+  fillDataQuery3->defineOutput( fillDataOutput3 );
+  //execute the query
+  std::cout <<"\n\nQuerying the OMDS for lumiPerBX data...\n\n"<<std::endl;
+  coral::ICursor& fillDataCursor3 = fillDataQuery3->execute();
+  //Read the output.
+     std::cout << "Reading values:\n";
+  while( fillDataCursor3.next() ) {
+    if( m_debug ) {
+      std::ostringstream qs;
+      fillDataCursor3.currentRow().toOutputStream( qs );
+      std::cout << qs.str() << "\n";
+    }
+  }
 
   //run the first query against the schema logging fill information
   coral::ISchema& runTimeLoggerSchema = session.nominalSchema();
