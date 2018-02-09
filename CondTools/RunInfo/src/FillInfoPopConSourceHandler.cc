@@ -98,11 +98,11 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 //  CODE FOR TESTING A NEW QUERY.
 //Initializing the CMS_CTP_CTPPS_COND schema.
 /**/
-coral::ISchema& CTPPS = session.coralSession().schema( cms.untracked.string("CMS_CTP_CTPPS_COND") );
+coral::ISchema& CTPPS = session.coralSession().schema("CMS_CTP_CTPPS_COND");
 session.transaction().start( true );
   std::cout<<"\n\n\n--------------------------"<<std::endl;
   std::cout << "Querying CTPPS_LHC_MACHINE_PARAMS:\n";
-  std::unique_ptr<coral::IQuery> fillDataQuery3-( CTPPS.newQuery() );
+  std::unique_ptr<coral::IQuery> fillDataQuery3( CTPPS.newQuery() );
   //FROM clause
   fillDataQuery3->addToTableList( std::string( "CMS_LHC_LUMIPERBUNCH" ) );
   //SELECT clause
@@ -113,6 +113,12 @@ session.transaction().start( true );
   fillDataQuery3->addToOutputList( std::string( "LUMI_SECTION" ) );
   fillDataQuery3->addToOutputList( std::string( "DIP_UPDATE_TIME" ) );
   //WHERE CLAUSE
+  coral::AttributeList fillDataBindVariables;
+  fillDataBindVariables.extend( std::string( "firstFillNumber" ), typeid( unsigned short ) );
+  fillDataBindVariables[ std::string( "firstFillNumber" ) ].data<unsigned short>() = m_firstFill;
+  fillDataBindVariables.extend( std::string( "lastFillNumber" ), typeid( unsigned short ) );
+  fillDataBindVariables[ std::string( "lastFillNumber" ) ].data<unsigned short>() = m_lastFill; 
+
   std::string CTPPSConditionStr( "FILL_NUMBER BETWEEN :firstFillNumber AND :lastFillNumber" );
   fillDataQuery3->setCondition( CTPPSConditionStr, fillDataBindVariables );
   //ORDER BY clause
@@ -166,11 +172,7 @@ session.transaction().start( true );
   fillDataQuery->addToOutputList( std::string( "ENDTIME" ) );
   fillDataQuery->addToOutputList( std::string( "INJECTIONSCHEME" ) );
   //WHERE clause
-  coral::AttributeList fillDataBindVariables;
-  fillDataBindVariables.extend( std::string( "firstFillNumber" ), typeid( unsigned short ) );
-  fillDataBindVariables[ std::string( "firstFillNumber" ) ].data<unsigned short>() = m_firstFill;
-  fillDataBindVariables.extend( std::string( "lastFillNumber" ), typeid( unsigned short ) );
-  fillDataBindVariables[ std::string( "lastFillNumber" ) ].data<unsigned short>() = m_lastFill; 
+  //insert condtions here
   //by imposing BEGINTIME IS NOT NULL, we remove fills which never went into stable beams,
   //or the most recent one, just declared but not yet in stable beams
   std::string conditionStr( "BEGINTIME IS NOT NULL AND LHCFILL BETWEEN :firstFillNumber AND :lastFillNumber" );
