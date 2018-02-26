@@ -20,7 +20,7 @@
 #include <memory>
 #include <stdexcept>
 #include <vector>
-#include <math.h>
+#include <cmath>
 
 
 
@@ -58,7 +58,7 @@ RunInfoRead::readData( const std::string & runinfo_schema
                      , const int r_number ) {
   RunInfo temp_sum;
   //for B currents...
-  bool Bnotchanged = 0;
+  bool Bnotchanged = false;
   //from TimeConversions.h
   const boost::posix_time::ptime time0 = boost::posix_time::from_time_t(0);
   //if cursor is null setting null values  
@@ -68,7 +68,6 @@ RunInfoRead::readData( const std::string & runinfo_schema
   connection.setParameters( m_connectionPset );
   connection.configure();
   edm::LogInfo( "RunInfoReader" ) << "[RunInfoRead::" << __func__ << "]: Initialising read-only session to " << m_connectionString << std::endl;
-  //std::shared_ptr<coral::ISessionProxy> session = connection.createCoralSession( m_connectionString, false );
   std::shared_ptr<coral::ISessionProxy> session = connection.createCoralSession( m_connectionString, false );
   try{
     session->transaction().start( true );
@@ -118,10 +117,9 @@ RunInfoRead::readData( const std::string & runinfo_schema
       edm::LogInfo( "RunInfoReader" ) << osstart.str() << std::endl;
     }
     else {
-      edm::LogInfo( "RunInfoReader" ) << "[RunInfoRead::" << __func__ << "]: run " << r_number
-                                      << " start time not found." << std::endl;
-      temp_sum.m_start_time_str = "null";
-      temp_sum.m_start_time_ll = -1;
+      std::stringstream errMsg;
+      errMsg << "[RunInfoRead::" << __func__ << "]: run " << r_number << " start time not found.";
+      throw std::runtime_error(errMsg.str());
     }
     
     //new query to obtain the stop_time
@@ -255,7 +253,7 @@ RunInfoRead::readData( const std::string & runinfo_schema
       // we should deal with stable currents... so the query is returning no value and we should take the last modified current value...
       edm::LogInfo( "RunInfoReader" ) << "[RunInfoRead::" << __func__ << "]: The magnet current did not change during run " << r_number
                                       << ". Looking for the most recent change before " << temp_sum.m_stop_time_str << std::endl;
-      Bnotchanged = 1;
+      Bnotchanged = true;
       std::unique_ptr<coral::IQuery> lastValueQuery( schema2.tableHandle(sDCSMagnetTable).newQuery() );
       lastValueQuery->addToOutputList( squoted(sDCSMagnetCurrentColumn), sDCSMagnetCurrentColumn );
       lastValueQuery->defineOutputType( sDCSMagnetCurrentColumn, "float" );

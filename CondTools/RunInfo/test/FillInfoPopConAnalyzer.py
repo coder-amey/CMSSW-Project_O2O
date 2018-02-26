@@ -1,11 +1,9 @@
 import FWCore.ParameterSet.Config as cms
 process = cms.Process("ProcessOne")
 process.load("CondCore.DBCommon.CondDBCommon_cfi")
-process.CondDBCommon.connect = 'sqlite_file:test_output.db'
+process.CondDBCommon.connect = 'sqlite_file:fillinfo_pop_test.db'
 process.CondDBCommon.DBParameters.authenticationPath = '.'
-#process.CondDBCommon.connect = 'oracle://cms_orcoff_prep/CMS_CONDITIONS'
-#process.CondDBCommon.DBParameters.authenticationPath =  '/afs/cern.ch/user/a/anoolkar/private'
-process.CondDBCommon.DBParameters.messageLevel=cms.untracked.int32(3)
+process.CondDBCommon.DBParameters.messageLevel=cms.untracked.int32(1)
 
 process.MessageLogger = cms.Service("MessageLogger",
                                     cout = cms.untracked.PSet(threshold = cms.untracked.string('INFO')),
@@ -34,12 +32,12 @@ process.Test1 = cms.EDAnalyzer("FillInfoPopConAnalyzer",
                                record = cms.string('FillInfoRcd'),
                                name = cms.untracked.string('FillInfo'),
                                Source = cms.PSet(fill = cms.untracked.uint32(6303),
-                                   firstFill = cms.untracked.uint32( 6300 ),
-                                   lastFill = cms.untracked.uint32( 6300 ),
+                                   firstFill = cms.untracked.uint32( 5500 ),
+                                   lastFill = cms.untracked.uint32( 5525 ),
                                    connectionString = cms.untracked.string("oracle://cms_orcon_adg/CMS_RUNTIME_LOGGER"),
                                    DIPSchema = cms.untracked.string("CMS_BEAM_COND"),
-                                   authenticationPath =  cms.untracked.string("/afs/cern.ch/user/a/anoolkar/private"),
-                                   debug=cms.untracked.bool(True)
+                                   authenticationPath =  cms.untracked.string("/afs/cern.ch/user/a/anoolkar/private/"),
+                                   debug=cms.untracked.bool(False)
                                                  ),
                                loggingOn = cms.untracked.bool(True),
                                IsDestDbCheckedInQueryLog = cms.untracked.bool(False)
