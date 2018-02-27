@@ -294,7 +294,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
     
     //CREATETIME IS NOT NULL
     //@A
-    cond::Time_t creationTimeStamp = cond::time::from_boost( fillDataCursor.currentRow()[ std::string( "CREATETIME" ) ].data<coral::TimeStamp>();
+    coral::TimeStamp creationTimeStamp = fillDataCursor.currentRow()[ std::string( "CREATETIME" ) ].data<coral::TimeStamp>();
     
     creationTime = cond::time::from_boost( fillDataCursor.currentRow()[ std::string( "CREATETIME" ) ].data<coral::TimeStamp>().time() );
     //BEGINTIME is imposed to be NOT NULL in the WHERE clause
