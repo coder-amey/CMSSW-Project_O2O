@@ -447,7 +447,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 			     << " ) to " << beforeStableBeamStartTime
 			     << " ( " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( beforeStableBeamStartTime ) )
 			     << " ); from " << m_name << "::getNewObjects";
-      m_to_transfer.push_back( std::make_pair( new FillInfo(), afterPreviousFillEndTime ) );
+      //m_to_transfer.push_back( std::make_pair( new FillInfo(), afterPreviousFillEndTime ) );
     } else {
       //the current fill cannot start before the previous one!
       edm::LogError( m_name ) << "WRONG DATA! In the previous fill number " << previousFillNumber
