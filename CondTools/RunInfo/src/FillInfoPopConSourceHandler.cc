@@ -474,7 +474,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 	std::ostringstream lpBX;
 	C.currentRow().toOutputStream( lpBX );
 	edm::LogInfo( m_name ) << lpBX.str() << "\nfrom " << m_name << "::getNewObjects";
-      }*/
+      }
       if( lumiDataCursor.currentRow()[ std::string( "VALUE" ) ].data<float>() != 0.00 ) {
 	lumiPerBX.push_back(lumiDataCursor.currentRow()[ std::string( "VALUE" ) ].data<float>());
       }
