@@ -195,7 +195,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   coral::ICursor& fillDataCursor2 = fillDataQuery2->execute();
   //initialize loop variables
   float delivLumi = 0., recLumi = 0.;
-
+  
   //loop over the cursor where the result of the query were fetched
   while( fillDataCursor.next() ) {
     if( m_debug ) {
@@ -293,6 +293,9 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 	}
     
     //CREATETIME IS NOT NULL
+    //@A
+    cond::Time_t creationTimeStamp = cond::time::from_boost( fillDataCursor.currentRow()[ std::string( "CREATETIME" ) ].data<coral::TimeStamp>();
+    
     creationTime = cond::time::from_boost( fillDataCursor.currentRow()[ std::string( "CREATETIME" ) ].data<coral::TimeStamp>().time() );
     //BEGINTIME is imposed to be NOT NULL in the WHERE clause
     stableBeamStartTimeStamp = fillDataCursor.currentRow()[ std::string( "BEGINTIME" ) ].data<coral::TimeStamp>();
@@ -344,6 +347,51 @@ void FillInfoPopConSourceHandler::getNewObjects() {
     bunchConfBindVariables.extend<coral::TimeStamp>( std::string( "stableBeamStartTimeStamp" ) );
     bunchConfBindVariables[ std::string( "stableBeamStartTimeStamp" ) ].data<coral::TimeStamp>() = stableBeamStartTimeStamp;
     conditionStr = std::string( "DIPTIME <= :stableBeamStartTimeStamp" );
+    
+    
+    //@A
+  // CODE FOR DEBUGGING PURPOSES...
+/*  CODE FOR TESTING A NEW QUERY. */
+
+   std::unique_ptr<coral::IQuery> Q( beamCondSchema.newQuery() );
+  //FROM clause
+  Q->addToTableList( std::string( "LHC_BETASTAR_BSTAR1" ) );
+  //SELECT clause
+  Q->addToOutputList( std::string( "PAYLOAD" ) );
+  Q->addToOutputList( std::string( "DIPTIME") );
+  //WHERE clause
+  coral::AttributeList BV;
+  BV.extend<coral::TimeStamp>( std::string( "StartTime" ) );
+  BV[ std::string( "StartTime" ) ].data<coral::TimeStamp>() = creationTimeStamp;
+  BV.extend<coral::TimeStamp>( std::string( "EndTime" ) );
+  BV[ std::string( "EndTime" ) ].data<coral::TimeStamp>() = beamDumpTimeStamp;
+  
+  conditionStr = std::string( "PAYLOAD IS NOT NULL AND DIPTIME BETWEEN :StartTime AND :EndTime" );
+  Q->setCondition( conditionStr, BV );
+  //ORDER BY clause
+  Q->addToOrderList( std::string( "DIPTIME" ) );
+  //define query output
+  coral::AttributeList O;
+  O.extend<int>( std::string( "PAYLOAD" ) );
+  O.extend<coral::TimeStamp>( std::string( "TIME" ) );
+  Q->defineOutput( O );
+  //execute the query
+  std::cout <<"\n\nQuerying the OMDS for B_Star data...\n\n"<<std::endl;
+  coral::ICursor& C = Q->execute();
+  //Read the output.
+     std::cout << "Reading values:\n";
+  while( C.next() ) {
+    //if( m_debug ) {
+      std::ostringstream qs;
+      C.currentRow().toOutputStream( qs );
+      std::cout << qs.str() << "\n";
+    }
+  }
+  
+session.transaction().commit();
+continue;
+    
+     
     //define the output types for both queries
     coral::AttributeList bunchConfOutput;
     bunchConfOutput.extend<coral::TimeStamp>( std::string( "DIPTIME" ) );
@@ -423,7 +471,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 	std::vector<float> lumiPerBX;
 	
 	while( lumiDataCursor.next() ) {
-     /*if( m_debug ) {
+     if( m_debug ) {
 	std::ostringstream lpBX;
 	C.currentRow().toOutputStream( lpBX );
 	edm::LogInfo( m_name ) << lpBX.str() << "\nfrom " << m_name << "::getNewObjects";
