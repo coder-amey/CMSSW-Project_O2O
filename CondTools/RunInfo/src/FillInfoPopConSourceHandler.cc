@@ -350,47 +350,46 @@ void FillInfoPopConSourceHandler::getNewObjects() {
     
     
     //@A
-  // CODE FOR DEBUGGING PURPOSES...
-/*  CODE FOR TESTING A NEW QUERY. */
+   // CODE FOR DEBUGGING PURPOSES...
+  /*  CODE FOR TESTING A NEW QUERY. */
 
-   std::unique_ptr<coral::IQuery> Q( beamCondSchema.newQuery() );
-  //FROM clause
-  Q->addToTableList( std::string( "LHC_BETASTAR_BSTAR1" ) );
-  //SELECT clause
-  Q->addToOutputList( std::string( "PAYLOAD" ) );
-  Q->addToOutputList( std::string( "DIPTIME") );
-  //WHERE clause
-  coral::AttributeList BV;
-  BV.extend<coral::TimeStamp>( std::string( "StartTime" ) );
-  BV[ std::string( "StartTime" ) ].data<coral::TimeStamp>() = creationTimeStamp;
-  BV.extend<coral::TimeStamp>( std::string( "EndTime" ) );
-  BV[ std::string( "EndTime" ) ].data<coral::TimeStamp>() = beamDumpTimeStamp;
-  
-  conditionStr = std::string( "PAYLOAD IS NOT NULL AND DIPTIME BETWEEN :StartTime AND :EndTime" );
-  Q->setCondition( conditionStr, BV );
-  //ORDER BY clause
-  Q->addToOrderList( std::string( "DIPTIME" ) );
-  //define query output
-  coral::AttributeList O;
-  O.extend<int>( std::string( "PAYLOAD" ) );
-  O.extend<coral::TimeStamp>( std::string( "TIME" ) );
-  Q->defineOutput( O );
-  //execute the query
-  std::cout <<"\n\nQuerying the OMDS for B_Star data...\n\n"<<std::endl;
-  coral::ICursor& C = Q->execute();
-  //Read the output.
-     std::cout << "Reading values:\n";
-  while( C.next() ) {
-    //if( m_debug ) {
-      std::ostringstream qs;
-      C.currentRow().toOutputStream( qs );
-      std::cout << qs.str() << "\n";
-    }
-  }
-  
-session.transaction().commit();
-continue;
-    
+		std::unique_ptr<coral::IQuery> Q( beamCondSchema.newQuery() );
+		//FROM clause
+		Q->addToTableList( std::string( "LHC_BETASTAR_BSTAR1" ) );
+		//SELECT clause
+		Q->addToOutputList( std::string( "PAYLOAD" ) );
+		Q->addToOutputList( std::string( "DIPTIME") );
+		//WHERE clause
+		coral::AttributeList BV;
+		BV.extend<coral::TimeStamp>( std::string( "StartTime" ) );
+		BV[ std::string( "StartTime" ) ].data<coral::TimeStamp>() = creationTimeStamp;
+		BV.extend<coral::TimeStamp>( std::string( "EndTime" ) );
+		BV[ std::string( "EndTime" ) ].data<coral::TimeStamp>() = beamDumpTimeStamp;
+
+		conditionStr = std::string( "PAYLOAD IS NOT NULL AND DIPTIME BETWEEN :StartTime AND :EndTime" );
+		Q->setCondition( conditionStr, BV );
+		//ORDER BY clause
+		Q->addToOrderList( std::string( "DIPTIME" ) );
+		//define query output
+		coral::AttributeList O;
+		O.extend<int>( std::string( "PAYLOAD" ) );
+		O.extend<coral::TimeStamp>( std::string( "TIME" ) );
+		Q->defineOutput( O );
+		//execute the query
+		std::cout <<"\n\nQuerying the OMDS for B_Star data...\n\n"<<std::endl;
+		coral::ICursor& C = Q->execute();
+		//Read the output.
+		std::cout << "Reading values:\n";
+		while( C.next() ) {
+			//if( m_debug ) {
+			std::ostringstream qs;
+			C.currentRow().toOutputStream( qs );
+			std::cout << qs.str() << "\n";
+		}
+
+		session.transaction().commit();
+		continue;
+		
      
     //define the output types for both queries
     coral::AttributeList bunchConfOutput;
