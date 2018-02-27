@@ -97,6 +97,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   coral::ISchema& runTimeLoggerSchema = session.nominalSchema();
   //start the transaction against the fill logging schema
   session.transaction().start(true);
+    
  //prepare the query for table 1:
   std::unique_ptr<coral::IQuery> fillDataQuery( runTimeLoggerSchema.newQuery() );
   //FROM clause
@@ -338,27 +339,17 @@ void FillInfoPopConSourceHandler::getNewObjects() {
       continue;
     }
     
-    //run the second and third query against the schema hosting detailed DIP information
-    coral::ISchema& beamCondSchema = session.coralSession().schema( m_dipSchema );
-    //start the transaction against the DIP "deep" database backend schema
-    session.transaction().start( true );
-    //prepare the WHERE clause for both queries
-    coral::AttributeList bunchConfBindVariables;
-    bunchConfBindVariables.extend<coral::TimeStamp>( std::string( "stableBeamStartTimeStamp" ) );
-    bunchConfBindVariables[ std::string( "stableBeamStartTimeStamp" ) ].data<coral::TimeStamp>() = stableBeamStartTimeStamp;
-    conditionStr = std::string( "DIPTIME <= :stableBeamStartTimeStamp" );
-    
-    
     //@A
    // CODE FOR DEBUGGING PURPOSES...
   /*  CODE FOR TESTING A NEW QUERY. */
 
-		std::unique_ptr<coral::IQuery> Q( beamCondSchema.newQuery() );
+		std::unique_ptr<coral::IQuery> Q( runTimeLoggerSchema.newQuery() );
 		//FROM clause
-		Q->addToTableList( std::string( "LHC_BETASTAR_BSTAR1" ) );
+		Q->addToTableList( std::string( "BUNCH_LUMI_SECTIONS" ) );
 		//SELECT clause
-		Q->addToOutputList( std::string( "PAYLOAD" ) );
-		Q->addToOutputList( std::string( "DIPTIME") );
+		Q->addToOutputList( std::string( "COUNT(*)" ) );
+		//Q->addToOutputList( std::string( "INTENSITYBEAM2" ) );
+		//Q->addToOutputList( std::string( "TIME" ) );
 		//WHERE clause
 		coral::AttributeList BV;
 		BV.extend<coral::TimeStamp>( std::string( "StartTime" ) );
@@ -366,14 +357,15 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 		BV.extend<coral::TimeStamp>( std::string( "EndTime" ) );
 		BV[ std::string( "EndTime" ) ].data<coral::TimeStamp>() = beamDumpTimeStamp;
 
-		conditionStr = std::string( "PAYLOAD IS NOT NULL AND DIPTIME BETWEEN :StartTime AND :EndTime" );
+		conditionStr = std::string( "INTENSITYBEAM1 IS NOT NULL AND TIME BETWEEN :StartTime AND :EndTime" );
 		Q->setCondition( conditionStr, BV );
 		//ORDER BY clause
-		Q->addToOrderList( std::string( "DIPTIME" ) );
+		Q->addToOrderList( std::string( "TIME" ) );
 		//define query output
 		coral::AttributeList O;
-		O.extend<int>( std::string( "PAYLOAD" ) );
-		O.extend<coral::TimeStamp>( std::string( "TIME" ) );
+		O.extend<int>( std::string( "INTENSITYBEAM1" ) );
+		//O.extend<float>( std::string( "INTENSITYBEAM2" ) );
+		//O.extend<coral::TimeStamp>( std::string( "TIME" ) );
 		Q->defineOutput( O );
 		//execute the query
 		std::cout <<"\n\nQuerying the OMDS for B_Star data...\n\n"<<std::endl;
@@ -387,9 +379,19 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 			std::cout << qs.str() << "\n";
 		}
 
-		session.transaction().commit();
+		//session.transaction().commit();
 		continue;
-		
+
+
+    //run the second and third query against the schema hosting detailed DIP information
+    coral::ISchema& beamCondSchema = session.coralSession().schema( m_dipSchema );
+    //start the transaction against the DIP "deep" database backend schema
+    session.transaction().start( true );
+    //prepare the WHERE clause for both queries
+    coral::AttributeList bunchConfBindVariables;
+    bunchConfBindVariables.extend<coral::TimeStamp>( std::string( "stableBeamStartTimeStamp" ) );
+    bunchConfBindVariables[ std::string( "stableBeamStartTimeStamp" ) ].data<coral::TimeStamp>() = stableBeamStartTimeStamp;
+    conditionStr = std::string( "DIPTIME <= :stableBeamStartTimeStamp" );
      
     //define the output types for both queries
     coral::AttributeList bunchConfOutput;
@@ -472,7 +474,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 	while( lumiDataCursor.next() ) {
      if( m_debug ) {
 	std::ostringstream lpBX;
-	C.currentRow().toOutputStream( lpBX );
+	lumiDataCursor.currentRow().toOutputStream( lpBX );
 	edm::LogInfo( m_name ) << lpBX.str() << "\nfrom " << m_name << "::getNewObjects";
       }
       if( lumiDataCursor.currentRow()[ std::string( "VALUE" ) ].data<float>() != 0.00 ) {
