@@ -198,7 +198,6 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 
   //loop over the cursor where the result of the query were fetched
   while( fillDataCursor.next() ) {
-	//std::cout <<"New row"<<std::endl;
     if( m_debug ) {
       std::ostringstream qs;
       fillDataCursor.currentRow().toOutputStream( qs );
@@ -362,11 +361,11 @@ void FillInfoPopConSourceHandler::getNewObjects() {
     std::bitset<FillInfo::bunchSlots+1> bunchConfiguration1( 0ULL );
 
     while( bunchConf1Cursor.next() ) {
-      /*if( m_debug ) {
+      if( m_debug ) {
 	std::ostringstream b1s;
 	fillDataCursor.currentRow().toOutputStream( b1s );
 	edm::LogInfo( m_name ) << b1s.str() << "\nfrom " << m_name << "::getNewObjects";
-      }*/
+      }
       //bunchConf1Cursor.currentRow().toOutputStream( std::cout ) << std::endl;
       if( bunchConf1Cursor.currentRow()[ std::string( "BUCKET" ) ].data<unsigned short>() != 0 ) {
 	unsigned short slot = ( bunchConf1Cursor.currentRow()[ std::string( "BUCKET" ) ].data<unsigned short>() - 1 ) / 10 + 1;
@@ -388,11 +387,11 @@ void FillInfoPopConSourceHandler::getNewObjects() {
     std::bitset<FillInfo::bunchSlots+1> bunchConfiguration2( 0ULL );
     
     while( bunchConf2Cursor.next() ) {
-     /*if( m_debug ) {
+     if( m_debug ) {
 	std::ostringstream b2s;
 	fillDataCursor.currentRow().toOutputStream( b2s );
 	edm::LogInfo( m_name ) << b2s.str() << "\nfrom " << m_name << "::getNewObjects";
-      }*/
+      }
       if( bunchConf2Cursor.currentRow()[ std::string( "BUCKET" ) ].data<unsigned short>() != 0 ) {
 	unsigned short slot = ( bunchConf2Cursor.currentRow()[ std::string( "BUCKET" ) ].data<unsigned short>() - 1 ) / 10 + 1;
 	bunchConfiguration2[ slot ] = true;
@@ -448,7 +447,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 			     << " ) to " << beforeStableBeamStartTime
 			     << " ( " << boost::posix_time::to_iso_extended_string( cond::time::to_boost( beforeStableBeamStartTime ) )
 			     << " ); from " << m_name << "::getNewObjects";
-      m_to_transfer.push_back( std::make_pair( new FillInfo(), afterPreviousFillEndTime ) );
+      //m_to_transfer.push_back( std::make_pair( new FillInfo(), afterPreviousFillEndTime ) );
     } else {
       //the current fill cannot start before the previous one!
       edm::LogError( m_name ) << "WRONG DATA! In the previous fill number " << previousFillNumber
