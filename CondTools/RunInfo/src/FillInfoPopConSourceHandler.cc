@@ -219,7 +219,7 @@ try{
 		
 catch(std::exception E)
 {
-	std::cout << "Exception encountered!\n\n";
+	std::cout << E.what() << " exception encountered!\n\n";
 }
 //session.transaction().commit();
 std::cout<<"--------------------------\n\n\n"<<std::endl;
