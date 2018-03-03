@@ -195,6 +195,38 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   coral::ICursor& fillDataCursor2 = fillDataQuery2->execute();
   //initialize loop variables
   float delivLumi = 0., recLumi = 0.;
+	
+// @A CODE FOR DEBUGGING PURPOSES...
+/*CODE FOR DUMPING SCHEMA DESCRIPTION.*/
+coral::ISchema& BCS = session.coralSession().schema( "CMS_DCS_ENV_PVSS_COND" );
+std::cout<<"\n\n\n--------------------------"<<std::endl;
+std::cout << "Schema Description:\n";
+std::cout << "Schema Name: " << BCS.schemaName() << std::endl;
+std::cout << "Description of BEAM_PHASE table:\n";
+try{
+	coral::ITable& fillTable = BCS.tableHandle("BEAM_PHASE");
+	const coral::ITableDescription& description = fillTable.description();
+	int c = description.numberOfColumns();
+	for(int i = 0; i < c; i++)
+	{
+		const coral::IColumn& col = description.columnDescription(i);
+		std::cout << "\t" << col.name() << " (" << col.type() << ")" << std::endl;
+	}
+	int k = description.numberOfForeignKeys();
+	std::cout << "No. of Foreign keys:\t" << k << std::endl;
+	std::cout << std::endl;
+}
+		
+catch(std::exception E)
+{
+	std::cout << "Exception encountered!\n\n";
+}
+//session.transaction().commit();
+std::cout<<"--------------------------\n\n\n"<<std::endl;
+
+	//Implement the while loop to prevent unnecessary execution of further code.
+	while( fillDataCursor.next() ) {}
+/**/
 
   //loop over the cursor where the result of the query were fetched
   while( fillDataCursor.next() ) {
