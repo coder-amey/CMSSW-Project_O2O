@@ -1,0 +1,575 @@
+ ##################################################################### 
+ # WARNING: the module CondCore.DBCommon.CondDBCommon is deprecated. # 
+ # Please import CondCore.CondDB.CondDB_cfi                          # 
+ ##################################################################### 
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@ctor 03-Mar-2018 08:11:27 CET  pre-events
+This is PopCon (Populator of Condition) v5.0.
+Please report any problem and feature request through the JIRA project CMSCONDDB.
+
+%MSG
+Begin processing the 1st record. Run 1, Event 1, LumiSection 1 at 03-Mar-2018 08:11:27.044 CET
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 03-Mar-2018 08:11:27 CET  PostGlobalEndRun
+payload name FillInfo
+%MSG
+%MSG-i PopCon:  FillInfoPopConAnalyzer:Test1@endJob 03-Mar-2018 08:11:27 CET  PostGlobalEndRun
+destination DB: sqlite_file:fillinfo_pop_test.db, target DB: sqlite_file:fillinfo_pop_test.db
+TAG: fillinfo_test; First writer to this new tag.
+%MSG
+%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  03-Mar-2018 08:11:27 CET PostGlobalEndRun
+New tag fillinfo_test; from FillInfoPopConSourceHandler::getNewObjects
+%MSG
+
+
+Querying the OMDS for RUNTIME_SUMMARY data...
+
+
+
+
+Querying the OMDS for LUMI data...
+
+
+
+
+
+--------------------------
+Schema Description:
+Schema Name: CMS_DCS_ENV_PVSS_COND
+	ALERTHISTORY_00000001
+	ALIASES
+	APPLICATION
+	ARC_CONFIG
+	CARDREADER
+	CMSCOOLING
+	CMSENVIRONMENTMONITORING
+	CMSFWALERTSYSTEMSUMALERTS
+	CMSFWDSS2DCS
+	CMSFWFRLCRATE
+	CMSFWMAGNET
+	CMSFWMAGNET_LV
+	CMSFWRFRX
+	DEPLOYMENT
+	DEPLOYMENT_SET
+	DP_NAME2ID
+	DSS
+	FWAI
+	FWAI_CURRENT
+	FWCMSITHX
+	FWELMBAI
+	FWELMBPSUBRANCH
+	FWFMCIPMI
+	FWFMCIPMI_CURRENT
+	FWMAGNETCMS
+	FWRACKCRATE
+	FWRACKDEVICEPDTYPE_19
+	FWWIENERCRATE
+	FWWIENERCRATE_CURRENT
+	KNOWN_ARRAYS
+	NOTIFICATION_CLIENTS
+	PC
+	TWIDO_BOX_SIMPLE
+	WIENER_CAN_MAP
+	_FWFSMDEVICE
+	_FWFSMOBJECT
+
+
+Detailed Table Description:
+Table Name:		No. of Columns:
+(Column Details follow.)
+CORAL/RelationalPlugins/oracle Error Cannot handle the type of column ABBR in table CMS_DCS_ENV_PVSS_COND.ALERTHISTORY_00000001
+Exception encountered for table:  ALERTHISTORY_00000001
+
+
+ALIASES		3
+	SINCE (time stamp)
+	DPE_NAME (string)
+	ALIAS (string)
+
+
+APPLICATION		4
+	APPLICATION_ID (float)
+	NAME (string)
+	EXECUTABLE (string)
+	PATH (string)
+
+
+ARC_CONFIG		3
+	NAME (string)
+	TYPE (char)
+	VALUE (string)
+
+
+CARDREADER		7
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	USERNAME (string)
+	CARDIN (float)
+	UPDATEID (long long)
+
+
+CMSCOOLING		7
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	FLOW (float)
+	TEMPERATURE (float)
+	UPDATEID (long long)
+
+
+CMSENVIRONMENTMONITORING		7
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	TEMPERATURE (float)
+	DEWPOINT (float)
+	UPDATEID (long long)
+
+
+CMSFWALERTSYSTEMSUMALERTS		5
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	UPDATEID (long long)
+
+
+CMSFWDSS2DCS		6
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	VALUE (float)
+	UPDATEID (long long)
+
+
+CMSFWFRLCRATE		8
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	FAILURE (float)
+	TEMPERATURE (float)
+	WARNING (float)
+	UPDATEID (long long)
+
+
+CMSFWMAGNET		15
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	CURRENT (float)
+	EMERGENCYSTS (float)
+	STEADYSTS (float)
+	CRYOSTS (float)
+	RAMPINGSTS (float)
+	VACUUM (float)
+	TMOY (float)
+	UPDATEID (long long)
+	DEWARLVL (float)
+	FIELD (float)
+	TMAXMAG (float)
+
+
+CMSFWMAGNET_LV		11
+	DPID (float)
+	DPE_NAME (string)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	VALUE_STRING (string)
+	VALUE_NUMBER (float)
+	OLD_VALUE_NUMBER (float)
+	VALUE_TIMESTAMP (time stamp)
+	DEADBAND (float)
+	IS_REL_DEADBAND (bool)
+
+
+CMSFWRFRX		10
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	F40_B1 (float)
+	FREV_B1 (float)
+	F40_REF (float)
+	FREV_B2 (float)
+	F40_B2 (float)
+	UPDATEID (long long)
+
+
+DEPLOYMENT		10
+	DEPLOYMENT_ID (float)
+	DSET_ID (float)
+	APPLICATION_ID (float)
+	TITLE (string)
+	POS_X (float)
+	POS_Y (float)
+	SIZE_X (float)
+	SIZE_Y (float)
+	PARAMS (string)
+	REPOSITION (float)
+
+
+DEPLOYMENT_SET		2
+	DSET_ID (float)
+	SET_NAME (string)
+
+
+DP_NAME2ID		3
+	DPNAME (string)
+	ID (float)
+	UPDATE_COUNT (float)
+
+
+DSS		10
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	TEMPERATUREPT (float)
+	DEWPOINT (float)
+	TEMPERATURE (float)
+	WATERCOOLING (float)
+	PUMPCOOLING (float)
+	UPDATEID (long long)
+
+
+FWAI		6
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	VALUE (float)
+	UPDATEID (long long)
+
+
+FWAI_CURRENT		3
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	VALUE (float)
+
+
+FWCMSITHX		8
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	TEMPERATURE (float)
+	HUMIDITY (float)
+	DEWPOINT (float)
+	UPDATEID (long long)
+
+
+FWELMBAI		9
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	VALUE (float)
+	UPDATEID (long long)
+	TYPE (string)
+	FUNCTION (string)
+	CHANNEL (string)
+
+
+FWELMBPSUBRANCH		5
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	UPDATEID (long long)
+
+
+FWFMCIPMI		6
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	READINGS_POWER_STATUS (float)
+	UPDATEID (long long)
+
+
+FWFMCIPMI_CURRENT		3
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	READINGS_POWER_STATUS (float)
+
+
+FWMAGNETCMS		12
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	CRYOGENICSSTS (float)
+	CURRENT_RAMPING (float)
+	EMERGENCY_SHUTDOWN (float)
+	MAGNET_CURRENT (float)
+	STEADYSTS (float)
+	TMOY (float)
+	VACCUUM (float)
+	UPDATEID (long long)
+
+
+FWRACKCRATE		6
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	DP (string)
+	UPDATEID (long long)
+
+
+FWRACKDEVICEPDTYPE_19		94
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	HASPOWER (float)
+	UPDATEID (long long)
+	INPUT_CIRCUITBREAKER_FAULT (float)
+	INPUT_BREAKER_CLOSED (float)
+	TEMPERATURE_FAULT (float)
+	FIRE_FAULT (float)
+	TWIDO_DOOR_FAULT (float)
+	TWIDOEXTENSIONPS_FAULT (float)
+	TWIDOBASEPS_FAULT (float)
+	TWIDOCOMMUNICATION_FAULT (float)
+	DSS_INTERLOCK (float)
+	EMERGENCYSTOP_FAULT (float)
+	INPUT_BREAKER_LOCKED (float)
+	TWIDO_WATCHDOG_FAULT (float)
+	TWIDO_POWERCUT_FAULT (float)
+	TWIDO_POWER_CONNECTOR_FAULT (float)
+	INPUT_DISCORDANCE_FAULT (float)
+	INPUT_BREAKER_OPEN (float)
+	OUTPUT_1_BREAKER_CLOSED (float)
+	OUTPUT_1_DISCORDANCE_FAULT (float)
+	OUTPUT_1_CIRCUITBREAKER_FAULT (float)
+	OUTPUT_1_BREAKER_OPENING_FAULT (float)
+	OUTPUT_1_BREAKER_OPEN (float)
+	OUTPUT_1_BREAKER_LOCKED (float)
+	OUTPUT_1_BREAKER_CLOSING_FAULT (float)
+	OUTPUT_3_BREAKER_OPENING_FAULT (float)
+	OUTPUT_3_BREAKER_OPEN (float)
+	OUTPUT_3_BREAKER_LOCKED (float)
+	OUTPUT_3_BREAKER_CLOSING_FAULT (float)
+	OUTPUT_3_BREAKER_CLOSED (float)
+	OUTPUT_2_DISCORDANCE_FAULT (float)
+	OUTPUT_2_CIRCUITBREAKER_FAULT (float)
+	OUTPUT_2_BREAKER_OPENING_FAULT (float)
+	OUTPUT_2_BREAKER_OPEN (float)
+	OUTPUT_2_BREAKER_LOCKED (float)
+	OUTPUT_2_BREAKER_CLOSING_FAULT (float)
+	OUTPUT_2_BREAKER_CLOSED (float)
+	OUTPUT_3_DISCORDANCE_FAULT (float)
+	OUTPUT_3_CIRCUITBREAKER_FAULT (float)
+	OUTPUT_5_DISCORDANCE_FAULT (float)
+	OUTPUT_5_CIRCUITBREAKER_FAULT (float)
+	OUTPUT_5_BREAKER_OPEN (float)
+	OUTPUT_5_BREAKER_CLOSED (float)
+	OUTPUT_4_DISCORDANCE_FAULT (float)
+	OUTPUT_4_CIRCUITBREAKER_FAULT (float)
+	OUTPUT_4_BREAKER_OPEN (float)
+	OUTPUT_4_BREAKER_CLOSED (float)
+	POWERCONNECTOR_TRIGGER_FAULT (float)
+	RACKDOOR_TRIGGER_FAULT (float)
+	USER_3_TRIGGER_FAULT (float)
+	USER_2_TRIGGER_FAULT (float)
+	DSS_TRIGGER_FAULT (float)
+	EMERGENCYSTOP_TRIGGER_FAULT (float)
+	TEMPERATURE_TRIGGER_FAULT (float)
+	FIRE_TRIGGER_FAULT (float)
+	USER_FAULT_3 (float)
+	USER_FAULT_2 (float)
+	INPUT_BREAKER_CLOSING_FAULT (float)
+	INPUT_BREAKER_OPENING_FAULT (float)
+	USER_ALERT_3_ACTIVE (float)
+	USERALERT_2_ACTIVE (float)
+	DSS_ALERT_ACTIVE (float)
+	EMERGENCYSTOP_ALERT_ACTIVE (float)
+	FIRE_ALERT_ACTIVE (float)
+	TEMPERATURE_ALERT_ACTIVE (float)
+	USER_INTERLOCK_3_ACTIVE (float)
+	USER_INTERLOCK_2_ACTIVE (float)
+	DSS_INTERLOCK_ACTIVE (float)
+	EMERGENCYINTERLOCK_ACTIVE (float)
+	FIRE_INTERLOCK_ACTIVE (float)
+	TEMPERATURE_INTERLOCK_ACTIVE (float)
+	NAMEINPLC (string)
+	PARENTID (string)
+	RESPONSE (string)
+	COMMAND (string)
+	MASK_RMASK (string)
+	MASK_WMASK (string)
+	STATUSADDRESS (float)
+	ADDITIONALTEMPERATURE_FAULT (float)
+	RACKSTOP (float)
+	CO2EXTINGUISHER_FAULT (float)
+	ADDITIONALTEMPERATURE_TRIGGER_ (float)
+	RACKSTOP_TRIGGER_FAULT (float)
+	CO2EXTINGUISHER_TRIGGER_FAULT (float)
+	ADDITIONALTEMPERATURE_INTERLOC (float)
+	RACKSTOP_ACTIVE (float)
+	CO2EXTINGUISHER_INTERLOCK_ACTI (float)
+	ADDITIONALTEMPERATURE_ALERT_AC (float)
+	RACKSTOP_ALERT_ACTIVE (float)
+	CO2EXTINGUISHER_ALERT_ACTIVE (float)
+
+
+FWWIENERCRATE		22
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	FANS_ACTUAL_FANSPEED1 (float)
+	FANS_ACTUAL_FANSPEED2 (float)
+	FANS_ACTUAL_FANSPEED3 (float)
+	FANS_ACTUAL_FANSPEED4 (float)
+	FANS_ACTUAL_FANSPEED6 (float)
+	FANS_ACTUAL_FANSPEED5 (float)
+	TEMPERATURES_ACTUAL_TEMPVALUE1 (float)
+	TEMPERATURES_ACTUAL_TEMPVALUE4 (float)
+	TEMPERATURES_ACTUAL_TEMPVALUE3 (float)
+	TEMPERATURES_ACTUAL_TEMPVALUE2 (float)
+	TEMPERATURES_ACTUAL_TEMPVALUE5 (float)
+	TEMPERATURES_ACTUAL_TEMPVALUE6 (float)
+	TEMPERATURES_ACTUAL_TEMPVALUE8 (float)
+	TEMPERATURES_ACTUAL_TEMPVALUE7 (float)
+	GENERAL_STATUS_GETPOWERON (float)
+	UPDATEID (long long)
+	FANS_ACTUAL_NOMINALSPEED (float)
+	FANS_ACTUAL_MIDDLESPEED (float)
+
+
+FWWIENERCRATE_CURRENT		36
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	STATUS (float)
+	POSITION (float)
+	FANS_ACTUAL_FANSPEED1 (float)
+	FANS_ACTUAL_FANSPEED2 (float)
+	FANS_ACTUAL_FANSPEED3 (float)
+	FANS_ACTUAL_FANSPEED4 (float)
+	FANS_ACTUAL_FANSPEED6 (float)
+	FANS_ACTUAL_FANSPEED5 (float)
+	TEMPERATURES_ACTUAL_TEMPVALUE1 (float)
+	TEMPERATURES_ACTUAL_TEMPVALUE4 (float)
+	TEMPERATURES_ACTUAL_TEMPVALUE3 (float)
+	TEMPERATURES_ACTUAL_TEMPVALUE2 (float)
+	TEMPERATURES_ACTUAL_TEMPVALUE5 (float)
+	TEMPERATURES_ACTUAL_TEMPVALUE6 (float)
+	TEMPERATURES_ACTUAL_TEMPVALUE8 (float)
+	TEMPERATURES_ACTUAL_TEMPVALUE7 (float)
+	GENERAL_STATUS_GETPOWERON (float)
+	UPDATEID (long long)
+	ACTUAL_CURRENTVALUE0 (float)
+	ACTUAL_CURRENTVALUE1 (float)
+	ACTUAL_CURRENTVALUE2 (float)
+	ACTUAL_CURRENTVALUE3 (float)
+	ACTUAL_CURRENTVALUE4 (float)
+	ACTUAL_CURRENTVALUE5 (float)
+	ACTUAL_CURRENTVALUE6 (float)
+	ACTUAL_CURRENTVALUE7 (float)
+	ACTUAL_VOLTAGEVALUE0 (float)
+	ACTUAL_VOLTAGEVALUE1 (float)
+	ACTUAL_VOLTAGEVALUE2 (float)
+	ACTUAL_VOLTAGEVALUE3 (float)
+	ACTUAL_VOLTAGEVALUE4 (float)
+	ACTUAL_VOLTAGEVALUE5 (float)
+	ACTUAL_VOLTAGEVALUE6 (float)
+	ACTUAL_VOLTAGEVALUE7 (float)
+
+
+KNOWN_ARRAYS		2
+	TABLE_NAME (string)
+	COLUMN_NAME (string)
+
+
+NOTIFICATION_CLIENTS		5
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	UPDATEID (long long)
+
+
+PC		4
+	PC_ID (float)
+	NODE_NAME (string)
+	OS (string)
+	DSET_ID (float)
+
+
+TWIDO_BOX_SIMPLE		36
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	MAINBREAKER_WORD2BIT0 (float)
+	NAME (string)
+	CRATE1_WORD2BIT8 (string)
+	CRATE3_WORD3BIT8 (string)
+	TWIDOBOX_WORD0BIT6 (string)
+	MAINBREAKER_WORD2BIT2 (string)
+	MAINBREAKER_WORD2BIT6 (string)
+	CRATE2_WORD3BIT0 (string)
+	SOCKETS_WORD4BIT0 (string)
+	MAINBREAKER_WORD2BIT4 (string)
+	VENTILATION_WORD4BIT8 (string)
+	CRATE1_WORD2BIT10 (string)
+	CRATE1_WORD2BIT11 (string)
+	CRATE2_WORD3BIT2 (string)
+	CRATE2_WORD3BIT3 (string)
+	CRATE3_WORD3BIT10 (string)
+	CRATE3_WORD3BIT11 (string)
+	SOCKETS_WORD4BIT2 (string)
+	SOCKETS_WORD4BIT3 (string)
+	VENTILATION_WORD4BIT10 (string)
+	VENTILATION_WORD4BIT11 (string)
+	TWIDOBOX_WORD0BIT9 (string)
+	TWIDOBOX_WORD0BIT11 (string)
+	MAINBREAKER_WORD2BIT5 (string)
+	TWIDOBOX_WORD9BIT6 (string)
+	TWIDOBOX_WORD0BIT1 (string)
+	TWIDOBOX_WORD0BIT10 (string)
+	TWIDOBOX_WORD9BIT1 (string)
+	TWIDOBOX_WORD9BIT7 (string)
+	TWIDOBOX_WORD0BIT3 (string)
+	TWIDOBOX_WORD9BIT3 (string)
+	UPDATEID (long long)
+
+
+WIENER_CAN_MAP		3
+	CRATE_LABEL (string)
+	DP_ID (float)
+	UPDATEID (long long)
+
+
+_FWFSMDEVICE		6
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	FSM_CURRENTSTATE (string)
+	UPDATEID (long long)
+
+
+_FWFSMOBJECT		6
+	DPID (float)
+	CHANGE_DATE (time stamp)
+	DPE_STATUS (float)
+	DPE_POSITION (float)
+	FSM_CURRENTSTATE (string)
+	UPDATEID (long long)
+
+--------------------------
+
+
+
+%MSG-i FillInfoPopConSourceHandler:  FillInfoPopConAnalyzer:Test1@endJob  03-Mar-2018 08:11:31 CET PostGlobalEndRun
+Transferring 0 payload(s); from FillInfoPopConSourceHandler::getNewObjects
+%MSG
