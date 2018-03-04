@@ -13,6 +13,7 @@
 #include "RelationalAccess/IIndex.h"
 #include "RelationalAccess/IPrimaryKey.h"
 #include "RelationalAccess/IForeignKey.h"
+#include "RelationalAccess/IView.h"
 #include "CoralBase/AttributeList.h"
 #include "CoralBase/Attribute.h"
 #include "CoralBase/AttributeSpecification.h"
@@ -200,7 +201,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 /*CODE FOR DUMPING SCHEMA DESCRIPTION.*/
 coral::ISchema& BCS = session.coralSession().schema( "CMS_DCS_ENV_PVSS_COND" );
 std::cout<<"\n\n\n--------------------------"<<std::endl;
-std::set<std::string> List = BCS.listTables();
+std::set<std::string> List = BCS.listViews();
 std::cout << "Schema Description:\n";
 std::cout << "Schema Name: " << BCS.schemaName() << std::endl;
 std::set<std::string>::iterator I;
@@ -211,13 +212,13 @@ std::cout << "\nDetailed Table Description:\nTable Name:\t\tNo. of Columns:\n(Co
 for(I = List.begin(); I != List.end(); ++I)
 {
     try{
-			coral::ITable& fillTable = BCS.tableHandle(*I);
-			const coral::ITableDescription& description = fillTable.description();
-			int c = description.numberOfColumns();
-			std::cout << "\n" << description.name() << "\t\t" << c << std::endl;
+			coral::IView& fillTable = BCS.viewHandle(*I);
+			//const coral::ITableDescription& description = fillTable.description();
+			int c = fillTable.numberOfColumns();
+			std::cout << "\n" << fillTable.name() << "\t\t" << c << std::endl;
 			for(int i = 0; i < c; i++)
 			{
-				const coral::IColumn& col = description.columnDescription(i);
+				const coral::IColumn& col = fillTable.column(i);
 				std::cout << "\t" << col.name() << " (" << col.type() << ")" << std::endl;
 			}
 			std::cout << std::endl;
@@ -229,20 +230,17 @@ for(I = List.begin(); I != List.end(); ++I)
 		}
 }
 	
-/*std::cout << "Schema Description:\n";
-std::cout << "Schema Name: " << BCS.schemaName() << std::endl;
-std::cout << "Description of BEAM_PHASE table:\n";
+/*
+std::cout << "Description of BEAM_PHASE view:\n";
 try{
-	coral::ITable& fillTable = BCS.tableHandle("BEAM_PHASE");
-	const coral::ITableDescription& description = fillTable.description();
-	int c = description.numberOfColumns();
+	coral::IView& fillTable = BCS.viewHandle("BEAM_PHASE");
+	//const coral::ITableDescription& description = fillTable.description();
+	int c = fillTable.numberOfColumns();
 	for(int i = 0; i < c; i++)
 	{
-		const coral::IColumn& col = description.columnDescription(i);
+		const coral::IColumn& col = fillTable.column(i);
 		std::cout << "\t" << col.name() << " (" << col.type() << ")" << std::endl;
 	}
-	int k = description.numberOfForeignKeys();
-	std::cout << "No. of Foreign keys:\t" << k << std::endl;
 	std::cout << std::endl;
 }
 		
