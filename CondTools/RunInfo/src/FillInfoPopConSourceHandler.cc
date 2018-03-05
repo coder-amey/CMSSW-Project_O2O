@@ -13,7 +13,6 @@
 #include "RelationalAccess/IIndex.h"
 #include "RelationalAccess/IPrimaryKey.h"
 #include "RelationalAccess/IForeignKey.h"
-#include "RelationalAccess/IView.h"
 #include "CoralBase/AttributeList.h"
 #include "CoralBase/Attribute.h"
 #include "CoralBase/AttributeSpecification.h"
@@ -197,63 +196,6 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   //initialize loop variables
   float delivLumi = 0., recLumi = 0.;
 	
-// @A CODE FOR DEBUGGING PURPOSES...
-/*CODE FOR DUMPING SCHEMA DESCRIPTION.*/
-coral::ISchema& BCS = session.coralSession().schema( "CMS_DCS_ENV_PVSS_COND" );
-std::cout<<"\n\n\n--------------------------"<<std::endl;
-std::set<std::string> List = BCS.listViews();
-std::cout << "Schema Description:\n";
-std::cout << "Schema Name: " << BCS.schemaName() << std::endl;
-std::set<std::string>::iterator I;
-for(I = List.begin(); I != List.end(); ++I)
-    std::cout << '\t' << *I << std::endl;
-std::cout << std::endl; 
-std::cout << "\nDetailed Table Description:\nTable Name:\t\tNo. of Columns:\n(Column Details follow.)" << std::endl;
-for(I = List.begin(); I != List.end(); ++I)
-{
-    try{
-			coral::IView& fillTable = BCS.viewHandle(*I);
-			//const coral::ITableDescription& description = fillTable.description();
-			int c = fillTable.numberOfColumns();
-			std::cout << "\n" << fillTable.name() << "\t\t" << c << std::endl;
-			for(int i = 0; i < c; i++)
-			{
-				const coral::IColumn& col = fillTable.column(i);
-				std::cout << "\t" << col.name() << " (" << col.type() << ")" << std::endl;
-			}
-			std::cout << std::endl;
-		}
-		
-		catch(std::exception E)
-		{
-				std::cout << "Exception encountered for table:  " << *I << "\n\n";
-		}
-}
-	
-/*
-std::cout << "Description of BEAM_PHASE view:\n";
-try{
-	coral::IView& fillTable = BCS.viewHandle("BEAM_PHASE");
-	//const coral::ITableDescription& description = fillTable.description();
-	int c = fillTable.numberOfColumns();
-	for(int i = 0; i < c; i++)
-	{
-		const coral::IColumn& col = fillTable.column(i);
-		std::cout << "\t" << col.name() << " (" << col.type() << ")" << std::endl;
-	}
-	std::cout << std::endl;
-}
-		
-catch(std::exception E)
-{
-	std::cout << E.what() << " exception encountered!\n\n";
-}*/
-//session.transaction().commit();
-std::cout<<"--------------------------\n\n\n"<<std::endl;
-
-	//Implement the while loop to prevent unnecessary execution of further code.
-	while( fillDataCursor.next() ) {}
-/**/
 
   //loop over the cursor where the result of the query were fetched
   while( fillDataCursor.next() ) {
@@ -394,7 +336,7 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
       continue;
     }
     
-    //run the second and third query against the schema hosting detailed DIP information
+    //run the third and fourth query against the schema hosting detailed DIP information
     coral::ISchema& beamCondSchema = session.coralSession().schema( m_dipSchema );
     //start the transaction against the DIP "deep" database backend schema
     session.transaction().start( true );
@@ -458,12 +400,12 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
     }
       
 	//execute query for lumiPerBX
-    std::unique_ptr<coral::IQuery> lumiDataQuery(beamCondSchema.newQuery());
+	std::unique_ptr<coral::IQuery> lumiDataQuery(beamCondSchema.newQuery());
 	lumiDataQuery->addToTableList( std::string( "CMS_LHC_LUMIPERBUNCH" ), std::string( "LUMIPERBUNCH\", TABLE( LUMIPERBUNCH.LUMI_BUNCHINST ) \"VALUE" ) );
 	lumiDataQuery->addToOutputList( std::string( "LUMIPERBUNCH.DIPTIME" ), std::string( "DIPTIME" ) );
 	lumiDataQuery->addToOutputList( std::string( "VALUE.COLUMN_VALUE" ), std::string( "LUMI/BUNCH" ) );
 	coral::AttributeList lumiDataBindVariables;
-    lumiDataBindVariables.extend<coral::TimeStamp>( std::string( "stableBeamStartTimeStamp" ) );
+	lumiDataBindVariables.extend<coral::TimeStamp>( std::string( "stableBeamStartTimeStamp" ) );
 	lumiDataBindVariables[ std::string( "stableBeamStartTimeStamp" ) ].data<coral::TimeStamp>() = stableBeamStartTimeStamp;
 	lumiDataBindVariables.extend<coral::TimeStamp>( std::string( "beamDumpTimeStamp" ) );
 	lumiDataBindVariables[ std::string( "beamDumpTimeStamp" ) ].data<coral::TimeStamp>() = beamDumpTimeStamp;
@@ -480,21 +422,107 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 	std::cout <<"\n\nQuerying the OMDS for LUMI/BUNCH...\n\n"<<std::endl;
 	coral::ICursor& lumiDataCursor = lumiDataQuery->execute();
 	std::vector<float> lumiPerBX;
-	
-	while( lumiDataCursor.next() ) {
-     /*if( m_debug ) {
-	std::ostringstream lpBX;
-	C.currentRow().toOutputStream( lpBX );
-	edm::LogInfo( m_name ) << lpBX.str() << "\nfrom " << m_name << "::getNewObjects";
-      }*/
-      if( lumiDataCursor.currentRow()[ std::string( "VALUE" ) ].data<float>() != 0.00 ) {
-	lumiPerBX.push_back(lumiDataCursor.currentRow()[ std::string( "VALUE" ) ].data<float>());
-      }
-    }
 
-    //commit the transaction against the DIP "deep" database backend schema
-    session.transaction().commit();
-    
+	while( lumiDataCursor.next() ) {
+	      if( m_debug ) {
+		std::ostringstream lpBX;
+		C.currentRow().toOutputStream( lpBX );
+		edm::LogInfo( m_name ) << lpBX.str() << "\nfrom " << m_name << "::getNewObjects";
+	      }
+	      if( lumiDataCursor.currentRow()[ std::string( "VALUE" ) ].data<float>() != 0.00 ) {
+		lumiPerBX.push_back(lumiDataCursor.currentRow()[ std::string( "VALUE" ) ].data<float>());
+	      }
+	}
+	  
+	//commit the transaction against the DIP "deep" database backend schema
+	session.transaction().commit();
+	  
+	//run the fifth query against the CTPPS schema
+	//Initializing the CMS_CTP_CTPPS_COND schema.
+	coral::ISchema& CTPPS = session.coralSession().schema("CMS_CTP_CTPPS_COND");
+	session.transaction().start( true );
+	std::cout<<"\n\n\n--------------------------"<<std::endl;
+	std::cout << "Querying CTPPS_LHC_MACHINE_PARAMS:\n";
+
+	//execute query for CTPPS Data
+	std::unique_ptr<coral::IQuery> CTPPSDataQuery( CTPPS.newQuery() );
+	//FROM clause
+	CTPPSDataQuery->addToTableList( std::string( "CTPPS_LHC_MACHINE_PARAMS" ) );
+	//SELECT clause
+	CTPPSDataQuery->addToOutputList( std::string( "LHC_STATE" ) );
+	CTPPSDataQuery->addToOutputList( std::string( "LHC_COMMENT" ) );
+	CTPPSDataQuery->addToOutputList( std::string( "CTPPS_STATUS" ) );
+	CTPPSDataQuery->addToOutputList( std::string( "LUMI_SECTION" ) );
+	CTPPSDataQuery->addToOutputList( std::string( "DIP_UPDATE_TIME" ) );
+	//WHERE CLAUSE
+	coral::AttributeList CTPPSDataBindVariables;
+	CTPPSDataBindVariables.extend<int>( std::string( "currentFill" ) );
+	CTPPSDataBindVariables[ std::string( "currentFill" ) ].data<int>() = currentFill;
+	conditionStr = std::string( "FILL_NUMBER = :currentFill" );
+	CTPPSDataQuery->setCondition( conditionStr, CTPPSDataBindVariables );
+	//ORDER BY clause
+	CTPPSDataQuery->addToOrderList( std::string( "DIP_UPDATE_TIME" ) );
+	//define query output
+	coral::AttributeList CTPPSDataOutput;
+	CTPPSDataOutput.extend<std::string>( std::string( "LHC_STATE" ) );
+	CTPPSDataOutput.extend<std::string>( std::string( "LHC_COMMENT" ) );
+	CTPPSDataOutput.extend<std::string>( std::string( "CTPPS_STATUS" ) );
+	CTPPSDataOutput.extend<int>( std::string( "LUMI_SECTION" ) );
+	CTPPSDataOutput.extend<coral::TimeStamp>( std::string( "DIP_UPDATE_TIME" ) );
+	CTPPSDataQuery->defineOutput( CTPPSDataOutput );
+	//execute the query
+	coral::ICursor& CTPPSDataCursor = CTPPSDataQuery->execute();
+	std::vector<std::string> lhcState, lhcComment, ctppsStatus;
+	std::vector<int> lumiSection;
+	std::vector<coral::TimeStamp> dipTime;
+
+	while( CTPPSDataCursor.next() ) {
+		if( m_debug ) {
+		    std::ostringstream CTPPS;
+		    CTPPSDataCursor.currentRow().toOutputStream( CTPPS );
+		    std::cout << CTPPS.str() << "\n";
+		    edm::LogInfo( m_name ) << CTPPS.str() << "\nfrom " << m_name << "::getNewObjects";
+		}
+		coral::Attribute const & lhcStateAttribute = CTPPSDataCursor.currentRow()[ std::string( "LHC_STATE" ) ];
+		if( lhcStateAttribute.isNull() ) {
+			lhcState.pushback("");
+		} else {
+			lhcState.push_back(lhcStateAttribute.data<std::string>());
+		}
+
+		coral::Attribute const & lhcComment = CTPPSDataCursor.currentRow()[ std::string( "LHC_COMMENT" ) ];
+		if( lhcCommentAttribute.isNull() ) {
+			lhcComment.push_back("");
+		} else {
+			lhcComment.push_back(lhcCommentAttribute.data<std::string>());
+		}
+
+		coral::Attribute const & ctppsStatus = CTPPSDataCursor.currentRow()[ std::string( "CTPPS_STATUS" ) ];
+		if( ctppsStatusAttribute.isNull() ) {
+			ctppsStatus.push_back("");
+		} else {
+			ctppsStatus.push_back(ctppsStatusAttribute.data<std::string>());
+		}
+
+		coral::Attribute const & lumiSection = CTPPSDataCursor.currentRow()[ std::string( "LUMI_SECTION" ) ];
+		if( lumiSectionAttribute.isNull() ) {
+			lumiSection.push_back(0);
+		} else {
+			lumiSection.push_back(lumiSectionAttribute.data<int>());
+		}
+
+		coral::Attribute const & dipTime = CTPPSDataCursor.currentRow()[ std::string( "DIP_UPDATE_TIME" ) ];
+		if( dipTimeAttribute.isNull() ) {
+			dipTime.push_back(0);
+		} else {
+			dipTime.push_back(dipTimeAttribute.data<coral::TimeStamp>());
+		}
+	}
+	  
+	//commit the transaction against the CTPPS schema
+	session.transaction().commit();
+	  
+	  
     //store dummy fill information if empty fills are found beetween the two last ones in stable beams
     afterPreviousFillEndTime  = cond::time::pack( std::make_pair( cond::time::unpack( previousFillEndTime ).first, cond::time::unpack( previousFillEndTime ).second + 1 ) );
     beforeStableBeamStartTime = cond::time::pack( std::make_pair( cond::time::unpack( stableBeamStartTime ).first, cond::time::unpack( stableBeamStartTime ).second - 1 ) );
@@ -537,6 +565,11 @@ std::cout<<"--------------------------\n\n\n"<<std::endl;
 			 , const_cast<cond::Time_t const &>( beamDumpTime )
 			 , const_cast<std::string const &>( injectionScheme )
 			 , const_cast<std::vector<float> const &>( lumiPerBX )
+			 , const_cast<std::vector<std::string> const &>( lhcState )
+			 , const_cast<std::vector<std::string> const &>( lhcComment )
+			 , const_cast<std::vector<std::string> const &>( lhcComctppsStatusment )
+			 , const_cast<std::vector<int> const &>( lumiSection )
+			 , const_cast<std::vector<coral::TimeStamp> const &>( dipTime )
 		 	 , const_cast<std::bitset<FillInfo::bunchSlots+1> const &>( bunchConfiguration1 )
 			 , const_cast<std::bitset<FillInfo::bunchSlots+1> const &>( bunchConfiguration2 )  );
     //store this payload
