@@ -474,7 +474,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 	coral::ICursor& CTPPSDataCursor = CTPPSDataQuery->execute();
 	std::vector<std::string> lhcState, lhcComment, ctppsStatus;
 	std::vector<int> lumiSection;
-	std::vector<coral::TimeStamp> dipTime;
+	std::vector<cond::Time_t> dipTime;
 
 	while( CTPPSDataCursor.next() ) {
 		if( m_debug ) {
@@ -510,8 +510,8 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 		} else {
 			lumiSection.push_back(lumiSectionAttribute.data<int>());
 		}
-
-		dipTime.push_back(CTPPSDataCursor.currentRow()[ std::string( "DIP_UPDATE_TIME" ) ].data<coral::TimeStamp>());
+		
+		dipTime.push_back(cond::time::from_boost(CTPPSDataCursor.currentRow()[ std::string( "DIP_UPDATE_TIME" ) ].data<coral::TimeStamp>().time() ) );
 	  
 	//commit the transaction against the CTPPS schema
 	session.transaction().commit();
@@ -563,7 +563,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 			 , const_cast<std::vector<std::string> const &>( lhcComment )
 			 , const_cast<std::vector<std::string> const &>( ctppsStatus )
 			 , const_cast<std::vector<int> const &>( lumiSection )
-			 , const_cast<std::vector<coral::TimeStamp> const &>( dipTime )
+			 , const_cast<std::vector<cond::Time_t> const &>( dipTime )
 		 	 , const_cast<std::bitset<FillInfo::bunchSlots+1> const &>( bunchConfiguration1 )
 			 , const_cast<std::bitset<FillInfo::bunchSlots+1> const &>( bunchConfiguration2 )  );
     //store this payload
