@@ -237,7 +237,7 @@ std::vector<std::string> const & FillInfo::lhcState() const {
   return m_lhcState;
 }
 
-std::vector<std::string> const & FillInfo::hcComment() const {
+std::vector<std::string> const & FillInfo::lhcComment() const {
   return m_lhcComment;
 }
 

@@ -3,6 +3,7 @@
 
 #include "CondFormats/Serialization/interface/Serializable.h"
 #include "CondFormats/Common/interface/Time.h"
+#include "CoralBase/TimeStamp.h"
 #include <bitset>
 #include <iostream>
 #include <string>
