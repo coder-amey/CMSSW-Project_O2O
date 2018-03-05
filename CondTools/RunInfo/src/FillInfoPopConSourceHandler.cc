@@ -593,6 +593,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   //store log information
   m_userTextLog = ss.str();
   edm::LogInfo( m_name ) << "Transferring " << m_to_transfer.size() << " payload(s); from " << m_name << "::getNewObjects";
+  }
 }
 
 std::string FillInfoPopConSourceHandler::id() const { 
