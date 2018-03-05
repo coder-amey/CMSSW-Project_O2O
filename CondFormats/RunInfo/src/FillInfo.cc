@@ -249,7 +249,7 @@ std::vector<int> const & FillInfo::lumiSection() const {
   return m_lumiSection;
 }
 
-std::vector<coral::TimeStamp> const & FillInfo::dipTime() const {
+std::vector<cond::time_t> const & FillInfo::dipTime() const {
   return m_dipTime;
 }
 
@@ -375,7 +375,7 @@ void FillInfo::setLumiSection( std::vector<int> const & lumiSection) {
   m_lumiSection = lumiSection;
 }
   
-void FillInfo::setDipTime( std::vector<coral::TimeStamp> const & dipTime) {
+void FillInfo::setDipTime( std::vector<cond::time_t> const & dipTime) {
   m_dipTime = dipTime;
 }
 
@@ -403,7 +403,7 @@ void FillInfo::setBeamInfo( unsigned short const & bunches1
 			    ,std::vector<std::string> const & lhcComment
 			    ,std::vector<std::string> const & ctppsStatus
 			    ,std::vector<int> const & lumiSection
-			    ,std::vector<coral::TimeStamp> const & dipTime
+			    ,std::vector<cond::time_t> const & dipTime
 			    ,std::bitset<bunchSlots+1> const & bunchConf1
 			    ,std::bitset<bunchSlots+1> const & bunchConf2 ) {
   this->setBunchesInBeam1( bunches1 );
