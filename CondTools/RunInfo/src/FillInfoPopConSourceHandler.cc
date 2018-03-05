@@ -485,39 +485,33 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 		}
 		coral::Attribute const & lhcStateAttribute = CTPPSDataCursor.currentRow()[ std::string( "LHC_STATE" ) ];
 		if( lhcStateAttribute.isNull() ) {
-			lhcState.pushback("");
+			lhcState.push_back("");
 		} else {
-			lhcState.push_back(CTPPSDataCursor.currentRow()[ std::string( "LHC_STATE" ) ].data<std::string>());
+			lhcState.push_back(lhcStateAttribute.data<std::string>());
 		}
 
 		coral::Attribute const & lhcCommentAttribute = CTPPSDataCursor.currentRow()[ std::string( "LHC_COMMENT" ) ];
 		if( lhcCommentAttribute.isNull() ) {
 			lhcComment.push_back("");
 		} else {
-			lhcComment.push_back(CTPPSDataCursor.currentRow()[ std::string( "LHC_COMMENT" ) ].data<std::string>());
+			lhcComment.push_back(lhcCommentAttribute.data<std::string>());
 		}
 
 		coral::Attribute const & ctppsStatusAttribute = CTPPSDataCursor.currentRow()[ std::string( "CTPPS_STATUS" ) ];
 		if( ctppsStatusAttribute.isNull() ) {
 			ctppsStatus.push_back("");
 		} else {
-			ctppsStatus.push_back(CTPPSDataCursor.currentRow()[ std::string( "CTPPS_STATUS" ) ].data<std::string>());
+			ctppsStatus.push_back(ctppsStatusAttribute.data<std::string>());
 		}
 
 		coral::Attribute const & lumiSectionAttribute = CTPPSDataCursor.currentRow()[ std::string( "LUMI_SECTION" ) ];
 		if( lumiSectionAttribute.isNull() ) {
 			lumiSection.push_back(0);
 		} else {
-			lumiSection.push_back(CTPPSDataCursor.currentRow()[ std::string( "LUMI_SECTION" ) ].data<int>());
+			lumiSection.push_back(lumiSectionAttribute.data<int>());
 		}
 
-		coral::Attribute const & dipTimeAttribute = CTPPSDataCursor.currentRow()[ std::string( "DIP_UPDATE_TIME" ) ];
-		if( dipTimeAttribute.isNull() ) {
-			dipTime.push_back(0);
-		} else {
-			dipTime.push_back(CTPPSDataCursor.currentRow()[ std::string( "DIP_UPDATE_TIME" ) ].data<coral::TimeStamp>());
-		}
-	}
+		dipTime.push_back(CTPPSDataCursor.currentRow()[ std::string( "DIP_UPDATE_TIME" ) ].data<coral::TimeStamp>());
 	  
 	//commit the transaction against the CTPPS schema
 	session.transaction().commit();
