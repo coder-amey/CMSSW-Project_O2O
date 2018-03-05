@@ -249,7 +249,7 @@ std::vector<int> const & FillInfo::lumiSection() const {
   return m_lumiSection;
 }
 
-std::vector<cond::time_t> const & FillInfo::dipTime() const {
+std::vector<cond::Time_t> const & FillInfo::dipTime() const {
   return m_dipTime;
 }
 
@@ -375,7 +375,7 @@ void FillInfo::setLumiSection( std::vector<int> const & lumiSection) {
   m_lumiSection = lumiSection;
 }
   
-void FillInfo::setDipTime( std::vector<cond::time_t> const & dipTime) {
+void FillInfo::setDipTime( std::vector<cond::Time_t> const & dipTime) {
   m_dipTime = dipTime;
 }
 
@@ -403,7 +403,7 @@ void FillInfo::setBeamInfo( unsigned short const & bunches1
 			    ,std::vector<std::string> const & lhcComment
 			    ,std::vector<std::string> const & ctppsStatus
 			    ,std::vector<int> const & lumiSection
-			    ,std::vector<cond::time_t> const & dipTime
+			    ,std::vector<cond::Time_t> const & dipTime
 			    ,std::bitset<bunchSlots+1> const & bunchConf1
 			    ,std::bitset<bunchSlots+1> const & bunchConf2 ) {
   this->setBunchesInBeam1( bunches1 );
@@ -459,23 +459,23 @@ void FillInfo::print( std::stringstream & ss ) const {
   ss << std::endl;
   
   ss << "LHC Status  (total " << m_lhcState.size() << "): ";
-  std::copy( m_lhcState.begin(), m_lhcState.end(), std::ostream_iterator<float>( ss, "\t" ) );
+  std::copy( m_lhcState.begin(), m_lhcState.end(), std::ostream_iterator<std::string>( ss, "\t" ) );
   ss << std::endl;
  
   ss << "LHC Comments  (total " << m_lhcComment.size() << "): ";
-  std::copy( m_lhcComment.begin(), m_lhcComment.end(), std::ostream_iterator<float>( ss, "\t" ) );
+  std::copy( m_lhcComment.begin(), m_lhcComment.end(), std::ostream_iterator<std::string>( ss, "\t" ) );
   ss << std::endl;
   
   ss << "CTPPS Status  (total " << m_ctppsStatus.size() << "): ";
-  std::copy( m_ctppsStatus.begin(), m_ctppsStatus.end(), std::ostream_iterator<float>( ss, "\t" ) );
+  std::copy( m_ctppsStatus.begin(), m_ctppsStatus.end(), std::ostream_iterator<std::string>( ss, "\t" ) );
   ss << std::endl;
   
   ss << "Lumi sections  (total " << m_lumiSection.size() << "): ";
-  std::copy( m_lumiSection.begin(), m_lumiSection.end(), std::ostream_iterator<float>( ss, "\t" ) );
+  std::copy( m_lumiSection.begin(), m_lumiSection.end(), std::ostream_iterator<int>( ss, "\t" ) );
   ss << std::endl;
 
   ss << "Time stamps  (total " << m_dipTime.size() << "): ";
-  std::copy( m_dipTime.begin(), m_dipTime.end(), std::ostream_iterator<float>( ss, "\t" ) );
+  std::copy( m_dipTime.begin(), m_dipTime.end(), std::ostream_iterator<cond::Time_t>( ss, "\t" ) );
   ss << std::endl;
   
   std::vector<unsigned short> bunchVector1 = this->bunchConfigurationForBeam1();

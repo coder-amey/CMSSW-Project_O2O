@@ -152,7 +152,6 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   fillDataOutput.extend<std::string>( std::string( "INJECTIONSCHEME" ) );
   fillDataQuery->defineOutput( fillDataOutput );
   //execute the query
-  std::cout <<"\n\nQuerying the OMDS for RUNTIME_SUMMARY data...\n\n"<<std::endl;
   coral::ICursor& fillDataCursor = fillDataQuery->execute();
   //initialize loop variables
   unsigned short previousFillNumber = 1, currentFill = m_firstFill;
@@ -191,7 +190,6 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   fillDataOutput2.extend<float>( std::string( "RECORDEDLUMI" ) );
   fillDataQuery2->defineOutput( fillDataOutput2 );
   //execute the query
-  std::cout <<"\n\nQuerying the OMDS for LUMI data...\n\n"<<std::endl;
   coral::ICursor& fillDataCursor2 = fillDataQuery2->execute();
   //initialize loop variables
   float delivLumi = 0., recLumi = 0.;
@@ -367,7 +365,6 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 	fillDataCursor.currentRow().toOutputStream( b1s );
 	edm::LogInfo( m_name ) << b1s.str() << "\nfrom " << m_name << "::getNewObjects";
       }
-      //bunchConf1Cursor.currentRow().toOutputStream( std::cout ) << std::endl;
       if( bunchConf1Cursor.currentRow()[ std::string( "BUCKET" ) ].data<unsigned short>() != 0 ) {
 	unsigned short slot = ( bunchConf1Cursor.currentRow()[ std::string( "BUCKET" ) ].data<unsigned short>() - 1 ) / 10 + 1;
 	bunchConfiguration1[ slot ] = true;
@@ -419,7 +416,6 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 	lumiDataOutput.extend<float>( std::string( "VALUE" ) );
 	lumiDataQuery->defineOutput( lumiDataOutput );
 	//execute the query
-	std::cout <<"\n\nQuerying the OMDS for LUMI/BUNCH...\n\n"<<std::endl;
 	coral::ICursor& lumiDataCursor = lumiDataQuery->execute();
 	std::vector<float> lumiPerBX;
 
@@ -441,9 +437,6 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 	//Initializing the CMS_CTP_CTPPS_COND schema.
 	coral::ISchema& CTPPS = session.coralSession().schema("CMS_CTP_CTPPS_COND");
 	session.transaction().start( true );
-	std::cout<<"\n\n\n--------------------------"<<std::endl;
-	std::cout << "Querying CTPPS_LHC_MACHINE_PARAMS:\n";
-
 	//execute query for CTPPS Data
 	std::unique_ptr<coral::IQuery> CTPPSDataQuery( CTPPS.newQuery() );
 	//FROM clause
@@ -480,7 +473,6 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 		if( m_debug ) {
 		    std::ostringstream CTPPS;
 		    CTPPSDataCursor.currentRow().toOutputStream( CTPPS );
-		    std::cout << CTPPS.str() << "\n";
 		    edm::LogInfo( m_name ) << CTPPS.str() << "\nfrom " << m_name << "::getNewObjects";
 		}
 		coral::Attribute const & lhcStateAttribute = CTPPSDataCursor.currentRow()[ std::string( "LHC_STATE" ) ];
@@ -510,9 +502,14 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 		} else {
 			lumiSection.push_back(lumiSectionAttribute.data<int>());
 		}
-		
-		dipTime.push_back(cond::time::from_boost(CTPPSDataCursor.currentRow()[ std::string( "DIP_UPDATE_TIME" ) ].data<coral::TimeStamp>().time() ) );
-	  
+	
+		coral::Attribute const & dipTimeAttribute = CTPPSDataCursor.currentRow()[ std::string( "DIP_UPDATE_TIME" ) ];
+                if( dipTimeAttribute.isNull() ) {
+                        dipTime.push_back(0ULL);
+                } else {
+                        dipTime.push_back(cond::time::from_boost(dipTimeAttribute.data<coral::TimeStamp>().time() ) );
+                }
+	}
 	//commit the transaction against the CTPPS schema
 	session.transaction().commit();
 	  
@@ -594,7 +591,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
   m_userTextLog = ss.str();
   edm::LogInfo( m_name ) << "Transferring " << m_to_transfer.size() << " payload(s); from " << m_name << "::getNewObjects";
   }
-}
+
 
 std::string FillInfoPopConSourceHandler::id() const { 
   return m_name;
