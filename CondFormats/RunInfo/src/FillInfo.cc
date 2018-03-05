@@ -143,7 +143,7 @@ void FillInfo::setFill( unsigned short const & lhcFill, bool const & fromData ) 
   m_lhcComment.clear();
   m_ctppsStatus.clear();
   m_lumiSection.clear();
-  m_xingAngle.clear()
+  m_xingAngle.clear();
   m_dipTime.clear();
   m_bunchConfiguration1.reset();
   m_bunchConfiguration2.reset();
