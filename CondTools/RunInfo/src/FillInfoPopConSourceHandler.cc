@@ -426,7 +426,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 	while( lumiDataCursor.next() ) {
 	      if( m_debug ) {
 		std::ostringstream lpBX;
-		C.currentRow().toOutputStream( lpBX );
+		lumiDataCursor.currentRow().toOutputStream( lpBX );
 		edm::LogInfo( m_name ) << lpBX.str() << "\nfrom " << m_name << "::getNewObjects";
 	      }
 	      if( lumiDataCursor.currentRow()[ std::string( "VALUE" ) ].data<float>() != 0.00 ) {
@@ -487,35 +487,35 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 		if( lhcStateAttribute.isNull() ) {
 			lhcState.pushback("");
 		} else {
-			lhcState.push_back(lhcStateAttribute.data<std::string>());
+			lhcState.push_back(CTPPSDataCursor.currentRow()[ std::string( "LHC_STATE" ) ].data<std::string>());
 		}
 
-		coral::Attribute const & lhcComment = CTPPSDataCursor.currentRow()[ std::string( "LHC_COMMENT" ) ];
+		coral::Attribute const & lhcCommentAttribute = CTPPSDataCursor.currentRow()[ std::string( "LHC_COMMENT" ) ];
 		if( lhcCommentAttribute.isNull() ) {
 			lhcComment.push_back("");
 		} else {
-			lhcComment.push_back(lhcCommentAttribute.data<std::string>());
+			lhcComment.push_back(CTPPSDataCursor.currentRow()[ std::string( "LHC_COMMENT" ) ].data<std::string>());
 		}
 
-		coral::Attribute const & ctppsStatus = CTPPSDataCursor.currentRow()[ std::string( "CTPPS_STATUS" ) ];
+		coral::Attribute const & ctppsStatusAttribute = CTPPSDataCursor.currentRow()[ std::string( "CTPPS_STATUS" ) ];
 		if( ctppsStatusAttribute.isNull() ) {
 			ctppsStatus.push_back("");
 		} else {
-			ctppsStatus.push_back(ctppsStatusAttribute.data<std::string>());
+			ctppsStatus.push_back(CTPPSDataCursor.currentRow()[ std::string( "CTPPS_STATUS" ) ].data<std::string>());
 		}
 
-		coral::Attribute const & lumiSection = CTPPSDataCursor.currentRow()[ std::string( "LUMI_SECTION" ) ];
+		coral::Attribute const & lumiSectionAttribute = CTPPSDataCursor.currentRow()[ std::string( "LUMI_SECTION" ) ];
 		if( lumiSectionAttribute.isNull() ) {
 			lumiSection.push_back(0);
 		} else {
-			lumiSection.push_back(lumiSectionAttribute.data<int>());
+			lumiSection.push_back(CTPPSDataCursor.currentRow()[ std::string( "LUMI_SECTION" ) ].data<int>());
 		}
 
-		coral::Attribute const & dipTime = CTPPSDataCursor.currentRow()[ std::string( "DIP_UPDATE_TIME" ) ];
+		coral::Attribute const & dipTimeAttribute = CTPPSDataCursor.currentRow()[ std::string( "DIP_UPDATE_TIME" ) ];
 		if( dipTimeAttribute.isNull() ) {
 			dipTime.push_back(0);
 		} else {
-			dipTime.push_back(dipTimeAttribute.data<coral::TimeStamp>());
+			dipTime.push_back(CTPPSDataCursor.currentRow()[ std::string( "DIP_UPDATE_TIME" ) ].data<coral::TimeStamp>());
 		}
 	}
 	  
@@ -567,7 +567,7 @@ void FillInfoPopConSourceHandler::getNewObjects() {
 			 , const_cast<std::vector<float> const &>( lumiPerBX )
 			 , const_cast<std::vector<std::string> const &>( lhcState )
 			 , const_cast<std::vector<std::string> const &>( lhcComment )
-			 , const_cast<std::vector<std::string> const &>( lhcComctppsStatusment )
+			 , const_cast<std::vector<std::string> const &>( ctppsStatus )
 			 , const_cast<std::vector<int> const &>( lumiSection )
 			 , const_cast<std::vector<coral::TimeStamp> const &>( dipTime )
 		 	 , const_cast<std::bitset<FillInfo::bunchSlots+1> const &>( bunchConfiguration1 )
