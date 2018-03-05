@@ -32,12 +32,12 @@ process.Test1 = cms.EDAnalyzer("FillInfoPopConAnalyzer",
                                record = cms.string('FillInfoRcd'),
                                name = cms.untracked.string('FillInfo'),
                                Source = cms.PSet(fill = cms.untracked.uint32(6303),
-                                   firstFill = cms.untracked.uint32( 5500 ),
-                                   lastFill = cms.untracked.uint32( 5505 ),
+                                   firstFill = cms.untracked.uint32( 6450 ),
+                                   lastFill = cms.untracked.uint32( 6467 ),
                                    connectionString = cms.untracked.string("oracle://cms_orcon_adg/CMS_RUNTIME_LOGGER"),
                                    DIPSchema = cms.untracked.string("CMS_BEAM_COND"),
                                    authenticationPath =  cms.untracked.string("/afs/cern.ch/user/a/anoolkar/private/"),
-                                   debug=cms.untracked.bool(True)
+                                   debug=cms.untracked.bool(False)
                                                  ),
                                loggingOn = cms.untracked.bool(True),
                                IsDestDbCheckedInQueryLog = cms.untracked.bool(False)
